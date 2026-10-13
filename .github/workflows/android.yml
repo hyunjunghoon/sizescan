@@ -35,7 +35,6 @@ jobs:
           ORG_GRADLE_PROJECT_ADMOB_BANNER_ID: ${{ secrets.ADMOB_BANNER_ID }}
           ORG_GRADLE_PROJECT_ADMOB_INTERSTITIAL_ID: ${{ secrets.ADMOB_INTERSTITIAL_ID }}
           ORG_GRADLE_PROJECT_VERSION_CODE: ${{ github.run_number }}
-          ORG_GRADLE_PROJECT_REQUIRE_REAL_ADS: ${{ vars.REQUIRE_REAL_ADS }}
         run: |
           if [ -n "$KEYSTORE_B64" ]; then
             echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
