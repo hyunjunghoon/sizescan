@@ -16,9 +16,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.gms.mlkit.vision.documentscanner.GmsDocumentScannerOptions
-import com.google.android.gms.mlkit.vision.documentscanner.GmsDocumentScanning
-import com.google.android.gms.mlkit.vision.documentscanner.GmsDocumentScanningResult
+import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
+import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
+import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
 import com.google.android.play.core.review.ReviewManagerFactory
 import io.github.hyunjunghoon.docscan.ExportUi
 import io.github.hyunjunghoon.docscan.MainViewModel
