@@ -6,9 +6,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,16 +39,6 @@ jobs:
             export SIGNING_KEYSTORE_PATH="$RUNNER_TEMP/upload.jks"
           fi
           ./gradlew --no-daemon bundleRelease
-
-      # Release assets are reachable from the build/sign environment; workflow artifacts are not.
-      - name: Publish build to the rolling "ci-build" pre-release
-        if: github.ref == 'refs/heads/main'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release view ci-build >/dev/null 2>&1 || gh release create ci-build --prerelease --title "CI build" --notes "Latest main build. Unsigned AAB for internal signing; debug APK for testing."
-          cp app/build/outputs/bundle/release/app-release.aab app-release-unsigned.aab
-          gh release upload ci-build app-release-unsigned.aab app/build/outputs/apk/debug/app-debug.apk --clobber
 
       - uses: actions/upload-artifact@v4
         if: always()
