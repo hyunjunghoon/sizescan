@@ -3,15 +3,23 @@ package io.github.hyunjunghoon.docscan.core
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
-import javax.imageio.ImageIO
 
 class JpegPdfWriterTest {
-    private fun jpeg(w: Int, h: Int): ByteArray {
-        val img = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
-        for (y in 0 until h) for (x in 0 until w) img.setRGB(x, y, (x * 7 xor y * 13) and 0xFFFFFF)
-        return ByteArrayOutputStream().also { ImageIO.write(img, "jpg", it) }.toByteArray()
+    /**
+     * Builds a structurally valid JPEG header (SOI, APP0, SOF0, EOI) with [w]x[h] and filler
+     * bytes. java.awt is not on the Android unit-test classpath, and the writer only reads SOF.
+     */
+    private fun jpeg(w: Int, h: Int, filler: Int = 64): ByteArray {
+        val out = ByteArrayOutputStream()
+        fun bytes(vararg v: Int) = v.forEach { out.write(it) }
+        bytes(0xFF, 0xD8)
+        bytes(0xFF, 0xE0, 0x00, 0x10, 'J'.code, 'F'.code, 'I'.code, 'F'.code, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0)
+        bytes(0xFF, 0xC0, 0x00, 0x11, 8, h shr 8, h and 0xFF, w shr 8, w and 0xFF, 3)
+        bytes(1, 0x22, 0, 2, 0x11, 1, 3, 0x11, 1)
+        repeat(filler) { out.write(0x55) }
+        bytes(0xFF, 0xD9)
+        return out.toByteArray()
     }
 
     @Test
@@ -42,7 +50,7 @@ class JpegPdfWriterTest {
 
     @Test
     fun overheadEstimateIsAnUpperBound() {
-        val big = jpeg(1240, 1754)
+        val big = jpeg(1240, 1754, filler = 200_000)
         for (n in listOf(1, 2, 10, 40, 100)) {
             val pages = List(n) { big }
             val size = ByteArrayOutputStream().also { JpegPdfWriter.write(pages, it) }.size()
