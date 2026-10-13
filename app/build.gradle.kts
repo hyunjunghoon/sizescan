@@ -4,6 +4,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
+    id("io.github.takahirom.roborazzi")
 }
 
 // Google's official AdMob test IDs. Release builds read real IDs from Gradle properties
@@ -75,6 +76,7 @@ android {
 
     testOptions {
         unitTests.isReturnDefaultValues = true
+        unitTests.isIncludeAndroidResources = true
     }
 }
 
@@ -106,4 +108,11 @@ dependencies {
     implementation("com.google.android.play:review:2.0.2")
 
     testImplementation("junit:junit:4.13.2")
+    // Store screenshots rendered on the JVM (Robolectric + Roborazzi), no emulator needed.
+    testImplementation("org.robolectric:robolectric:4.15.1")
+    testImplementation("io.github.takahirom.roborazzi:roborazzi:1.43.0")
+    testImplementation("io.github.takahirom.roborazzi:roborazzi-compose:1.43.0")
+    testImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation("androidx.test.ext:junit:1.2.1")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

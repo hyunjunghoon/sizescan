@@ -23,7 +23,7 @@ jobs:
       - run: chmod +x gradlew
 
       - name: Unit tests, lint, debug build
-        run: ./gradlew --no-daemon testDebugUnitTest lintDebug assembleDebug
+        run: ./gradlew --no-daemon testDebugUnitTest -Proborazzi.test.record=true lintDebug assembleDebug
 
       - name: Release bundle (signed when secrets exist)
         env:
@@ -55,6 +55,8 @@ jobs:
           openssl pkeyutl -encrypt -pubin -inkey ci/transfer_pub.pem -pkeyopt rsa_padding_mode:oaep -in key.bin -out enc/key.enc
           openssl enc -aes-256-cbc -pbkdf2 -salt -pass file:key.bin -in app/build/outputs/bundle/release/app-release.aab -out enc/aab.enc
           openssl enc -aes-256-cbc -pbkdf2 -salt -pass file:key.bin -in app/build/outputs/apk/debug/app-debug.apk -out enc/apk.enc
+          tar -czf shots.tgz -C app/build/outputs/store .
+          openssl enc -aes-256-cbc -pbkdf2 -salt -pass file:key.bin -in shots.tgz -out enc/shots.enc
           echo "${{ github.sha }}" > enc/sha.txt
           rm key.bin
           gh release view ci-build >/dev/null 2>&1 || gh release create ci-build --prerelease --title "CI build (encrypted)" --notes "Encrypted build outputs for the signing step. Not installable."

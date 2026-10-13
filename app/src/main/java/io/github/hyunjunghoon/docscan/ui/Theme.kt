@@ -14,11 +14,11 @@ import androidx.compose.ui.platform.LocalContext
 private val Brand = Color(0xFF1A73E8)
 
 @Composable
-fun AppTheme(content: @Composable () -> Unit) {
+fun AppTheme(dynamic: Boolean = true, content: @Composable () -> Unit) {
     val dark = isSystemInDarkTheme()
     val context = LocalContext.current
     val scheme = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
+        dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
             if (dark) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         dark -> darkColorScheme(primary = Color(0xFF8AB4F8))
         else -> lightColorScheme(primary = Brand)
