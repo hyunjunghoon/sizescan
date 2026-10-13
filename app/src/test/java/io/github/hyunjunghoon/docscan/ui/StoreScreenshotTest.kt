@@ -13,6 +13,7 @@ import com.github.takahirom.roborazzi.captureScreenRoboImage
 import io.github.hyunjunghoon.docscan.data.Doc
 import io.github.hyunjunghoon.docscan.data.ExportFormat
 import io.github.hyunjunghoon.docscan.data.ExportResult
+import io.github.hyunjunghoon.docscan.data.ThumbCache
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,7 +46,13 @@ class StoreScreenshotTest {
         return f
     }
 
-    private fun docs(): List<Doc> {
+    /**
+     * Decodes thumbnails on the test thread so the composables hit the cache instead of
+     * decoding on Dispatchers.IO, which crashes Robolectric's native graphics runtime.
+     */
+    private fun docs(): List<Doc> = buildDocs().onEach { d -> d.pages.forEach { ThumbCache.get(it) } }
+
+    private fun buildDocs(): List<Doc> {
         val dir = File(context.cacheDir, "shots").apply { mkdirs() }
         val day = 86_400_000L
         val now = 1_791_000_000_000L
