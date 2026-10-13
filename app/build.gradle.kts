@@ -53,9 +53,11 @@ android {
             buildConfigField("String", "AD_INTERSTITIAL_ID", "\"${prop("ADMOB_INTERSTITIAL_ID") ?: testInterstitialId}\"")
             if (System.getenv("SIGNING_KEYSTORE_PATH") != null) {
                 signingConfig = signingConfigs.getByName("release")
-                // A signed (uploadable) build must never ship test ad IDs.
-                listOf("ADMOB_APP_ID", "ADMOB_BANNER_ID", "ADMOB_INTERSTITIAL_ID").forEach {
-                    if (prop(it) == null) throw GradleException("$it is missing for a signed release build")
+                // Production uploads must never ship test ad IDs (closed-testing builds may).
+                if (prop("REQUIRE_REAL_ADS") == "true") {
+                    listOf("ADMOB_APP_ID", "ADMOB_BANNER_ID", "ADMOB_INTERSTITIAL_ID").forEach {
+                        if (prop(it) == null) throw GradleException("$it is missing for a production build")
+                    }
                 }
             }
         }
