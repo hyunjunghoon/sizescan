@@ -5,6 +5,7 @@
     <string name="home_empty_title">ドキュメントはまだありません</string>
     <string name="home_empty_body">書類をスキャンするか写真を選んで、必要なサイズ（例: 100KB以下）のPDFやJPGで保存できます。</string>
     <string name="menu_privacy">プライバシー設定</string>
+    <string name="menu_privacy_policy">プライバシーポリシー</string>
     <string name="action_back">戻る</string>
     <string name="action_rename">名前を変更</string>
     <string name="action_delete">削除</string>

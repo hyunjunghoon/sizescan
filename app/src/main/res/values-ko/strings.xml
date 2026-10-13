@@ -5,6 +5,7 @@
     <string name="home_empty_title">아직 문서가 없어요</string>
     <string name="home_empty_body">종이 문서를 스캔하거나 사진을 골라, 원하는 용량(예: 100KB 이하)에 맞춘 PDF나 JPG로 저장하세요.</string>
     <string name="menu_privacy">개인정보 설정</string>
+    <string name="menu_privacy_policy">개인정보처리방침</string>
     <string name="action_back">뒤로</string>
     <string name="action_rename">이름 변경</string>
     <string name="action_delete">삭제</string>

@@ -13,7 +13,7 @@ Upload portals often reject files over 50 KB, 100 KB or 200 KB. SizeScan scans y
 • Auto edge detection, crop and cleanup
 • Fit to size: 50 KB, 100 KB, 200 KB, 500 KB, 1 MB, 2 MB or any custom size
 • PDF or JPG, from scans or from your photos
-• Your documents stay on your device
+• Your documents never leave your device
 • No camera or storage permission needed
 
 Great for job applications, visa and exam forms, school and government portals, receipts and contracts.

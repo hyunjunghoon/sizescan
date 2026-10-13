@@ -22,6 +22,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -91,6 +93,7 @@ fun HomeScreen(
     snackbar: SnackbarHostState,
     showPrivacy: Boolean,
     onPrivacy: () -> Unit,
+    onPrivacyPolicy: () -> Unit,
     onOpen: (String) -> Unit,
     onScan: () -> Unit,
     onPhotos: () -> Unit,
@@ -100,10 +103,14 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
-                    if (showPrivacy) {
-                        var menu by remember { mutableStateOf(false) }
-                        IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, contentDescription = null) }
-                        DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                    var menu by remember { mutableStateOf(false) }
+                    IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, contentDescription = null) }
+                    DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.menu_privacy_policy)) },
+                            onClick = { menu = false; onPrivacyPolicy() },
+                        )
+                        if (showPrivacy) {
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.menu_privacy)) },
                                 onClick = { menu = false; onPrivacy() },
@@ -204,11 +211,12 @@ fun DocScreen(
     onAddScan: () -> Unit,
     onAddPhotos: () -> Unit,
     onExport: () -> Unit,
+    busy: Boolean = false,
 ) {
     var renaming by rememberSaveable { mutableStateOf(false) }
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
-    var pageToDelete by remember { mutableStateOf<File?>(null) }
-    var addMenu by remember { mutableStateOf(false) }
+    var pageToDeleteName by rememberSaveable { mutableStateOf<String?>(null) }
+    var addMenu by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -235,7 +243,7 @@ fun DocScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Box(Modifier.weight(1f)) {
-                    OutlinedButton(onClick = { addMenu = true }, modifier = Modifier.fillMaxWidth().height(56.dp)) {
+                    OutlinedButton(onClick = { addMenu = true }, enabled = !busy, modifier = Modifier.fillMaxWidth().height(56.dp)) {
                         Icon(Icons.Filled.Add, contentDescription = null)
                         Spacer(Modifier.width(8.dp))
                         Text(stringResource(R.string.action_add_pages))
@@ -253,7 +261,7 @@ fun DocScreen(
                         )
                     }
                 }
-                Button(onClick = onExport, modifier = Modifier.weight(1f).height(56.dp)) {
+                Button(onClick = onExport, enabled = !busy, modifier = Modifier.weight(1f).height(56.dp)) {
                     Icon(Icons.Filled.IosShare, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
                     Text(stringResource(R.string.action_export))
@@ -262,9 +270,11 @@ fun DocScreen(
         },
         snackbarHost = { SnackbarHost(snackbar) },
     ) { pad ->
+        Column(Modifier.padding(pad).fillMaxSize()) {
+        if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
         LazyVerticalGrid(
             columns = GridCells.Adaptive(150.dp),
-            modifier = Modifier.padding(pad).fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -283,7 +293,7 @@ fun DocScreen(
                             .padding(horizontal = 6.dp, vertical = 2.dp),
                     )
                     IconButton(
-                        onClick = { pageToDelete = file },
+                        onClick = { pageToDeleteName = file.name },
                         modifier = Modifier.align(Alignment.TopEnd).padding(4.dp).size(36.dp)
                             .background(Color(0x99000000), RoundedCornerShape(18.dp)),
                     ) {
@@ -291,6 +301,7 @@ fun DocScreen(
                     }
                 }
             }
+        }
         }
     }
 
@@ -321,9 +332,9 @@ fun DocScreen(
             onDelete()
         }
     }
-    pageToDelete?.let { file ->
-        ConfirmDialog(stringResource(R.string.delete_page_title), onDismiss = { pageToDelete = null }) {
-            pageToDelete = null
+    doc.pages.firstOrNull { it.name == pageToDeleteName }?.let { file ->
+        ConfirmDialog(stringResource(R.string.delete_page_title), onDismiss = { pageToDeleteName = null }) {
+            pageToDeleteName = null
             onDeletePage(file)
         }
     }
@@ -349,10 +360,13 @@ fun ExportSheet(
 ) {
     var format by rememberSaveable { mutableStateOf(initialFormat) }
     var limit by rememberSaveable { mutableStateOf(initialLimitKb) }
-    var customOpen by remember { mutableStateOf(false) }
+    var customOpen by rememberSaveable { mutableStateOf(false) }
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
-        Column(Modifier.padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding()) {
+        Column(
+            Modifier.verticalScroll(rememberScrollState())
+                .padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding(),
+        ) {
             Text(stringResource(R.string.export_title), style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(16.dp))
             Text(stringResource(R.string.format_label), style = MaterialTheme.typography.labelLarge)

@@ -13,8 +13,12 @@ data class Doc(val id: String, val name: String, val createdAt: Long, val pages:
 class DocRepository(private val context: Context) {
     private val root = File(context.filesDir, "docs").apply { mkdirs() }
 
-    fun list(): List<Doc> =
-        root.listFiles()?.mapNotNull { load(it) }?.sortedByDescending { it.createdAt } ?: emptyList()
+    fun list(): List<Doc> {
+        val docs = root.listFiles()?.mapNotNull { load(it) } ?: return emptyList()
+        // A document with no pages is left over from an interrupted import.
+        docs.filter { it.pages.isEmpty() }.forEach { delete(it.id) }
+        return docs.filter { it.pages.isNotEmpty() }.sortedByDescending { it.createdAt }
+    }
 
     fun get(id: String): Doc? = load(File(root, id))
 

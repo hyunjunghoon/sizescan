@@ -39,7 +39,7 @@ class Exporter(private val context: Context) {
                 val file = File(outDir, "$base.pdf")
                 if (limit == null) {
                     file.outputStream().buffered().use { out ->
-                        JpegPdfWriter.write(doc.pages.size, { doc.pages[it].readBytes() }, out)
+                        JpegPdfWriter.write(doc.pages.size, { i -> onProgress(i, doc.pages.size); doc.pages[i].readBytes() }, out)
                     }
                     return@withContext ExportResult(listOf(file), file.length(), null, true, format)
                 }

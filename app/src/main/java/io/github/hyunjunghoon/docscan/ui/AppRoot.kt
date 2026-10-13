@@ -1,6 +1,8 @@
 package io.github.hyunjunghoon.docscan.ui
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
@@ -25,6 +27,8 @@ import io.github.hyunjunghoon.docscan.MainViewModel
 import io.github.hyunjunghoon.docscan.R
 import io.github.hyunjunghoon.docscan.ads.Ads
 import io.github.hyunjunghoon.docscan.data.ExportFormat
+
+private const val PRIVACY_POLICY_URL = "https://hyunjunghoon.github.io/sizescan/privacy.html"
 
 @Composable
 fun AppRoot(vm: MainViewModel) {
@@ -98,6 +102,7 @@ fun AppRoot(vm: MainViewModel) {
             onAddScan = { startScan(doc.id) },
             onAddPhotos = { pickPhotos(doc.id) },
             onExport = { showExportSheet = true },
+            busy = busy,
         )
     } else {
         HomeScreen(
@@ -106,6 +111,9 @@ fun AppRoot(vm: MainViewModel) {
             snackbar = snackbar,
             showPrivacy = privacyRequired,
             onPrivacy = { Ads.showPrivacyOptions(activity) },
+            onPrivacyPolicy = {
+                runCatching { activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL))) }
+            },
             onOpen = { vm.openDoc(it) },
             onScan = { startScan(null) },
             onPhotos = { pickPhotos(null) },

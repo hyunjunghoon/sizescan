@@ -5,6 +5,7 @@
     <string name="home_empty_title">Nenhum documento ainda</string>
     <string name="home_empty_body">Digitalize documentos ou escolha fotos e salve como PDF ou JPG no tamanho exato que você precisa, como menos de 100 KB.</string>
     <string name="menu_privacy">Privacidade</string>
+    <string name="menu_privacy_policy">Política de privacidade</string>
     <string name="action_back">Voltar</string>
     <string name="action_rename">Renomear</string>
     <string name="action_delete">Excluir</string>

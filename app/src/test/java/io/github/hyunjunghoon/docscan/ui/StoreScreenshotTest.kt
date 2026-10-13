@@ -68,7 +68,7 @@ class StoreScreenshotTest {
         val d = docs()
         compose.setContent {
             AppTheme(dynamic = false) {
-                HomeScreen(d, false, SnackbarHostState(), false, {}, {}, {}, {})
+                HomeScreen(d, false, SnackbarHostState(), false, {}, {}, {}, {}, {})
             }
         }
         settle()

@@ -5,6 +5,7 @@
     <string name="home_empty_title">Aún no hay documentos</string>
     <string name="home_empty_body">Escanea documentos o elige fotos y guárdalos como PDF o JPG con el tamaño exacto que necesitas, por ejemplo menos de 100 KB.</string>
     <string name="menu_privacy">Privacidad</string>
+    <string name="menu_privacy_policy">Política de privacidad</string>
     <string name="action_back">Atrás</string>
     <string name="action_rename">Cambiar nombre</string>
     <string name="action_delete">Eliminar</string>

@@ -6,6 +6,7 @@
     <string name="home_empty_title">No documents yet</string>
     <string name="home_empty_body">Scan paper documents or pick photos, then save them as PDF or JPG at the exact size you need, like under 100 KB.</string>
     <string name="menu_privacy">Privacy settings</string>
+    <string name="menu_privacy_policy">Privacy policy</string>
     <string name="action_back">Back</string>
     <string name="action_rename">Rename</string>
     <string name="action_delete">Delete</string>

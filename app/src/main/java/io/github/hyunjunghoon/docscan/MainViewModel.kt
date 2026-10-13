@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.text.SimpleDateFormat
@@ -34,6 +36,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val repo = DocRepository(app)
     private val exporter = Exporter(app)
     private val prefs = app.getSharedPreferences("app", Context.MODE_PRIVATE)
+    private val importLock = Mutex()
 
     private val _docs = MutableStateFlow<List<Doc>>(emptyList())
     val docs: StateFlow<List<Doc>> = _docs
@@ -69,22 +72,28 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun importImages(uris: List<Uri>, intoDocId: String?, fromScanner: Boolean) {
         viewModelScope.launch {
-            _busy.value = true
-            try {
-                val id = withContext(Dispatchers.IO) {
-                    val target = intoDocId?.takeIf { repo.get(it) != null } ?: repo.create(defaultName())
-                    val failed = repo.addPages(target, uris, fromScanner)
-                    if (failed > 0) _messages.tryEmit(R.string.import_failed)
-                    if (repo.get(target)?.pages.isNullOrEmpty()) {
-                        repo.delete(target)
-                        null
-                    } else target
-                }
-                _docs.value = withContext(Dispatchers.IO) { repo.list() }
-                if (id != null) _openDocId.value = id
-            } finally {
-                _busy.value = false
+            // Serialized so two imports into one document can't pick the same page numbers.
+            importLock.withLock { doImport(uris, intoDocId, fromScanner) }
+        }
+    }
+
+    private suspend fun doImport(uris: List<Uri>, intoDocId: String?, fromScanner: Boolean) {
+        _busy.value = true
+        try {
+            val id = withContext(Dispatchers.IO) {
+                val target = intoDocId?.takeIf { repo.get(it) != null } ?: repo.create(defaultName())
+                val failed = repo.addPages(target, uris, fromScanner)
+                if (failed > 0) _messages.tryEmit(R.string.import_failed)
+                if (repo.get(target)?.pages.isNullOrEmpty()) {
+                    repo.delete(target)
+                    null
+                } else target
             }
+            _docs.value = withContext(Dispatchers.IO) { repo.list() }
+            // Don't pull the user back into a document they already left.
+            if (id != null && (_openDocId.value == null || _openDocId.value == id)) _openDocId.value = id
+        } finally {
+            _busy.value = false
         }
     }
 
@@ -135,7 +144,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun saveTo(uri: Uri) = save {
-        val file = (export.value as? ExportUi.Done)?.result?.files?.singleOrNull() ?: return@save false
+        val file = (export.value as? ExportUi.Done)?.result?.files?.singleOrNull()
+        if (file == null) {
+            // Result lost (e.g. process death while the picker was open): remove the empty file.
+            runCatching { DocumentsContract.deleteDocument(resolver(), uri) }
+            return@save false
+        }
         resolver().openOutputStream(uri)?.use { out -> file.inputStream().use { it.copyTo(out) } } != null
     }
 

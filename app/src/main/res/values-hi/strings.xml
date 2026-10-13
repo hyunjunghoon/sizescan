@@ -5,6 +5,7 @@
     <string name="home_empty_title">अभी कोई दस्तावेज़ नहीं</string>
     <string name="home_empty_body">दस्तावेज़ स्कैन करें या फ़ोटो चुनें, फिर उन्हें ज़रूरी साइज़ (जैसे 100 KB से कम) में PDF या JPG के रूप में सेव करें।</string>
     <string name="menu_privacy">प्राइवेसी सेटिंग</string>
+    <string name="menu_privacy_policy">प्राइवेसी पॉलिसी</string>
     <string name="action_back">वापस</string>
     <string name="action_rename">नाम बदलें</string>
     <string name="action_delete">हटाएं</string>

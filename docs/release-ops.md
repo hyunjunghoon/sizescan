@@ -4,7 +4,7 @@
 1. [사용자] AdMob > 앱 > 앱 추가 > Android, "Google Play에 등록됨" 선택 후 SizeScan 검색(검색 안 되면 "아니요"로 추가 후 나중에 연결)
 2. [사용자] 광고 단위 2개: 배너(적응형) 1, 전면 1 → 앱 ID와 광고 단위 ID 3개를 스레드에 붙여넣기
 3. [Claude] gradle.properties에 ID 입력 + REQUIRE_REAL_ADS=true → CI 빌드 → 서명 AAB 전달
-4. [Claude] hyunjunghoon.github.io 루트에 app-ads.txt 게시 (`google.com, pub-XXXX, DIRECT, f08c47fec0942fa0`)
+4. [Claude] https://hyunjunghoon.github.io/app-ads.txt (루트) 게시 (`google.com, pub-XXXX, DIRECT, f08c47fec0942fa0`)
 5. [사용자] Play Console 스토어 설정 > 웹사이트에 https://hyunjunghoon.github.io 입력 (app-ads.txt 인증용)
 
 ## 리뷰·문제 자동 점검 루틴 (출시 후)
