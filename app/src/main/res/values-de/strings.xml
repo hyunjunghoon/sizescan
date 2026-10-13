@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_scan">Scannen</string>
+    <string name="action_photos">Fotos</string>
+    <string name="home_empty_title">Noch keine Dokumente</string>
+    <string name="home_empty_body">Scanne Dokumente oder wähle Fotos und speichere sie als PDF oder JPG in genau der Größe, die du brauchst, z. B. unter 100 KB.</string>
+    <string name="menu_privacy">Datenschutz</string>
+    <string name="action_back">Zurück</string>
+    <string name="action_rename">Umbenennen</string>
+    <string name="action_delete">Löschen</string>
+    <string name="action_add_pages">Seiten hinzufügen</string>
+    <string name="action_export">Speichern / Teilen</string>
+    <string name="delete_doc_title">Dieses Dokument löschen?</string>
+    <string name="delete_page_title">Diese Seite löschen?</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="ok">OK</string>
+    <string name="close">Schließen</string>
+    <string name="name_label">Name</string>
+    <string name="export_title">Exportieren</string>
+    <string name="format_label">Format</string>
+    <string name="size_label">Maximale Dateigröße</string>
+    <string name="size_original">Original</string>
+    <string name="size_custom">Eigene</string>
+    <string name="size_per_image">Das Limit gilt für jedes Bild.</string>
+    <string name="custom_kb_title">Maximale Größe</string>
+    <string name="custom_kb_hint">z. B. 150</string>
+    <string name="export_create">Datei erstellen</string>
+    <string name="export_working">Seite %1$d von %2$d wird optimiert…</string>
+    <string name="export_done_title">Datei fertig</string>
+    <string name="export_size_with_limit">%1$s (Limit %2$s)</string>
+    <string name="export_not_reached">Unter %1$s war es nicht lesbar möglich. Versuche weniger Seiten oder ein höheres Limit.</string>
+    <string name="action_share">Teilen</string>
+    <string name="action_save">Auf Gerät speichern</string>
+    <string name="saved">Gespeichert</string>
+    <string name="save_failed">Datei konnte nicht gespeichert werden</string>
+    <string name="scan_unavailable">Der Scanner ist auf diesem Gerät noch nicht verfügbar. Versuche es später erneut oder nutze Fotos.</string>
+    <string name="import_failed">Einige Bilder konnten nicht geöffnet werden</string>
+    <string name="export_failed">Datei konnte nicht erstellt werden</string>
+    <string name="default_doc_name">Scan %1$s</string>
+    <string name="page_n">Seite %1$d</string>
+    <plurals name="pages_count">
+        <item quantity="one">%d Seite</item>
+        <item quantity="other">%d Seiten</item>
+    </plurals>
+    <plurals name="files_count">
+        <item quantity="one">%d Datei</item>
+        <item quantity="other">%d Dateien</item>
+    </plurals>
+</resources>

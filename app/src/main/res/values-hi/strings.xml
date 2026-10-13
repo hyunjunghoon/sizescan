@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_scan">स्कैन</string>
+    <string name="action_photos">फ़ोटो</string>
+    <string name="home_empty_title">अभी कोई दस्तावेज़ नहीं</string>
+    <string name="home_empty_body">दस्तावेज़ स्कैन करें या फ़ोटो चुनें, फिर उन्हें ज़रूरी साइज़ (जैसे 100 KB से कम) में PDF या JPG के रूप में सेव करें।</string>
+    <string name="menu_privacy">प्राइवेसी सेटिंग</string>
+    <string name="action_back">वापस</string>
+    <string name="action_rename">नाम बदलें</string>
+    <string name="action_delete">हटाएं</string>
+    <string name="action_add_pages">पेज जोड़ें</string>
+    <string name="action_export">सेव / शेयर</string>
+    <string name="delete_doc_title">यह दस्तावेज़ हटाएं?</string>
+    <string name="delete_page_title">यह पेज हटाएं?</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="ok">ठीक है</string>
+    <string name="close">बंद करें</string>
+    <string name="name_label">नाम</string>
+    <string name="export_title">एक्सपोर्ट</string>
+    <string name="format_label">फ़ॉर्मेट</string>
+    <string name="size_label">अधिकतम फ़ाइल साइज़</string>
+    <string name="size_original">मूल</string>
+    <string name="size_custom">कस्टम</string>
+    <string name="size_per_image">यह सीमा हर इमेज पर लागू होती है।</string>
+    <string name="custom_kb_title">अधिकतम साइज़</string>
+    <string name="custom_kb_hint">जैसे 150</string>
+    <string name="export_create">फ़ाइल बनाएं</string>
+    <string name="export_working">पेज %1$d / %2$d ऑप्टिमाइज़ हो रहा है…</string>
+    <string name="export_done_title">फ़ाइल तैयार है</string>
+    <string name="export_size_with_limit">%1$s (सीमा %2$s)</string>
+    <string name="export_not_reached">पढ़ने लायक रखते हुए %1$s से कम नहीं हो सका। कम पेज या बड़ी सीमा आज़माएं।</string>
+    <string name="action_share">शेयर</string>
+    <string name="action_save">डिवाइस में सेव करें</string>
+    <string name="saved">सेव हो गया</string>
+    <string name="save_failed">फ़ाइल सेव नहीं हो सकी</string>
+    <string name="scan_unavailable">इस डिवाइस पर स्कैनर अभी उपलब्ध नहीं है। बाद में कोशिश करें या फ़ोटो इस्तेमाल करें।</string>
+    <string name="import_failed">कुछ इमेज नहीं खुल सकीं</string>
+    <string name="export_failed">फ़ाइल नहीं बन सकी</string>
+    <string name="default_doc_name">स्कैन %1$s</string>
+    <string name="page_n">पेज %1$d</string>
+    <plurals name="pages_count">
+        <item quantity="one">%d पेज</item>
+        <item quantity="other">%d पेज</item>
+    </plurals>
+    <plurals name="files_count">
+        <item quantity="one">%d फ़ाइल</item>
+        <item quantity="other">%d फ़ाइलें</item>
+    </plurals>
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">SizeScan</string>
+    <string name="action_scan">Scan</string>
+    <string name="action_photos">Photos</string>
+    <string name="home_empty_title">No documents yet</string>
+    <string name="home_empty_body">Scan paper documents or pick photos, then save them as PDF or JPG at the exact size you need, like under 100 KB.</string>
+    <string name="menu_privacy">Privacy settings</string>
+    <string name="action_back">Back</string>
+    <string name="action_rename">Rename</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_add_pages">Add pages</string>
+    <string name="action_export">Save / Share</string>
+    <string name="delete_doc_title">Delete this document?</string>
+    <string name="delete_page_title">Delete this page?</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="close">Close</string>
+    <string name="name_label">Name</string>
+    <string name="export_title">Export</string>
+    <string name="format_label">Format</string>
+    <string name="size_label">Max file size</string>
+    <string name="size_original">Original</string>
+    <string name="size_custom">Custom</string>
+    <string name="size_per_image">The limit applies to each image.</string>
+    <string name="custom_kb_title">Max size</string>
+    <string name="custom_kb_hint">e.g. 150</string>
+    <string name="export_create">Create file</string>
+    <string name="export_working">Optimizing page %1$d of %2$d…</string>
+    <string name="export_done_title">File ready</string>
+    <string name="export_size_with_limit">%1$s (limit %2$s)</string>
+    <string name="export_not_reached">Couldn\'t get under %1$s while keeping it readable. Try fewer pages or a larger limit.</string>
+    <string name="action_share">Share</string>
+    <string name="action_save">Save to device</string>
+    <string name="saved">Saved</string>
+    <string name="save_failed">Couldn\'t save the file</string>
+    <string name="scan_unavailable">The scanner isn\'t available on this device yet. Try again later or use Photos.</string>
+    <string name="import_failed">Some images couldn\'t be opened</string>
+    <string name="export_failed">Couldn\'t create the file</string>
+    <string name="default_doc_name">Scan %1$s</string>
+    <string name="page_n">Page %1$d</string>
+    <plurals name="pages_count">
+        <item quantity="one">%d page</item>
+        <item quantity="other">%d pages</item>
+    </plurals>
+    <plurals name="files_count">
+        <item quantity="one">%d file</item>
+        <item quantity="other">%d files</item>
+    </plurals>
+</resources>

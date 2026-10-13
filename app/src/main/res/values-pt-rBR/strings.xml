@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_scan">Digitalizar</string>
+    <string name="action_photos">Fotos</string>
+    <string name="home_empty_title">Nenhum documento ainda</string>
+    <string name="home_empty_body">Digitalize documentos ou escolha fotos e salve como PDF ou JPG no tamanho exato que você precisa, como menos de 100 KB.</string>
+    <string name="menu_privacy">Privacidade</string>
+    <string name="action_back">Voltar</string>
+    <string name="action_rename">Renomear</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_add_pages">Adicionar páginas</string>
+    <string name="action_export">Salvar / Compartilhar</string>
+    <string name="delete_doc_title">Excluir este documento?</string>
+    <string name="delete_page_title">Excluir esta página?</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">OK</string>
+    <string name="close">Fechar</string>
+    <string name="name_label">Nome</string>
+    <string name="export_title">Exportar</string>
+    <string name="format_label">Formato</string>
+    <string name="size_label">Tamanho máximo</string>
+    <string name="size_original">Original</string>
+    <string name="size_custom">Personalizado</string>
+    <string name="size_per_image">O limite vale para cada imagem.</string>
+    <string name="custom_kb_title">Tamanho máximo</string>
+    <string name="custom_kb_hint">ex.: 150</string>
+    <string name="export_create">Criar arquivo</string>
+    <string name="export_working">Otimizando página %1$d de %2$d…</string>
+    <string name="export_done_title">Arquivo pronto</string>
+    <string name="export_size_with_limit">%1$s (limite %2$s)</string>
+    <string name="export_not_reached">Não foi possível ficar abaixo de %1$s mantendo a legibilidade. Tente menos páginas ou um limite maior.</string>
+    <string name="action_share">Compartilhar</string>
+    <string name="action_save">Salvar no dispositivo</string>
+    <string name="saved">Salvo</string>
+    <string name="save_failed">Não foi possível salvar o arquivo</string>
+    <string name="scan_unavailable">O scanner ainda não está disponível neste dispositivo. Tente mais tarde ou use Fotos.</string>
+    <string name="import_failed">Algumas imagens não puderam ser abertas</string>
+    <string name="export_failed">Não foi possível criar o arquivo</string>
+    <string name="default_doc_name">Digitalização %1$s</string>
+    <string name="page_n">Página %1$d</string>
+    <plurals name="pages_count">
+        <item quantity="one">%d página</item>
+        <item quantity="many">%d páginas</item>
+        <item quantity="other">%d páginas</item>
+    </plurals>
+    <plurals name="files_count">
+        <item quantity="one">%d arquivo</item>
+        <item quantity="many">%d arquivos</item>
+        <item quantity="other">%d arquivos</item>
+    </plurals>
+</resources>

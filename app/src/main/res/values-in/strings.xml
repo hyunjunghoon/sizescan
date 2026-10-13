@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_scan">Pindai</string>
+    <string name="action_photos">Foto</string>
+    <string name="home_empty_title">Belum ada dokumen</string>
+    <string name="home_empty_body">Pindai dokumen atau pilih foto, lalu simpan sebagai PDF atau JPG dengan ukuran yang Anda perlukan, misalnya di bawah 100 KB.</string>
+    <string name="menu_privacy">Setelan privasi</string>
+    <string name="action_back">Kembali</string>
+    <string name="action_rename">Ganti nama</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_add_pages">Tambah halaman</string>
+    <string name="action_export">Simpan / Bagikan</string>
+    <string name="delete_doc_title">Hapus dokumen ini?</string>
+    <string name="delete_page_title">Hapus halaman ini?</string>
+    <string name="cancel">Batal</string>
+    <string name="ok">OK</string>
+    <string name="close">Tutup</string>
+    <string name="name_label">Nama</string>
+    <string name="export_title">Ekspor</string>
+    <string name="format_label">Format</string>
+    <string name="size_label">Ukuran file maksimal</string>
+    <string name="size_original">Asli</string>
+    <string name="size_custom">Kustom</string>
+    <string name="size_per_image">Batas berlaku untuk setiap gambar.</string>
+    <string name="custom_kb_title">Ukuran maksimal</string>
+    <string name="custom_kb_hint">mis. 150</string>
+    <string name="export_create">Buat file</string>
+    <string name="export_working">Mengoptimalkan halaman %1$d dari %2$d…</string>
+    <string name="export_done_title">File siap</string>
+    <string name="export_size_with_limit">%1$s (batas %2$s)</string>
+    <string name="export_not_reached">Tidak bisa di bawah %1$s tanpa membuatnya sulit dibaca. Coba lebih sedikit halaman atau batas yang lebih besar.</string>
+    <string name="action_share">Bagikan</string>
+    <string name="action_save">Simpan ke perangkat</string>
+    <string name="saved">Tersimpan</string>
+    <string name="save_failed">Tidak dapat menyimpan file</string>
+    <string name="scan_unavailable">Pemindai belum tersedia di perangkat ini. Coba lagi nanti atau gunakan Foto.</string>
+    <string name="import_failed">Beberapa gambar tidak dapat dibuka</string>
+    <string name="export_failed">Tidak dapat membuat file</string>
+    <string name="default_doc_name">Pindaian %1$s</string>
+    <string name="page_n">Halaman %1$d</string>
+    <plurals name="pages_count">
+        <item quantity="other">%d halaman</item>
+    </plurals>
+    <plurals name="files_count">
+        <item quantity="other">%d file</item>
+    </plurals>
+</resources>
