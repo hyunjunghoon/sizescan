@@ -24,7 +24,7 @@
 
 ## 기술
 Kotlin 2.2 / Compose(BOM 2025.06) / AGP 8.11 / minSdk 26 / targetSdk 36(2026-08 이후 신규 앱 필수)
-패키지: io.github.hyunjunghoon.docscan (영구, 앱 이름과 무관)
+applicationId(패키지명): com.tallowbird.sizescan (Play Console 등록값, 영구). 코드 namespace는 io.github.hyunjunghoon.docscan 유지.
 다국어: en(기본), ko, es, pt-BR, hi, id, de, fr, ja
 빌드: GitHub Actions(테스트·lint·APK·AAB). 사용자 PC 사용 안 함.
 

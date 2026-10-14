@@ -19,7 +19,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "io.github.hyunjunghoon.docscan"
+        applicationId = "com.tallowbird.sizescan"
         minSdk = 26
         targetSdk = 36
         versionCode = prop("VERSION_CODE")?.toInt() ?: 1
