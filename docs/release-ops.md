@@ -16,3 +16,8 @@
 
 ## 버전 관리
 - versionCode = GitHub Actions 실행 번호(자동 증가), versionName은 기능 단위로 올림
+
+## 버전 코드
+- versionCode = GitHub Actions run_number (android.yml의 ORG_GRADLE_PROJECT_VERSION_CODE). 실행마다 증가하므로 다음 빌드는 항상 이전보다 큼.
+- 1.0.0 첫 업로드는 버전 코드 15 (커밋 eac220f, 2026-10-14). 다음 업로드는 16 이상이 자동 보장됨.
+- versionName은 VERSION_NAME 속성(기본 1.0.0). 버전 올릴 때 gradle.properties에 VERSION_NAME 추가.
