@@ -22,6 +22,7 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.ump.ConsentInformation
@@ -76,8 +77,15 @@ object Ads {
             info.privacyOptionsRequirementStatus == ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED
     }
 
+    // General audiences only: keeps sexual, mature and suggestive ads out of every request.
+    internal fun requestConfiguration(): RequestConfiguration =
+        RequestConfiguration.Builder()
+            .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G)
+            .build()
+
     private fun start(context: Context) {
         if (!started.compareAndSet(false, true)) return
+        MobileAds.setRequestConfiguration(requestConfiguration())
         Thread {
             MobileAds.initialize(context) {
                 main.post {

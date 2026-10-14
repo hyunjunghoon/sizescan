@@ -10,8 +10,11 @@
 4. 다시 **광고 단위 추가** → **전면 광고** → 이름 `result_interstitial` → 만들기 → 완료
 5. 왼쪽 메뉴 **개인 정보 보호 및 메시지** → **GDPR** → **메시지 만들기** → 앱 SizeScan 선택, 언어 기본값 → 개인정보처리방침 URL `https://hyunjunghoon.github.io/sizescan/privacy.html` → **게시** (EU/영국 사용자 동의 화면. 앱의 UMP 코드는 이미 들어 있음)
 6. 같은 메뉴 **미국 주 규정**도 **메시지 만들기 → 게시** (선택, 권장)
-7. 아래 4개를 스레드에 붙여넣기: 앱 ID(`ca-app-pub-…~…`), 배너 ID, 전면 ID(`ca-app-pub-…/…`), 게시자 ID(`pub-…`, **설정 > 계정 정보**)
-8. Play Console **스토어 설정 > 스토어 등록정보 연락처 > 웹사이트**에 `https://hyunjunghoon.github.io` 입력 (app-ads.txt 확인용)
+7. 왼쪽 메뉴 **차단 관리** → **모든 앱** → **민감한 카테고리** → 아래를 **차단**으로: 데이팅, 도박·베팅, 종교, 정치, 성적·성인 관련, 주류, 점성술·운세, 다이어트·체중 감량, 성형·미용 시술 (나머지는 기본값)
+8. 같은 화면 **광고 콘텐츠 등급(최대)** 를 **G**로 (앱 코드에도 G 적용됨, 이중 안전장치)
+9. 왼쪽 메뉴 **차단 관리** → **광고 검토 센터** → **사용 설정** (실제로 나간 광고를 보고 이상한 건 개별 차단 가능)
+10. 아래 4개를 스레드에 붙여넣기: 앱 ID(`ca-app-pub-…~…`), 배너 ID, 전면 ID(`ca-app-pub-…/…`), 게시자 ID(`pub-…`, **설정 > 계정 정보**)
+11. Play Console **스토어 설정 > 스토어 등록정보 연락처 > 웹사이트**에 `https://hyunjunghoon.github.io` 입력 (app-ads.txt 확인용)
 
 ### [Claude] 받은 뒤 자동 처리
 1. gradle.properties에 `ADMOB_APP_ID`, `ADMOB_BANNER`, `ADMOB_INTERSTITIAL` 입력, `REQUIRE_REAL_ADS=true` (테스트 ID가 남아 있으면 빌드 실패하도록 되어 있음)
