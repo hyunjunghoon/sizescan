@@ -32,7 +32,8 @@
     <string name="export_not_reached">No se pudo bajar de %1$s manteniéndolo legible. Prueba con menos páginas o un límite mayor.</string>
     <string name="action_share">Compartir</string>
     <string name="action_save">Guardar en el dispositivo</string>
-    <string name="saved">Guardado</string>
+    <string name="saved_in">%1$s (%2$s) guardado en %3$s</string>
+    <string name="saved_file">%1$s (%2$s) guardado</string>
     <string name="save_failed">No se pudo guardar el archivo</string>
     <string name="scan_unavailable">El escáner aún no está disponible en este dispositivo. Inténtalo más tarde o usa Fotos.</string>
     <string name="import_failed">No se pudieron abrir algunas imágenes</string>

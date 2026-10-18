@@ -32,7 +32,8 @@
     <string name="export_not_reached">Unter %1$s war es nicht lesbar möglich. Versuche weniger Seiten oder ein höheres Limit.</string>
     <string name="action_share">Teilen</string>
     <string name="action_save">Auf Gerät speichern</string>
-    <string name="saved">Gespeichert</string>
+    <string name="saved_in">%1$s (%2$s) in %3$s gespeichert</string>
+    <string name="saved_file">%1$s (%2$s) gespeichert</string>
     <string name="save_failed">Datei konnte nicht gespeichert werden</string>
     <string name="scan_unavailable">Der Scanner ist auf diesem Gerät noch nicht verfügbar. Versuche es später erneut oder nutze Fotos.</string>
     <string name="import_failed">Einige Bilder konnten nicht geöffnet werden</string>

@@ -32,7 +32,8 @@
     <string name="export_not_reached">Tidak bisa di bawah %1$s tanpa membuatnya sulit dibaca. Coba lebih sedikit halaman atau batas yang lebih besar.</string>
     <string name="action_share">Bagikan</string>
     <string name="action_save">Simpan ke perangkat</string>
-    <string name="saved">Tersimpan</string>
+    <string name="saved_in">%1$s (%2$s) tersimpan di %3$s</string>
+    <string name="saved_file">%1$s (%2$s) tersimpan</string>
     <string name="save_failed">Tidak dapat menyimpan file</string>
     <string name="scan_unavailable">Pemindai belum tersedia di perangkat ini. Coba lagi nanti atau gunakan Foto.</string>
     <string name="import_failed">Beberapa gambar tidak dapat dibuka</string>

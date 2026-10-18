@@ -34,7 +34,6 @@ jobs:
           ORG_GRADLE_PROJECT_ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID }}
           ORG_GRADLE_PROJECT_ADMOB_BANNER_ID: ${{ secrets.ADMOB_BANNER_ID }}
           ORG_GRADLE_PROJECT_ADMOB_INTERSTITIAL_ID: ${{ secrets.ADMOB_INTERSTITIAL_ID }}
-          ORG_GRADLE_PROJECT_VERSION_CODE: ${{ github.run_number }}
         run: |
           if [ -n "$KEYSTORE_B64" ]; then
             echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
@@ -45,7 +44,8 @@ jobs:
       # Build outputs are handed to the private signing step encrypted, so the public
       # release only holds ciphertext (ci/transfer_pub.pem; the private key is not in the repo).
       - name: Publish encrypted build outputs
-        if: github.ref == 'refs/heads/main'
+        # main pushes, or a manual run on a release branch.
+        if: github.event_name != 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

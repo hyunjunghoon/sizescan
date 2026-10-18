@@ -33,7 +33,8 @@
     <string name="export_not_reached">Couldn\'t get under %1$s while keeping it readable. Try fewer pages or a larger limit.</string>
     <string name="action_share">Share</string>
     <string name="action_save">Save to device</string>
-    <string name="saved">Saved</string>
+    <string name="saved_in">Saved %1$s (%2$s) in %3$s</string>
+    <string name="saved_file">Saved %1$s (%2$s)</string>
     <string name="save_failed">Couldn\'t save the file</string>
     <string name="scan_unavailable">The scanner isn\'t available on this device yet. Try again later or use Photos.</string>
     <string name="import_failed">Some images couldn\'t be opened</string>
