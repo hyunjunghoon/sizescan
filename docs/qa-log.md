@@ -26,3 +26,10 @@
 - 변경: MobileAds 초기화 전에 RequestConfiguration maxAdContentRating = G 적용 (ads/Ads.kt). 성인·선정적·성숙 콘텐츠 광고가 요청 단계에서 제외됨.
 - 테스트: AdsConfigTest (Robolectric) — 설정값이 G인지 확인.
 - 코드로 못 막는 카테고리(데이팅·도박·종교·정치 등)는 AdMob 차단 관리에서 처리 → release-ops.md 체크리스트에 추가.
+
+## 2026-10-19 1.0.1 (versionCode 16)
+- 변경: 저장 완료 스낵바에 파일명·크기·폴더(또는 저장 앱 이름) 표시(9개 언어), 결과창 버튼 줄바꿈, 하단 버튼 두 줄 허용·높이 통일, 320dp 화면에서 페이지 2열.
+- 자체 검토로 잡은 것: 저장 위치 선택 창이 파일명을 바꿀 수 있음("scan (1).pdf") → 실제 저장된 이름을 조회해 표시. Downloads 제공자의 숫자 ID가 폴더명으로 나오던 문제 → "Download"로 고정. 위치를 알 수 없는 클라우드(Drive 등)는 앱 이름으로 대체.
+- 테스트: SaveLocationTest 9건(JVM), SmallScreenTest 2건(Robolectric, 독일어·320dp에서 결과창 3버튼·문서 화면 하단 버튼 표시 확인). CI 실행 #19 전체 통과(테스트·lint·디버그·릴리스 빌드).
+- 산출물 확인: package com.tallowbird.sizescan, versionCode 16, versionName 1.0.1, 테스트 광고 앱 ID, 업로드 키 SHA-256 D5:01:4F…F1:DC(1.0.0과 동일).
+- 버전 코드는 CI 실행 번호 연동을 끊고 gradle.properties에서 직접 관리.
