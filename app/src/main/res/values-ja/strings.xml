@@ -32,7 +32,8 @@
     <string name="export_not_reached">読める画質のまま%1$s以下にできませんでした。ページを減らすか上限を増やしてください。</string>
     <string name="action_share">共有</string>
     <string name="action_save">端末に保存</string>
-    <string name="saved">保存しました</string>
+    <string name="saved_in">%1$s（%2$s）を%3$sに保存しました</string>
+    <string name="saved_file">%1$s（%2$s）を保存しました</string>
     <string name="save_failed">ファイルを保存できませんでした</string>
     <string name="scan_unavailable">この端末ではまだスキャナーを利用できません。後でもう一度試すか、写真を使ってください。</string>
     <string name="import_failed">一部の画像を開けませんでした</string>

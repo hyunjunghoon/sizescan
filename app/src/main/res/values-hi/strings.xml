@@ -32,7 +32,8 @@
     <string name="export_not_reached">पढ़ने लायक रखते हुए %1$s से कम नहीं हो सका। कम पेज या बड़ी सीमा आज़माएं।</string>
     <string name="action_share">शेयर</string>
     <string name="action_save">डिवाइस में सेव करें</string>
-    <string name="saved">सेव हो गया</string>
+    <string name="saved_in">%1$s (%2$s) %3$s में सेव हो गया</string>
+    <string name="saved_file">%1$s (%2$s) सेव हो गया</string>
     <string name="save_failed">फ़ाइल सेव नहीं हो सकी</string>
     <string name="scan_unavailable">इस डिवाइस पर स्कैनर अभी उपलब्ध नहीं है। बाद में कोशिश करें या फ़ोटो इस्तेमाल करें।</string>
     <string name="import_failed">कुछ इमेज नहीं खुल सकीं</string>

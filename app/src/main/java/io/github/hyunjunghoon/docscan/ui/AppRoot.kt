@@ -8,6 +8,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,7 +44,13 @@ fun AppRoot(vm: MainViewModel) {
     val doc = docs.firstOrNull { it.id == openId }
 
     LaunchedEffect(Unit) {
-        vm.messages.collect { snackbar.showSnackbar(context.getString(it)) }
+        vm.messages.collect { m ->
+            snackbar.showSnackbar(
+                context.getString(m.res, *m.args.toTypedArray()),
+                withDismissAction = m.long,
+                duration = if (m.long) SnackbarDuration.Long else SnackbarDuration.Short,
+            )
+        }
     }
 
     // Which document new pages go into (null = new document). Saved across process death.

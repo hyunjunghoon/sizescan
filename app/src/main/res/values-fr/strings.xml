@@ -32,7 +32,8 @@
     <string name="export_not_reached">Impossible de descendre sous %1$s en restant lisible. Essayez moins de pages ou une limite plus grande.</string>
     <string name="action_share">Partager</string>
     <string name="action_save">Enregistrer sur l\'appareil</string>
-    <string name="saved">Enregistré</string>
+    <string name="saved_in">%1$s (%2$s) enregistré dans %3$s</string>
+    <string name="saved_file">%1$s (%2$s) enregistré</string>
     <string name="save_failed">Impossible d\'enregistrer le fichier</string>
     <string name="scan_unavailable">Le scanner n\'est pas encore disponible sur cet appareil. Réessayez plus tard ou utilisez Photos.</string>
     <string name="import_failed">Certaines images n\'ont pas pu être ouvertes</string>

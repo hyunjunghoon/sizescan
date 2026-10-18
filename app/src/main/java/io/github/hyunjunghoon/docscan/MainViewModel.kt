@@ -3,9 +3,11 @@ package io.github.hyunjunghoon.docscan
 import android.app.Application
 import android.content.Context
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.provider.DocumentsContract
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.hyunjunghoon.docscan.core.SaveLocation
 import io.github.hyunjunghoon.docscan.data.Doc
 import io.github.hyunjunghoon.docscan.data.DocRepository
 import io.github.hyunjunghoon.docscan.data.ExportFormat
@@ -21,6 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import io.github.hyunjunghoon.docscan.ui.formatSize
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -31,6 +34,9 @@ sealed interface ExportUi {
     data class Running(val done: Int, val total: Int) : ExportUi
     data class Done(val result: ExportResult, val showAd: Boolean) : ExportUi
 }
+
+/** Snackbar text: a string resource plus already-formatted arguments. */
+data class UiMessage(val res: Int, val args: List<String> = emptyList(), val long: Boolean = false)
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
     private val repo = DocRepository(app)
@@ -46,8 +52,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val busy: StateFlow<Boolean> = _busy
     private val _export = MutableStateFlow<ExportUi>(ExportUi.Hidden)
     val export: StateFlow<ExportUi> = _export
-    private val _messages = MutableSharedFlow<Int>(extraBufferCapacity = 8)
-    val messages: SharedFlow<Int> = _messages
+    private val _messages = MutableSharedFlow<UiMessage>(extraBufferCapacity = 8)
+    val messages: SharedFlow<UiMessage> = _messages
 
     val lastFormat: ExportFormat
         get() = runCatching { ExportFormat.valueOf(prefs.getString(KEY_FORMAT, null)!!) }.getOrDefault(ExportFormat.PDF)
@@ -63,7 +69,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun message(res: Int) {
-        _messages.tryEmit(res)
+        _messages.tryEmit(UiMessage(res))
     }
 
     fun openDoc(id: String?) {
@@ -83,7 +89,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             val id = withContext(Dispatchers.IO) {
                 val target = intoDocId?.takeIf { repo.get(it) != null } ?: repo.create(defaultName())
                 val failed = repo.addPages(target, uris, fromScanner)
-                if (failed > 0) _messages.tryEmit(R.string.import_failed)
+                if (failed > 0) _messages.tryEmit(UiMessage(R.string.import_failed))
                 if (repo.get(target)?.pages.isNullOrEmpty()) {
                     repo.delete(target)
                     null
@@ -128,7 +134,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 throw e
             } catch (e: Throwable) {
                 _export.value = ExportUi.Hidden
-                _messages.tryEmit(R.string.export_failed)
+                _messages.tryEmit(UiMessage(R.string.export_failed))
             }
         }
     }
@@ -148,24 +154,50 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (file == null) {
             // Result lost (e.g. process death while the picker was open): remove the empty file.
             runCatching { DocumentsContract.deleteDocument(resolver(), uri) }
-            return@save false
+            return@save null
         }
-        resolver().openOutputStream(uri)?.use { out -> file.inputStream().use { it.copyTo(out) } } != null
+        if (resolver().openOutputStream(uri)?.use { out -> file.inputStream().use { it.copyTo(out) } } == null) return@save null
+        // The picker may have renamed the file (e.g. "scan (1).pdf"), so show the name it really got.
+        val name = runCatching {
+            resolver().query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)?.use { c ->
+                if (c.moveToFirst()) c.getString(0) else null
+            }
+        }.getOrNull() ?: file.name
+        savedMessage(name, file.length(), runCatching { placeOf(uri, DocumentsContract.getDocumentId(uri), false) }.getOrNull())
     }
 
     fun saveToFolder(tree: Uri) = save {
-        val files = (export.value as? ExportUi.Done)?.result?.files ?: return@save false
-        val parent = DocumentsContract.buildDocumentUriUsingTree(tree, DocumentsContract.getTreeDocumentId(tree))
-        files.all { f ->
+        val files = (export.value as? ExportUi.Done)?.result?.files ?: return@save null
+        val treeId = DocumentsContract.getTreeDocumentId(tree)
+        val parent = DocumentsContract.buildDocumentUriUsingTree(tree, treeId)
+        val ok = files.all { f ->
             val doc = DocumentsContract.createDocument(resolver(), parent, "image/jpeg", f.name) ?: return@all false
             resolver().openOutputStream(doc)?.use { out -> f.inputStream().use { it.copyTo(out) } } != null
         }
+        if (!ok) return@save null
+        val res = getApplication<Application>().resources
+        val label = if (files.size == 1) files[0].name else res.getQuantityString(R.plurals.files_count, files.size, files.size)
+        savedMessage(label, files.sumOf { it.length() }, runCatching { placeOf(tree, treeId, true) }.getOrNull())
     }
 
-    private fun save(block: () -> Boolean) {
+    private fun savedMessage(name: String, bytes: Long, place: String?): UiMessage {
+        val size = formatSize(bytes)
+        return if (place != null) UiMessage(R.string.saved_in, listOf(name, size, place), long = true)
+        else UiMessage(R.string.saved_file, listOf(name, size), long = true)
+    }
+
+    /** Folder name when the provider exposes one, otherwise the storage app's name (e.g. "Drive"). */
+    private fun placeOf(uri: Uri, documentId: String, isTree: Boolean): String? {
+        val authority = uri.authority ?: return null
+        SaveLocation.folder(authority, documentId, isTree)?.let { return it }
+        val pm = getApplication<Application>().packageManager
+        return pm.resolveContentProvider(authority, 0)?.loadLabel(pm)?.toString()?.takeIf { it.isNotBlank() }
+    }
+
+    private fun save(block: () -> UiMessage?) {
         viewModelScope.launch {
-            val ok = withContext(Dispatchers.IO) { runCatching(block).getOrDefault(false) }
-            _messages.tryEmit(if (ok) R.string.saved else R.string.save_failed)
+            val msg = withContext(Dispatchers.IO) { runCatching(block).getOrNull() }
+            _messages.tryEmit(msg ?: UiMessage(R.string.save_failed))
         }
     }
 

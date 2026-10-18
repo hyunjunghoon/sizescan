@@ -6,13 +6,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -123,18 +126,19 @@ fun HomeScreen(
         bottomBar = {
             Column(Modifier.navigationBarsPadding()) {
                 Row(
-                    Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                    // Same height for both buttons even when one label wraps to two lines.
+                    Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(horizontal = 16.dp, vertical = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    Button(onClick = onScan, enabled = !busy, modifier = Modifier.weight(1f).height(56.dp)) {
+                    Button(onClick = onScan, enabled = !busy, modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 56.dp)) {
                         Icon(Icons.Filled.DocumentScanner, contentDescription = null)
                         Spacer(Modifier.width(8.dp))
-                        Text(stringResource(R.string.action_scan))
+                        Text(stringResource(R.string.action_scan), textAlign = TextAlign.Center)
                     }
-                    FilledTonalButton(onClick = onPhotos, enabled = !busy, modifier = Modifier.weight(1f).height(56.dp)) {
+                    FilledTonalButton(onClick = onPhotos, enabled = !busy, modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 56.dp)) {
                         Icon(Icons.Filled.PhotoLibrary, contentDescription = null)
                         Spacer(Modifier.width(8.dp))
-                        Text(stringResource(R.string.action_photos))
+                        Text(stringResource(R.string.action_photos), textAlign = TextAlign.Center)
                     }
                 }
                 Spacer(Modifier.height(12.dp))
@@ -239,14 +243,14 @@ fun DocScreen(
         },
         bottomBar = {
             Row(
-                Modifier.navigationBarsPadding().fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+                Modifier.navigationBarsPadding().fillMaxWidth().height(IntrinsicSize.Min).padding(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Box(Modifier.weight(1f)) {
-                    OutlinedButton(onClick = { addMenu = true }, enabled = !busy, modifier = Modifier.fillMaxWidth().height(56.dp)) {
+                Box(Modifier.weight(1f).fillMaxHeight()) {
+                    OutlinedButton(onClick = { addMenu = true }, enabled = !busy, modifier = Modifier.fillMaxSize().heightIn(min = 56.dp)) {
                         Icon(Icons.Filled.Add, contentDescription = null)
                         Spacer(Modifier.width(8.dp))
-                        Text(stringResource(R.string.action_add_pages))
+                        Text(stringResource(R.string.action_add_pages), textAlign = TextAlign.Center)
                     }
                     DropdownMenu(expanded = addMenu, onDismissRequest = { addMenu = false }) {
                         DropdownMenuItem(
@@ -261,10 +265,10 @@ fun DocScreen(
                         )
                     }
                 }
-                Button(onClick = onExport, enabled = !busy, modifier = Modifier.weight(1f).height(56.dp)) {
+                Button(onClick = onExport, enabled = !busy, modifier = Modifier.weight(1f).fillMaxHeight().heightIn(min = 56.dp)) {
                     Icon(Icons.Filled.IosShare, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text(stringResource(R.string.action_export))
+                    Text(stringResource(R.string.action_export), textAlign = TextAlign.Center)
                 }
             }
         },
@@ -273,7 +277,8 @@ fun DocScreen(
         Column(Modifier.padding(pad).fillMaxSize()) {
         if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
         LazyVerticalGrid(
-            columns = GridCells.Adaptive(150.dp),
+            // 120dp keeps two columns on 320dp-wide phones instead of one oversized page.
+            columns = GridCells.Adaptive(120.dp),
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -444,6 +449,7 @@ fun ExportProgressDialog(done: Int, total: Int) {
     )
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ExportResultDialog(result: ExportResult, onShare: () -> Unit, onSave: () -> Unit, onClose: () -> Unit) {
     AlertDialog(
@@ -469,7 +475,11 @@ fun ExportResultDialog(result: ExportResult, onShare: () -> Unit, onSave: () -> 
             }
         },
         confirmButton = {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            // Wraps onto two lines on narrow screens or with long translations instead of squeezing the labels.
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
                 OutlinedButton(onClick = onSave) { Text(stringResource(R.string.action_save)) }
                 Button(onClick = onShare) { Text(stringResource(R.string.action_share)) }
             }

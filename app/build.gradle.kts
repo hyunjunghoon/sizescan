@@ -22,8 +22,9 @@ android {
         applicationId = "com.tallowbird.sizescan"
         minSdk = 26
         targetSdk = 36
-        versionCode = prop("VERSION_CODE")?.toInt() ?: 1
-        versionName = prop("VERSION_NAME") ?: "1.0.0"
+        // Set in gradle.properties and bumped by hand for each Play upload.
+        versionCode = prop("VERSION_CODE")?.toInt() ?: error("VERSION_CODE missing in gradle.properties")
+        versionName = prop("VERSION_NAME") ?: error("VERSION_NAME missing in gradle.properties")
         resourceConfigurations += listOf("en", "ko", "es", "pt-rBR", "hi", "in", "de", "fr", "ja")
     }
 

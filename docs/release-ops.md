@@ -31,10 +31,7 @@
   - 언어별 답글 작성·게시, 별점 추이·크래시율은 이상 시에만 보고
 - 주간: 키워드 순위·경쟁앱 변화 시장조사 → backlog.md 갱신
 
-## 버전 관리
-- versionCode = GitHub Actions 실행 번호(자동 증가), versionName은 기능 단위로 올림
-
-## 버전 코드
-- versionCode = GitHub Actions run_number (android.yml의 ORG_GRADLE_PROJECT_VERSION_CODE). 실행마다 증가하므로 다음 빌드는 항상 이전보다 큼.
-- 1.0.0 첫 업로드는 버전 코드 15 (커밋 eac220f, 2026-10-14). 다음 업로드는 16 이상이 자동 보장됨.
-- versionName은 VERSION_NAME 속성(기본 1.0.0). 버전 올릴 때 gradle.properties에 VERSION_NAME 추가.
+## 버전 코드 (2026-10-19 변경)
+- versionCode·versionName은 gradle.properties의 VERSION_CODE / VERSION_NAME 에 직접 적고, Play 업로드마다 손으로 올린다. CI run_number 연동은 제거(실행 번호가 업로드 번호보다 빨리 커져서 원하는 번호를 지정할 수 없었음).
+- 업로드 이력: 15 = 1.0.0 (2026-10-14), 16 = 1.0.1 (2026-10-19). 다음 업로드는 17 이상.
+- 릴리스 브랜치에서 빌드할 때는 Actions의 workflow_dispatch로 실행하면 암호화 산출물이 ci-build 릴리스에 올라간다(PR 실행은 업로드 안 함).
