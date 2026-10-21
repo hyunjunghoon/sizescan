@@ -26,6 +26,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -55,6 +56,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -71,6 +73,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -100,6 +103,9 @@ fun HomeScreen(
     onOpen: (String) -> Unit,
     onScan: () -> Unit,
     onPhotos: () -> Unit,
+    onHelp: () -> Unit = {},
+    onTheme: () -> Unit = {},
+    onShareApp: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -109,6 +115,18 @@ fun HomeScreen(
                     var menu by remember { mutableStateOf(false) }
                     IconButton(onClick = { menu = true }) { Icon(Icons.Filled.MoreVert, contentDescription = null) }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.menu_help)) },
+                            onClick = { menu = false; onHelp() },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.menu_theme)) },
+                            onClick = { menu = false; onTheme() },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.menu_share_app)) },
+                            onClick = { menu = false; onShareApp() },
+                        )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.menu_privacy_policy)) },
                             onClick = { menu = false; onPrivacyPolicy() },
@@ -517,5 +535,50 @@ fun ExportResultDialog(result: ExportResult, onShare: () -> Unit, onSave: () -> 
             }
         },
         dismissButton = { TextButton(onClick = onClose) { Text(stringResource(R.string.close)) } },
+    )
+}
+
+@Composable
+fun HelpDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.help_title)) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf(R.string.help_step_1, R.string.help_step_2, R.string.help_step_3, R.string.help_step_4)
+                    .forEachIndexed { i, res -> Text("${i + 1}. " + stringResource(res)) }
+                Text(stringResource(R.string.help_privacy), style = MaterialTheme.typography.bodySmall)
+            }
+        },
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.ok)) } },
+    )
+}
+
+@Composable
+fun ThemeDialog(current: ThemeMode, onPick: (ThemeMode) -> Unit, onDismiss: () -> Unit) {
+    val labels = mapOf(
+        ThemeMode.SYSTEM to R.string.theme_system,
+        ThemeMode.LIGHT to R.string.theme_light,
+        ThemeMode.DARK to R.string.theme_dark,
+    )
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.menu_theme)) },
+        text = {
+            Column {
+                labels.forEach { (mode, res) ->
+                    Row(
+                        Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                            .selectable(selected = mode == current, role = Role.RadioButton, onClick = { onPick(mode) }),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(selected = mode == current, onClick = null)
+                        Spacer(Modifier.width(12.dp))
+                        Text(stringResource(res))
+                    }
+                }
+            }
+        },
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.close)) } },
     )
 }

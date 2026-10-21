@@ -13,9 +13,19 @@ import androidx.compose.ui.platform.LocalContext
 
 private val Brand = Color(0xFF1A73E8)
 
+/** Light/dark choice from the menu. SYSTEM follows the phone setting. */
+enum class ThemeMode { SYSTEM, LIGHT, DARK }
+
 @Composable
-fun AppTheme(dynamic: Boolean = true, content: @Composable () -> Unit) {
-    val dark = isSystemInDarkTheme()
+fun ThemeMode.isDark(): Boolean = when (this) {
+    ThemeMode.SYSTEM -> isSystemInDarkTheme()
+    ThemeMode.LIGHT -> false
+    ThemeMode.DARK -> true
+}
+
+@Composable
+fun AppTheme(dynamic: Boolean = true, mode: ThemeMode = ThemeMode.SYSTEM, content: @Composable () -> Unit) {
+    val dark = mode.isDark()
     val context = LocalContext.current
     val scheme = when {
         dynamic && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
