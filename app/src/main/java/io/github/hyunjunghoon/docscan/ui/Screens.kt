@@ -86,7 +86,7 @@ import java.io.File
 import java.text.DateFormat
 import java.util.Date
 
-private val LIMIT_PRESETS = listOf(50, 100, 200, 300, 500, 1000, 2000)
+private val LIMIT_PRESETS = listOf(10, 20, 50, 100, 200, 300, 500, 1000, 2000)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -360,11 +360,13 @@ private fun ConfirmDialog(title: String, onDismiss: () -> Unit, onConfirm: () ->
 fun ExportSheet(
     initialFormat: ExportFormat,
     initialLimitKb: Int?,
+    initialMinKb: Int?,
     onDismiss: () -> Unit,
-    onCreate: (ExportFormat, Int?) -> Unit,
+    onCreate: (ExportFormat, Int?, Int?) -> Unit,
 ) {
     var format by rememberSaveable { mutableStateOf(initialFormat) }
     var limit by rememberSaveable { mutableStateOf(initialLimitKb) }
+    var minKb by rememberSaveable { mutableStateOf(initialMinKb?.takeIf { initialLimitKb != null }) }
     var customOpen by rememberSaveable { mutableStateOf(false) }
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
@@ -382,15 +384,15 @@ fun ExportSheet(
             Spacer(Modifier.height(12.dp))
             Text(stringResource(R.string.size_label), style = MaterialTheme.typography.labelLarge)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilterChip(selected = limit == null, onClick = { limit = null }, label = { Text(stringResource(R.string.size_original)) })
+                FilterChip(selected = limit == null, onClick = { limit = null; minKb = null }, label = { Text(stringResource(R.string.size_original)) })
                 LIMIT_PRESETS.forEach { kb ->
-                    FilterChip(selected = limit == kb, onClick = { limit = kb }, label = { Text("≤ " + formatLimit(kb)) })
+                    FilterChip(selected = limit == kb && minKb == null, onClick = { limit = kb; minKb = null }, label = { Text("≤ " + formatLimit(kb)) })
                 }
-                val custom = limit?.takeIf { it !in LIMIT_PRESETS }
+                val custom = limit?.takeIf { it !in LIMIT_PRESETS || minKb != null }
                 FilterChip(
                     selected = custom != null,
                     onClick = { customOpen = true },
-                    label = { Text(custom?.let { "≤ " + formatLimit(it) } ?: stringResource(R.string.size_custom)) },
+                    label = { Text(custom?.let { formatRange(minKb, it) } ?: stringResource(R.string.size_custom)) },
                 )
             }
             if (format == ExportFormat.JPG && limit != null) {
@@ -401,30 +403,57 @@ fun ExportSheet(
                 )
             }
             Spacer(Modifier.height(20.dp))
-            Button(onClick = { onCreate(format, limit) }, modifier = Modifier.fillMaxWidth().height(52.dp)) {
+            Button(onClick = { onCreate(format, limit, minKb) }, modifier = Modifier.fillMaxWidth().height(52.dp)) {
                 Text(stringResource(R.string.export_create))
             }
         }
     }
 
     if (customOpen) {
-        var text by rememberSaveable { mutableStateOf("") }
-        val value = text.toIntOrNull()?.takeIf { it in 5..50_000 }
+        var minText by rememberSaveable { mutableStateOf(minKb?.toString() ?: "") }
+        var maxText by rememberSaveable { mutableStateOf(limit?.toString() ?: "") }
+        val max = maxText.toIntOrNull()?.takeIf { it in 5..50_000 }
+        val min = minText.toIntOrNull()?.takeIf { it > 0 }
+        // Matches Exporter: the minimum counts 1 KB as 1024 bytes, the maximum as 1000 bytes.
+        val rangeBad = min != null && max != null && min * 1024L >= max * 1000L
+        val valid = max != null && !rangeBad && (minText.isEmpty() || min != null)
         AlertDialog(
             onDismissRequest = { customOpen = false },
             title = { Text(stringResource(R.string.custom_kb_title)) },
             text = {
-                OutlinedTextField(
-                    value = text,
-                    onValueChange = { v -> text = v.filter { it.isDigit() }.take(5) },
-                    singleLine = true,
-                    suffix = { Text("KB") },
-                    placeholder = { Text(stringResource(R.string.custom_kb_hint)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                )
+                Column {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedTextField(
+                            value = minText,
+                            onValueChange = { v -> minText = v.filter { it.isDigit() }.take(5) },
+                            modifier = Modifier.weight(1f),
+                            singleLine = true,
+                            label = { Text(stringResource(R.string.min_kb_label)) },
+                            suffix = { Text("KB") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        )
+                        OutlinedTextField(
+                            value = maxText,
+                            onValueChange = { v -> maxText = v.filter { it.isDigit() }.take(5) },
+                            modifier = Modifier.weight(1f),
+                            singleLine = true,
+                            label = { Text(stringResource(R.string.max_kb_label)) },
+                            suffix = { Text("KB") },
+                            placeholder = { Text(stringResource(R.string.custom_kb_hint)) },
+                            isError = rangeBad,
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        )
+                    }
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        stringResource(if (rangeBad) R.string.min_kb_error else R.string.min_kb_note),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = if (rangeBad) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
             },
             confirmButton = {
-                TextButton(onClick = { limit = value; customOpen = false }, enabled = value != null) {
+                TextButton(onClick = { limit = max; minKb = min; customOpen = false }, enabled = valid) {
                     Text(stringResource(R.string.ok))
                 }
             },
@@ -458,7 +487,10 @@ fun ExportResultDialog(result: ExportResult, onShare: () -> Unit, onSave: () -> 
         text = {
             Column {
                 val size = formatSize(result.totalBytes)
-                val limitText = result.limitBytes?.let { formatLimit((it / 1000).toInt()) }
+                val maxText = result.limitBytes?.let { formatLimit((it / 1000).toInt()) }
+                val limitText = result.limitBytes?.let { max ->
+                    result.minBytes?.let { formatRange((it / 1024).toInt(), (max / 1000).toInt()) } ?: maxText
+                }
                 Text(
                     pluralStringResource(R.plurals.files_count, result.files.size, result.files.size) + " · " +
                         if (limitText != null) stringResource(R.string.export_size_with_limit, size, limitText) else size,
@@ -467,7 +499,7 @@ fun ExportResultDialog(result: ExportResult, onShare: () -> Unit, onSave: () -> 
                 if (!result.reached && limitText != null) {
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        stringResource(R.string.export_not_reached, limitText),
+                        stringResource(R.string.export_not_reached, maxText!!),
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium,
                     )

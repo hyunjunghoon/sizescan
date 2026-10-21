@@ -131,10 +131,11 @@ fun AppRoot(vm: MainViewModel) {
         ExportSheet(
             initialFormat = vm.lastFormat,
             initialLimitKb = vm.lastLimitKb,
+            initialMinKb = vm.lastMinKb,
             onDismiss = { showExportSheet = false },
-            onCreate = { format, kb ->
+            onCreate = { format, kb, minKb ->
                 showExportSheet = false
-                vm.export(doc, format, kb)
+                vm.export(doc, format, kb, minKb)
             },
         )
     }

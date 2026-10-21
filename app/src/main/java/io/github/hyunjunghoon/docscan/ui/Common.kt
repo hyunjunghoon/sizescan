@@ -61,6 +61,10 @@ fun formatSize(bytes: Long): String = when {
 fun formatLimit(kb: Int): String =
     if (kb >= 1000 && kb % 1000 == 0) "${kb / 1000} MB" else "$kb KB"
 
+/** "≤ 100 KB", or "20–100 KB" when a minimum is set. */
+fun formatRange(minKb: Int?, maxKb: Int): String =
+    if (minKb == null) "≤ " + formatLimit(maxKb) else "$minKb–" + formatLimit(maxKb)
+
 fun shareFiles(context: Context, files: List<File>, format: ExportFormat) {
     val authority = context.packageName + ".files"
     val uris = files.map { FileProvider.getUriForFile(context, authority, it) }

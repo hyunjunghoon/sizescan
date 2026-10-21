@@ -61,4 +61,36 @@ class SizeFitterTest {
         SizeFitter().fitSingle(enc, 30_000)
         assertTrue("calls=${enc.calls}", enc.calls < 40)
     }
+
+    @Test
+    fun minimumRaisesQualityFirst() {
+        // 92% gives ~93 KB here and 100% gives 100 KB, so a 97 KB floor is met by quality alone.
+        val r = SizeFitter().fitSingle(FakeEncoder(100_000), 10_000_000, minBytes = 97_000)
+        assertTrue(r.reached)
+        assertTrue(r.quality > 92)
+        assertTrue(r.bytes.size >= 97_000)
+    }
+
+    @Test
+    fun minimumBeyondTopQualityIsPadded() {
+        val r = SizeFitter().fitSingle(FakeEncoder(5_000), 50_000, minBytes = 10_240)
+        assertTrue(r.reached)
+        assertTrue("size=${r.bytes.size}", r.bytes.size in 10_240..50_000)
+    }
+
+    @Test
+    fun rangeIsRespectedForLargePages() {
+        for ((min, max) in listOf(10_240L to 20_000L, 30_720L to 49_000L, 51_200L to 100_000L)) {
+            val r = SizeFitter().fitSingle(FakeEncoder(1_500_000), max, min)
+            assertTrue("range=$min..$max", r.reached)
+            assertTrue("range=$min..$max size=${r.bytes.size}", r.bytes.size in min..max)
+        }
+    }
+
+    @Test
+    fun fitManySharesMinimum() {
+        val encoders = listOf(FakeEncoder(2_000), FakeEncoder(3_000))
+        val results = SizeFitter().fitMany(encoders, 100_000, 40_000)
+        assertTrue(results.sumOf { it.bytes.size.toLong() } >= 39_998)
+    }
 }

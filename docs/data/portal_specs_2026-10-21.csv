@@ -1,0 +1,63 @@
+country,portal,item,size_min_kb,size_max_kb,pixels_or_cm,format,other_rules,source_url,verification,checked
+IN,PAN (NSDL/Protean),photo,,20,3.5x2.5cm 200dpi color,JPEG,,https://tin.tin.nsdl.com/pan/InstructionDSC.html,official,2026-10-21
+IN,PAN (NSDL/Protean),signature,,10,2x4.5cm 200dpi,JPEG,,https://tin.tin.nsdl.com/pan/InstructionDSC.html,official,2026-10-21
+IN,PAN (NSDL/Protean),document,,300,per page 200dpi B/W,PDF/A or JPEG,Protean blog states 50KB photo - conflicting,https://tin.tin.nsdl.com/pan/InstructionDSC.html,official,2026-10-21
+IN,PAN (UTIITSL),photo,,30,213x213px 300dpi,JPEG,,https://ajays.is-a.dev/exam-guidelines.html,secondary,2026-10-21
+IN,PAN (UTIITSL),signature,,60,400x200px,JPEG,,https://ajays.is-a.dev/exam-guidelines.html,secondary,2026-10-21
+IN,EPFO UAN KYC,document,,300,,JPG/GIF/PNG/PDF,,https://www.epfindia.gov.in/site_docs/PDFs/UAN_PDFs/UAN_ForMembers/FAQ-Member-Ver1.1.pdf,official,2026-10-21
+IN,EPFO UAN,photo,,100,3.5x4.5cm (413x531px),JPEG/PNG,,https://ajays.is-a.dev/exam-guidelines.html,secondary,2026-10-21
+IN,CTET (NTA),photo,10,100,3.5cm W x 4.5cm H,JPG/JPEG,,https://docs.aglasem.com/view/26c0918c-8d8e-11f1-a702-0aa932765c8b,official-mirror,2026-10-21
+IN,CTET (NTA),signature,3,30,3.5x1.5cm,JPG/JPEG,,https://docs.aglasem.com/view/26c0918c-8d8e-11f1-a702-0aa932765c8b,official-mirror,2026-10-21
+IN,JKSSB,photo,,,,,live capture only - no file upload,https://www.jkssb.nic.in/Pdf/Instructions_Notice_15OF2025_31012026.pdf,official,2026-10-21
+IN,JKSSB,signature,10,20,1.5cm H x 3.5cm W,,,https://www.jkssb.nic.in/Pdf/Instructions_Notice_15OF2025_31012026.pdf,official,2026-10-21
+IN,JKSSB,document,,100,,PDF,category/education certificates,https://www.jkssb.nic.in/Pdf/Instructions_Notice_15OF2025_31012026.pdf,official,2026-10-21
+IN,Voter ID Form 6 (ECI),photo,,,4.5x3.5cm color white bg,,KB not specified in official form; online sources conflict (2MB vs 20-50KB),https://voterportal.eci.gov.in/guidelines/Form-6_en.pdf,official,2026-10-21
+IN,Voter ID online,document,,2048,,PDF/JPG,,https://ajays.is-a.dev/exam-guidelines.html,secondary,2026-10-21
+IN,UPSC CSE (OTR),photo,20,200,white bg face ~75% both ears,JPG,filename 'photo'; some sources say 20-300KB,https://vajiramandravi.com/upsc-exam/upsc-photo-and-signature-guidelines/,secondary,2026-10-21
+IN,UPSC CSE (OTR),signature,20,100,350-500px,JPG,black ink; filename 'signature',https://vajiramandravi.com/upsc-exam/upsc-photo-and-signature-guidelines/,secondary,2026-10-21
+IN,SSC OTR (CGL/CHSL),photo,,,,,live capture only - no file upload,https://www.pw.live/ssc/exams/ssc-cgl-photo-and-signature-size-2026,secondary,2026-10-21
+IN,SSC OTR (CGL/CHSL),signature,10,20,4.0x2.0cm (CHSL source says 6.0x2.0cm),JPEG/JPG,black/blue ink,https://www.pw.live/ssc/exams/ssc-cgl-photo-and-signature-size-2026,secondary,2026-10-21
+IN,IBPS PO/Clerk,photo,20,50,,JPEG,plus live photo during application,https://career.aglasem.com/banking/ibps-po/application,secondary,2026-10-21
+IN,IBPS PO/Clerk,signature,10,20,,JPEG,no capital letters,https://career.aglasem.com/banking/ibps-po/application,secondary,2026-10-21
+IN,IBPS PO/Clerk,thumb impression,20,50,,JPEG,left thumb black/blue ink,https://career.aglasem.com/banking/ibps-po/application,secondary,2026-10-21
+IN,IBPS PO/Clerk,handwritten declaration,50,100,,JPEG,English not capitals,https://career.aglasem.com/banking/ibps-po/application,secondary,2026-10-21
+IN,NEET UG (NTA),passport photo,10,200,2.5x3.5in 72dpi,JPG,,https://medicine.careers360.com/articles/list-of-documents-required-for-neet-ug-2026-application-form-released,secondary,2026-10-21
+IN,NEET UG (NTA),postcard photo,10,200,4x6in,JPG,,https://medicine.careers360.com/articles/list-of-documents-required-for-neet-ug-2026-application-form-released,secondary,2026-10-21
+IN,NEET UG (NTA),signature,4,30,,JPG,,https://medicine.careers360.com/articles/list-of-documents-required-for-neet-ug-2026-application-form-released,secondary,2026-10-21
+IN,NEET UG (NTA),thumb impression,10,200,,JPG,,https://medicine.careers360.com/articles/list-of-documents-required-for-neet-ug-2026-application-form-released,secondary,2026-10-21
+IN,NEET UG (NTA),certificate,50,300,,PDF,class 10 / category / PwBD,https://medicine.careers360.com/articles/list-of-documents-required-for-neet-ug-2026-application-form-released,secondary,2026-10-21
+IN,JEE Main (NTA),photo,10,300,3.5x4.5cm white bg face 80%,JPG/JPEG,filename 'Photograph',https://www.pw.live/iit-jee/exams/jee-main-photo-and-signature-guidelines,secondary,2026-10-21
+IN,JEE Main (NTA),signature,10,50,,JPG/JPEG,black/blue ink; filename 'Signature',https://www.pw.live/iit-jee/exams/jee-main-photo-and-signature-guidelines,secondary,2026-10-21
+IN,JEE Main (NTA),certificate,50,300,,PDF,category/PwD,https://www.careers360.com/question-sir-what-is-file-size-for-category-certificate-should-be-in-the-range-50-kb-to-300-kb-in-jee-nta-rules/amp,secondary,2026-10-21
+IN,India Post GDS,photo,30,100,320x400px (4:5),JPG/JPEG,,https://www.pw.live/ssc/exams/india-post-gds-photo-and-signature-guidelines-2026,secondary,2026-10-21
+IN,India Post GDS,signature,20,100,300x120px,JPG/JPEG,black/blue ink white paper,https://www.pw.live/ssc/exams/india-post-gds-photo-and-signature-guidelines-2026,secondary,2026-10-21
+IN,RRB NTPC,photo,,,,,live capture only - no file upload,https://www.oliveboard.in/blog/rrb-ntpc-photo-and-signature-details/,secondary,2026-10-21
+IN,RRB NTPC,signature,30,49,min 140x60px 100dpi 35x20mm box,JPG/JPEG,black ink running hand,https://www.oliveboard.in/blog/rrb-ntpc-photo-and-signature-details/,secondary,2026-10-21
+IN,Passport Seva,photo,10,300,sources conflict: 2x2in max 1MB / 630x810px 10-250KB / 600-1200px 10-300KB,JPEG,official site blocked - re-verify,https://www.smartphone-id.com/en-in/indian-passport-photo-requirements,secondary-conflict,2026-10-21
+IN,Passport Seva,signature,,100,~600x200px,,,https://ajays.is-a.dev/exam-guidelines.html,secondary,2026-10-21
+IN,ABHA (ABDM),photo,,,35x45mm white bg,JPEG/PNG,no official KB/pixel spec found,https://www.smartphone-id.com/en-in/abha-card-passport-photo,unverified,2026-10-21
+IN,WB Social Security (BMSSY),document,,,,,no spec found; official site blocked,https://www.myscheme.gov.in/schemes/bmssy,unverified,2026-10-21
+KR,큐넷 Q-Net,photo,,200,2.5x3.5 or 3x4 (증명/반명함),JPG/JPEG,remove margins,https://www.q-net.or.kr/qnet/html/guideQnet/guide_02.html,official,2026-10-21
+KR,지방직 공무원 (local.gosi.go.kr),photo,,,3.5x4.5cm >=100DPI,,KB not specified; auto-crop tool,https://local.gosi.go.kr/klid/regs/photoExample.do,official,2026-10-21
+KR,여권 온라인 재발급 (passport.go.kr),photo,,500,413x531px (395-431 x 507-550),JPG,within 6 months; official page blocked,https://www.yeonsu.go.kr/main/general/part/passport_online.asp,secondary,2026-10-21
+KR,수능 온라인 사전입력,photo,,500,413x531px 300dpi,JPG,,https://docttak.com/guide/,secondary,2026-10-21
+KR,고용24 이력서,photo,,3072,,gif/jpg/jpeg/bmp/png,max 10 attachments,https://funissu.com/work24-resume-upload/,secondary,2026-10-21
+KR,진학사 대입원서,photo,,,3x4 반명함 within 3 months,JPG,KB not specified; varies by university,https://docttak.com/guide/,secondary,2026-10-21
+KR,정부24,attachment,,,,,no official limit found,https://www.gov.kr/portal/faq,unverified,2026-10-21
+JP,パスポート オンライン申請 (外務省),photo,,600,,jpg,portal compresses if over,https://www.mofa.go.jp/mofaj/toko/passport/page24_002222.html,official,2026-10-21
+JP,パスポート オンライン申請 (外務省),signature,,200,788x284px,jpg,,https://www.mofa.go.jp/mofaj/toko/passport/page24_002222.html,official,2026-10-21
+JP,パスポート 在外公館 ORR,photo/signature,20,2048,RGB,jpg/jpeg/bmp/png,,https://www.mofa.go.jp/mofaj/toko/passport/page24_002222.html,official,2026-10-21
+JP,社会保険労務士試験,photo,,3072,,JPG/JPEG,,https://sharosi-siken.or.jp/wp-content/uploads/2025/04/57kaiannai.pdf,official,2026-10-21
+JP,青森県 公務員試験 (R7),photo,,,560x420px (4:3),jpeg/jpg/png/gif,prefectural example,https://www.pref.aomori.lg.jp/soshiki/soumu/jinji/files/R7_internetsignup_ippan.pdf,official,2026-10-21
+JP,奈良県立医大 出願,photo,,3072,,JPEG,varies by university,https://naramed-u.ac.jp/university/nyushijoho/internet/documents/shashin_upload.pdf,official,2026-10-21
+JP,宅建試験,photo,,,>=900x720px,JPG/PNG,taken after 2026-01-01,https://column.itojuku.co.jp/takken/basic/moushikomishorui/,secondary,2026-10-21
+JP,行政書士試験,photo,,,320x240px,JPEG,,https://studying.jp/gyousei/about-more/photo.html,secondary,2026-10-21
+JP,マイナポータル,attachment,,,,,no common limit found; municipal systems ~10MB/file,https://www.city.koto.lg.jp/102000/denshi-shinsei.html,unverified,2026-10-21
+US,DS-160 visa,photo,,240,600x600 to 1200x1200px square sRGB 24bit,JPEG,compression <=20:1,https://adoption.state.gov/content/travel/en/us-visas/visa-information-resources/photos/digital-image-requirements.html,official,2026-10-21
+UK,HM Passport online,photo,50,10240,>=600x750px,,,https://tnaqa.mirrorweb.com/ukgwa/20260508154203mp_/https://www.gov.uk/photos-for-passports/print,official-archive,2026-10-21
+PK,FPSC,photo,,30,,JPEG,,https://fpsc.gov.pk/assets/media/2024-07-09-03-17-18-GRNewGuidline-05-11-2018.pdf,official,2026-10-21
+PK,NADRA Pak-Identity,photo,,60,350x467px white bg,jpg,,https://visafoto.com/pk-cnic-350x467-px-photo,secondary,2026-10-21
+BD,Teletalk (BPSC/govt jobs),photo,,100,300x300px,jpg,,https://en.prothomalo.com/youth/employment/713jh8zuin,secondary,2026-10-21
+BD,Teletalk (BPSC/govt jobs),signature,,60,300x80px,jpg,,https://en.prothomalo.com/youth/employment/713jh8zuin,secondary,2026-10-21
+PH,CSC exam (OCSERGS),photo,,,4.5x3.5cm white bg within 3 months,JPG/JPEG,online KB not official (~<1MB secondary),https://csc.gov.ph/phocadownload/userupload/erpo/special%20eligibility/CS-Form-101-HGE_Rev-28-July-2023.pdf,official-print,2026-10-21
+NG,JAMB UTME,photo,,,white bg recent,,no official pixel/KB found,https://www.androidpols.com.ng/2025/12/jamb-2026-utme-registration-ultimate.html,unverified,2026-10-21

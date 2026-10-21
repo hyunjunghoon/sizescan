@@ -23,8 +23,12 @@
     <string name="size_original">Original</string>
     <string name="size_custom">Eigene</string>
     <string name="size_per_image">Das Limit gilt für jedes Bild.</string>
-    <string name="custom_kb_title">Maximale Größe</string>
+    <string name="custom_kb_title">Dateigröße</string>
     <string name="custom_kb_hint">z. B. 150</string>
+    <string name="min_kb_label">Min. (optional)</string>
+    <string name="max_kb_label">Max.</string>
+    <string name="min_kb_note">Manche Portale lehnen auch zu kleine Dateien ab.</string>
+    <string name="min_kb_error">Min. muss kleiner als Max. sein.</string>
     <string name="export_create">Datei erstellen</string>
     <string name="export_working">Seite %1$d von %2$d wird optimiert…</string>
     <string name="export_done_title">Datei fertig</string>
