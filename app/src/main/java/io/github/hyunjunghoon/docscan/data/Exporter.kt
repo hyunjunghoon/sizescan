@@ -15,10 +15,10 @@ data class ExportResult(
     val totalBytes: Long,
     /** Size limit in bytes (per file for JPG), or null for original quality. */
     val limitBytes: Long?,
-    /** Lower size bound in bytes (per file for JPG), or null when only a maximum was asked for. */
-    val minBytes: Long? = null,
     val reached: Boolean,
     val format: ExportFormat,
+    /** Lower size bound in bytes (per file for JPG), or null when only a maximum was asked for. */
+    val minBytes: Long? = null,
 )
 
 class Exporter(private val context: Context) {
