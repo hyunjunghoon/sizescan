@@ -28,8 +28,8 @@ class SmallScreenTest {
     @Test
     fun resultDialogShowsAllButtons() {
         val result = ExportResult(listOf(File("a.pdf")), 98_000, 100_000, true, ExportFormat.PDF)
-        compose.setContent { AppTheme(dynamic = false) { ExportResultDialog(result, {}, {}, {}) } }
-        listOf(R.string.action_save, R.string.action_share, R.string.close).forEach {
+        compose.setContent { AppTheme(dynamic = false) { ExportResultDialog(result, {}, {}, {}, onOpen = {}) } }
+        listOf(R.string.action_open, R.string.action_save, R.string.action_share, R.string.close).forEach {
             compose.onNodeWithText(str(it)).assertIsDisplayed()
         }
     }

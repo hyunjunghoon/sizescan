@@ -57,6 +57,11 @@
     <string name="help_step_4">Salve o arquivo no celular ou compartilhe direto com um app.</string>
     <string name="help_privacy">Seus documentos ficam neste aparelho. Nada é enviado.</string>
     <string name="share_app_text">SizeScan: digitalize documentos e salve em PDF ou JPG no tamanho exato que você precisa, por exemplo abaixo de 100 KB. %1$s</string>
+    <string name="page_rotate">Girar</string>
+    <string name="page_move_earlier">Mover para antes</string>
+    <string name="page_move_later">Mover para depois</string>
+    <string name="action_open">Abrir</string>
+    <string name="open_failed">Nenhum app deste dispositivo pode abrir o arquivo</string>
     <plurals name="pages_count">
         <item quantity="one">%d página</item>
         <item quantity="many">%d páginas</item>

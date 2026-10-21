@@ -58,6 +58,11 @@
     <string name="help_step_4">Save the file to your phone or share it straight to an app.</string>
     <string name="help_privacy">Your documents stay on this device. Nothing is uploaded.</string>
     <string name="share_app_text">SizeScan: scan documents and save PDF or JPG at the exact size you need, like under 100 KB. %1$s</string>
+    <string name="page_rotate">Rotate</string>
+    <string name="page_move_earlier">Move earlier</string>
+    <string name="page_move_later">Move later</string>
+    <string name="action_open">Open</string>
+    <string name="open_failed">No app on this device can open this file</string>
     <plurals name="pages_count">
         <item quantity="one">%d page</item>
         <item quantity="other">%d pages</item>

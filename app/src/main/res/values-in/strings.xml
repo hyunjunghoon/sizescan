@@ -57,6 +57,11 @@
     <string name="help_step_4">Simpan file ke ponsel atau bagikan langsung ke aplikasi.</string>
     <string name="help_privacy">Dokumen Anda tetap di perangkat ini. Tidak ada yang diunggah.</string>
     <string name="share_app_text">SizeScan: pindai dokumen dan simpan sebagai PDF atau JPG dengan ukuran yang tepat, misalnya di bawah 100 KB. %1$s</string>
+    <string name="page_rotate">Putar</string>
+    <string name="page_move_earlier">Pindah ke depan</string>
+    <string name="page_move_later">Pindah ke belakang</string>
+    <string name="action_open">Buka</string>
+    <string name="open_failed">Tidak ada aplikasi di perangkat ini yang dapat membuka file ini</string>
     <plurals name="pages_count">
         <item quantity="other">%d halaman</item>
     </plurals>

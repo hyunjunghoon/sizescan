@@ -1,6 +1,7 @@
 package io.github.hyunjunghoon.docscan.ui
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.Context
 import android.content.ContextWrapper
@@ -64,6 +65,20 @@ fun formatLimit(kb: Int): String =
 /** "≤ 100 KB", or "20–100 KB" when a minimum is set. */
 fun formatRange(minKb: Int?, maxKb: Int): String =
     if (minKb == null) "≤ " + formatLimit(maxKb) else "$minKb–" + formatLimit(maxKb)
+
+/** Opens [file] in another app for a quick look. Returns false when no app can show it. */
+fun openFile(context: Context, file: File, format: ExportFormat): Boolean {
+    val uri = FileProvider.getUriForFile(context, context.packageName + ".files", file)
+    val intent = Intent(Intent.ACTION_VIEW)
+        .setDataAndType(uri, if (format == ExportFormat.PDF) "application/pdf" else "image/jpeg")
+        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    return try {
+        context.startActivity(intent)
+        true
+    } catch (e: ActivityNotFoundException) {
+        false
+    }
+}
 
 fun shareFiles(context: Context, files: List<File>, format: ExportFormat) {
     val authority = context.packageName + ".files"

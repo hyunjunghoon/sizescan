@@ -7,7 +7,14 @@ import java.util.Locale
 import java.util.Properties
 import java.util.UUID
 
-data class Doc(val id: String, val name: String, val createdAt: Long, val pages: List<File>)
+data class Doc(
+    val id: String,
+    val name: String,
+    val createdAt: Long,
+    val pages: List<File>,
+    /** Changes when any page is rotated or moved, so the UI redraws pages whose file names stayed the same. */
+    val stamp: Long = 0,
+)
 
 /** Documents live in app-private storage: files/docs/<id>/meta.properties + p0001.jpg... */
 class DocRepository(private val context: Context) {
@@ -65,6 +72,34 @@ class DocRepository(private val context: Context) {
         if (pageFiles(File(root, id)).isEmpty()) delete(id)
     }
 
+    /** Rotates one page 90° clockwise. */
+    fun rotatePage(id: String, page: File) {
+        if (page.parentFile?.name != id || !page.exists()) return
+        val tmp = File(page.parentFile, page.name + ".tmp")
+        Images.rotateJpeg(page, tmp)
+        if (!tmp.renameTo(page)) { tmp.delete(); return }
+        page.setLastModified(System.currentTimeMillis())
+    }
+
+    /** Swaps [page] with its neighbour ([by] = -1 earlier, +1 later). Page order is file name order. */
+    fun movePage(id: String, page: File, by: Int) {
+        if (page.parentFile?.name != id) return
+        val pages = pageFiles(File(root, id))
+        val i = pages.indexOfFirst { it.name == page.name }
+        val j = i + by
+        if (i < 0 || j !in pages.indices) return
+        val a = pages[i]
+        val b = pages[j]
+        val tmp = File(a.parentFile, a.name + ".swap")
+        if (!a.renameTo(tmp)) return
+        if (!b.renameTo(a)) { tmp.renameTo(a); return }
+        tmp.renameTo(b)
+        // New timestamps so cached thumbnails (keyed by path + time) aren't reused for the swapped content.
+        val now = System.currentTimeMillis()
+        a.setLastModified(now)
+        b.setLastModified(now + 1)
+    }
+
     private fun pageFiles(dir: File): List<File> =
         dir.listFiles { f -> f.name.matches(PAGE_NAME) }?.sortedBy { it.name } ?: emptyList()
 
@@ -77,7 +112,7 @@ class DocRepository(private val context: Context) {
             name = p.getProperty("name").orEmpty(),
             createdAt = p.getProperty("created")?.toLongOrNull() ?: dir.lastModified(),
             pages = pageFiles(dir),
-        )
+        ).let { it.copy(stamp = it.pages.sumOf { f -> f.lastModified() }) }
     }
 
     private fun writeMeta(dir: File, name: String, created: Long) {

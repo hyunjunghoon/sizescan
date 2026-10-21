@@ -57,6 +57,11 @@
     <string name="help_step_4">Enregistrez le fichier sur votre téléphone ou partagez-le directement avec une appli.</string>
     <string name="help_privacy">Vos documents restent sur cet appareil. Rien n\'est envoyé en ligne.</string>
     <string name="share_app_text">SizeScan : scannez des documents et enregistrez-les en PDF ou JPG à la taille exacte voulue, par exemple moins de 100 Ko. %1$s</string>
+    <string name="page_rotate">Pivoter</string>
+    <string name="page_move_earlier">Déplacer avant</string>
+    <string name="page_move_later">Déplacer après</string>
+    <string name="action_open">Ouvrir</string>
+    <string name="open_failed">Aucune appli de cet appareil ne peut ouvrir ce fichier</string>
     <plurals name="pages_count">
         <item quantity="one">%d page</item>
         <item quantity="many">%d pages</item>
