@@ -44,6 +44,19 @@
     <string name="export_failed">Tidak dapat membuat file</string>
     <string name="default_doc_name">Pindaian %1$s</string>
     <string name="page_n">Halaman %1$d</string>
+    <string name="menu_help">Cara pakai</string>
+    <string name="menu_theme">Tema</string>
+    <string name="menu_share_app">Bagikan aplikasi</string>
+    <string name="theme_system">Default sistem</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="help_title">Cara memakai SizeScan</string>
+    <string name="help_step_1">Ketuk Pindai untuk memotret dokumen kertas, atau Foto untuk memilih gambar yang sudah ada.</string>
+    <string name="help_step_2">Buka dokumen untuk menambah atau menghapus halaman.</string>
+    <string name="help_step_3">Ketuk Simpan / Bagikan, pilih PDF atau JPG dan ukuran maksimum (misalnya 100 KB). Jika situs juga menolak file yang terlalu kecil, isi juga Min.</string>
+    <string name="help_step_4">Simpan file ke ponsel atau bagikan langsung ke aplikasi.</string>
+    <string name="help_privacy">Dokumen Anda tetap di perangkat ini. Tidak ada yang diunggah.</string>
+    <string name="share_app_text">SizeScan: pindai dokumen dan simpan sebagai PDF atau JPG dengan ukuran yang tepat, misalnya di bawah 100 KB. %1$s</string>
     <plurals name="pages_count">
         <item quantity="other">%d halaman</item>
     </plurals>

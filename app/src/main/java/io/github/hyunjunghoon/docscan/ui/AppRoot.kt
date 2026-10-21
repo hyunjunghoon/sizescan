@@ -30,6 +30,7 @@ import io.github.hyunjunghoon.docscan.ads.Ads
 import io.github.hyunjunghoon.docscan.data.ExportFormat
 
 private const val PRIVACY_POLICY_URL = "https://hyunjunghoon.github.io/sizescan/privacy.html"
+private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id="
 
 @Composable
 fun AppRoot(vm: MainViewModel) {
@@ -96,6 +97,9 @@ fun AppRoot(vm: MainViewModel) {
     }
 
     var showExportSheet by rememberSaveable { mutableStateOf(false) }
+    var showHelp by rememberSaveable { mutableStateOf(false) }
+    var showTheme by rememberSaveable { mutableStateOf(false) }
+    val themeMode by vm.themeMode.collectAsStateWithLifecycle()
 
     if (doc != null) {
         BackHandler { vm.openDoc(null) }
@@ -124,6 +128,22 @@ fun AppRoot(vm: MainViewModel) {
             onOpen = { vm.openDoc(it) },
             onScan = { startScan(null) },
             onPhotos = { pickPhotos(null) },
+            onHelp = { showHelp = true },
+            onTheme = { showTheme = true },
+            onShareApp = {
+                val text = context.getString(R.string.share_app_text, PLAY_STORE_URL + context.packageName)
+                val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
+                runCatching { activity.startActivity(Intent.createChooser(send, null)) }
+            },
+        )
+    }
+
+    if (showHelp) HelpDialog(onDismiss = { showHelp = false })
+    if (showTheme) {
+        ThemeDialog(
+            current = themeMode,
+            onPick = { vm.setThemeMode(it); showTheme = false },
+            onDismiss = { showTheme = false },
         )
     }
 

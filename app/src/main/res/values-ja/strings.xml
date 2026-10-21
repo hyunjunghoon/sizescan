@@ -44,6 +44,19 @@
     <string name="export_failed">ファイルを作成できませんでした</string>
     <string name="default_doc_name">スキャン %1$s</string>
     <string name="page_n">%1$dページ</string>
+    <string name="menu_help">使い方</string>
+    <string name="menu_theme">テーマ</string>
+    <string name="menu_share_app">アプリを共有</string>
+    <string name="theme_system">システムのデフォルト</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
+    <string name="help_title">SizeScan の使い方</string>
+    <string name="help_step_1">紙の書類を撮影するには「スキャン」、手持ちの画像を選ぶには「写真」をタップします。</string>
+    <string name="help_step_2">書類を開くとページを追加・削除できます。</string>
+    <string name="help_step_3">「保存 / 共有」をタップし、PDF か JPG と最大サイズ(例: 100 KB)を選びます。小さすぎるファイルも受け付けないサイトでは最小も指定してください。</string>
+    <string name="help_step_4">ファイルを端末に保存するか、アプリに直接共有します。</string>
+    <string name="help_privacy">書類はこの端末内にだけ保存され、アップロードされません。</string>
+    <string name="share_app_text">SizeScan: 書類をスキャンして、PDF や JPG を必要なサイズ(例: 100 KB 以下)ぴったりで保存できます。%1$s</string>
     <plurals name="pages_count">
         <item quantity="other">%dページ</item>
     </plurals>

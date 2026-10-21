@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import io.github.hyunjunghoon.docscan.ui.ThemeMode
 import io.github.hyunjunghoon.docscan.ui.formatSize
 import java.io.File
 import java.text.SimpleDateFormat
@@ -54,6 +55,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     val export: StateFlow<ExportUi> = _export
     private val _messages = MutableSharedFlow<UiMessage>(extraBufferCapacity = 8)
     val messages: SharedFlow<UiMessage> = _messages
+    private val _themeMode = MutableStateFlow(
+        runCatching { ThemeMode.valueOf(prefs.getString(KEY_THEME, null)!!) }.getOrDefault(ThemeMode.SYSTEM),
+    )
+    val themeMode: StateFlow<ThemeMode> = _themeMode
+
+    fun setThemeMode(mode: ThemeMode) {
+        prefs.edit().putString(KEY_THEME, mode.name).apply()
+        _themeMode.value = mode
+    }
 
     val lastFormat: ExportFormat
         get() = runCatching { ExportFormat.valueOf(prefs.getString(KEY_FORMAT, null)!!) }.getOrDefault(ExportFormat.PDF)
@@ -223,5 +233,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_MIN = "min_kb"
         private const val KEY_EXPORTS = "exports"
         private const val KEY_REVIEW_ASKED = "review_asked"
+        private const val KEY_THEME = "theme"
     }
 }

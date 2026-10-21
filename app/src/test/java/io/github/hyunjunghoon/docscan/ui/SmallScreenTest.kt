@@ -45,4 +45,18 @@ class SmallScreenTest {
         compose.onNodeWithText(str(R.string.action_add_pages)).assertIsDisplayed()
         compose.onNodeWithText(str(R.string.action_export)).assertIsDisplayed()
     }
+
+    @Test
+    fun helpDialogFits() {
+        compose.setContent { AppTheme(dynamic = false) { HelpDialog {} } }
+        compose.onNodeWithText(str(R.string.ok)).assertIsDisplayed()
+    }
+
+    @Test
+    fun themeDialogShowsAllChoices() {
+        compose.setContent { AppTheme(dynamic = false, mode = ThemeMode.DARK) { ThemeDialog(ThemeMode.DARK, {}, {}) } }
+        listOf(R.string.theme_system, R.string.theme_light, R.string.theme_dark, R.string.close).forEach {
+            compose.onNodeWithText(str(it)).assertIsDisplayed()
+        }
+    }
 }
