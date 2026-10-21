@@ -1,6 +1,7 @@
 package io.github.hyunjunghoon.docscan.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
@@ -40,6 +42,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.IosShare
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PhotoLibrary
+import androidx.compose.material.icons.filled.RotateRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -71,6 +74,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.semantics.Role
@@ -234,11 +238,14 @@ fun DocScreen(
     onAddPhotos: () -> Unit,
     onExport: () -> Unit,
     busy: Boolean = false,
+    onRotatePage: (File) -> Unit = {},
+    onMovePage: (File, Int) -> Unit = { _, _ -> },
 ) {
     var renaming by rememberSaveable { mutableStateOf(false) }
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
     var pageToDeleteName by rememberSaveable { mutableStateOf<String?>(null) }
     var addMenu by rememberSaveable { mutableStateOf(false) }
+    var pageMenuName by rememberSaveable { mutableStateOf<String?>(null) }
 
     Scaffold(
         topBar = {
@@ -304,7 +311,31 @@ fun DocScreen(
         ) {
             itemsIndexed(doc.pages, key = { _, f -> f.name }) { i, file ->
                 Box {
-                    Thumbnail(file, Modifier.fillMaxWidth().aspectRatio(0.72f))
+                    // Tap a page for rotate / reorder.
+                    Thumbnail(
+                        file,
+                        Modifier.fillMaxWidth().aspectRatio(0.72f).clip(RoundedCornerShape(8.dp))
+                            .clickable(enabled = !busy) { pageMenuName = file.name },
+                    )
+                    DropdownMenu(expanded = pageMenuName == file.name, onDismissRequest = { pageMenuName = null }) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.page_rotate)) },
+                            leadingIcon = { Icon(Icons.Filled.RotateRight, contentDescription = null) },
+                            onClick = { pageMenuName = null; onRotatePage(file) },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.page_move_earlier)) },
+                            leadingIcon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null) },
+                            enabled = i > 0,
+                            onClick = { pageMenuName = null; onMovePage(file, -1) },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.page_move_later)) },
+                            leadingIcon = { Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null) },
+                            enabled = i < doc.pages.lastIndex,
+                            onClick = { pageMenuName = null; onMovePage(file, 1) },
+                        )
+                    }
                     Text(
                         stringResource(R.string.page_n, i + 1),
                         color = Color.White,
@@ -498,7 +529,13 @@ fun ExportProgressDialog(done: Int, total: Int) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun ExportResultDialog(result: ExportResult, onShare: () -> Unit, onSave: () -> Unit, onClose: () -> Unit) {
+fun ExportResultDialog(
+    result: ExportResult,
+    onShare: () -> Unit,
+    onSave: () -> Unit,
+    onClose: () -> Unit,
+    onOpen: (() -> Unit)? = null,
+) {
     AlertDialog(
         onDismissRequest = onClose,
         title = { Text(stringResource(R.string.export_done_title)) },
@@ -530,6 +567,7 @@ fun ExportResultDialog(result: ExportResult, onShare: () -> Unit, onSave: () -> 
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
+                if (onOpen != null) TextButton(onClick = onOpen) { Text(stringResource(R.string.action_open)) }
                 OutlinedButton(onClick = onSave) { Text(stringResource(R.string.action_save)) }
                 Button(onClick = onShare) { Text(stringResource(R.string.action_share)) }
             }

@@ -57,6 +57,11 @@
     <string name="help_step_4">ファイルを端末に保存するか、アプリに直接共有します。</string>
     <string name="help_privacy">書類はこの端末内にだけ保存され、アップロードされません。</string>
     <string name="share_app_text">SizeScan: 書類をスキャンして、PDF や JPG を必要なサイズ(例: 100 KB 以下)ぴったりで保存できます。%1$s</string>
+    <string name="page_rotate">回転</string>
+    <string name="page_move_earlier">前へ移動</string>
+    <string name="page_move_later">後ろへ移動</string>
+    <string name="action_open">開く</string>
+    <string name="open_failed">このファイルを開けるアプリがありません</string>
     <plurals name="pages_count">
         <item quantity="other">%dページ</item>
     </plurals>

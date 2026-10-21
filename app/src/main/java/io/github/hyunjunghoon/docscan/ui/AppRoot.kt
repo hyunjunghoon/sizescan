@@ -114,6 +114,8 @@ fun AppRoot(vm: MainViewModel) {
             onAddPhotos = { pickPhotos(doc.id) },
             onExport = { showExportSheet = true },
             busy = busy,
+            onRotatePage = { vm.rotatePage(doc.id, it) },
+            onMovePage = { page, by -> vm.movePage(doc.id, page, by) },
         )
     } else {
         HomeScreen(
@@ -166,6 +168,7 @@ fun AppRoot(vm: MainViewModel) {
             ExportResultDialog(
                 result = s.result,
                 onShare = { shareFiles(context, s.result.files, s.result.format) },
+                onOpen = { if (!openFile(context, s.result.files[0], s.result.format)) vm.message(R.string.open_failed) },
                 onSave = {
                     val files = s.result.files
                     when {

@@ -125,6 +125,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         io { repo.delete(id) }
     }
 
+    fun rotatePage(id: String, page: File) = busyIo { repo.rotatePage(id, page) }
+
+    fun movePage(id: String, page: File, by: Int) = busyIo { repo.movePage(id, page, by) }
+
     fun deletePage(id: String, page: File) = io {
         repo.deletePage(id, page)
         if (repo.get(id) == null) _openDocId.value = null
@@ -214,6 +218,21 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun resolver() = getApplication<Application>().contentResolver
+
+    /** Like [io], but blocks page actions meanwhile and shares the import lock so file names can't race. */
+    private fun busyIo(block: () -> Unit) {
+        viewModelScope.launch {
+            importLock.withLock {
+                _busy.value = true
+                try {
+                    withContext(Dispatchers.IO) { runCatching(block) }
+                    _docs.value = withContext(Dispatchers.IO) { repo.list() }
+                } finally {
+                    _busy.value = false
+                }
+            }
+        }
+    }
 
     private fun io(block: () -> Unit) {
         viewModelScope.launch {

@@ -41,6 +41,18 @@ object Images {
         return scaleDown(bmp, maxLongSide)
     }
 
+    /** Writes [src] rotated 90° clockwise to [out]. */
+    fun rotateJpeg(src: File, out: File, maxLongSide: Int = 4000) {
+        val bmp = decodeSampled(src, maxLongSide)
+        val r = Bitmap.createBitmap(bmp, 0, 0, bmp.width, bmp.height, Matrix().apply { postRotate(90f) }, true)
+        if (r !== bmp) bmp.recycle()
+        try {
+            out.outputStream().buffered().use { r.compress(Bitmap.CompressFormat.JPEG, 95, it) }
+        } finally {
+            r.recycle()
+        }
+    }
+
     /** Copies any picked image into an upright, opaque JPEG (EXIF rotation applied, alpha on white). */
     fun normalizeToJpeg(context: Context, uri: Uri, out: File, maxLongSide: Int = 4000) {
         val resolver = context.contentResolver

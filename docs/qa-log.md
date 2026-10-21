@@ -33,3 +33,9 @@
 - 테스트: SaveLocationTest 9건(JVM), SmallScreenTest 2건(Robolectric, 독일어·320dp에서 결과창 3버튼·문서 화면 하단 버튼 표시 확인). CI 실행 #19 전체 통과(테스트·lint·디버그·릴리스 빌드).
 - 산출물 확인: package com.tallowbird.sizescan, versionCode 16, versionName 1.0.1, 테스트 광고 앱 ID, 업로드 키 SHA-256 D5:01:4F…F1:DC(1.0.0과 동일).
 - 버전 코드는 CI 실행 번호 연동을 끊고 gradle.properties에서 직접 관리.
+
+## 2026-10-22 1.0.2 (versionCode 17)
+- 포함: 최소~최대 KB 범위·10/20KB(인도 대응, PR #2), 사용 방법·테마·앱 공유(PR #3), 페이지 회전·순서 변경·결과창 열기(PR #4).
+- 자체 검토로 잡은 것: 페이지를 바꿔도 파일명이 같아 화면이 갱신되지 않을 수 있음 → Doc.stamp(페이지 시각 합) 추가, 교체 후 새 시각 지정으로 썸네일 캐시 재사용 방지. 회전·이동을 가져오기와 같은 잠금으로 직렬화하고 진행 중엔 버튼 비활성.
+- 테스트: DocRepositoryTest 2건(이동·양끝 무시·회전 크기), SmallScreenTest에 열기 버튼 추가. CI 실행 전체 통과.
+- 산출물 확인: com.tallowbird.sizescan, versionCode 17, 1.0.2, 테스트 광고 앱 ID, 업로드 키 SHA-256 D5:01…F1:DC.

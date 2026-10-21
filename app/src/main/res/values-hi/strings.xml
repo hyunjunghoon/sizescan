@@ -57,6 +57,11 @@
     <string name="help_step_4">फ़ाइल फ़ोन में सेव करें या सीधे किसी ऐप में शेयर करें।</string>
     <string name="help_privacy">आपके डॉक्यूमेंट इसी डिवाइस पर रहते हैं। कुछ भी अपलोड नहीं होता।</string>
     <string name="share_app_text">SizeScan: डॉक्यूमेंट स्कैन करें और PDF या JPG को ठीक उसी साइज़ में सेव करें जो चाहिए, जैसे 100 KB से कम। %1$s</string>
+    <string name="page_rotate">घुमाएँ</string>
+    <string name="page_move_earlier">पहले ले जाएँ</string>
+    <string name="page_move_later">बाद में ले जाएँ</string>
+    <string name="action_open">खोलें</string>
+    <string name="open_failed">इस डिवाइस पर कोई ऐप यह फ़ाइल नहीं खोल सकता</string>
     <plurals name="pages_count">
         <item quantity="one">%d पेज</item>
         <item quantity="other">%d पेज</item>

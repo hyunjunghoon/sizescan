@@ -57,6 +57,11 @@
     <string name="help_step_4">Speichere die Datei auf dem Gerät oder teile sie direkt mit einer App.</string>
     <string name="help_privacy">Deine Dokumente bleiben auf diesem Gerät. Es wird nichts hochgeladen.</string>
     <string name="share_app_text">SizeScan: Dokumente scannen und als PDF oder JPG in genau der benötigten Größe speichern, z. B. unter 100 KB. %1$s</string>
+    <string name="page_rotate">Drehen</string>
+    <string name="page_move_earlier">Nach vorne</string>
+    <string name="page_move_later">Nach hinten</string>
+    <string name="action_open">Öffnen</string>
+    <string name="open_failed">Keine App auf diesem Gerät kann die Datei öffnen</string>
     <plurals name="pages_count">
         <item quantity="one">%d Seite</item>
         <item quantity="other">%d Seiten</item>
