@@ -95,6 +95,13 @@ SizeScan is an independent app. It is not affiliated with, endorsed by or connec
 - 스팸 정책 회피 원칙상 두 앱 기능이 겹치면 안 됨. **SizeScan은 문서·서명·사진의 "용량 맞춤"까지만**, 얼굴 위치 맞춤·배경 교체·규격 사진 촬영은 2호 앱 몫으로 둠.
 - SSC·RRB·JKSSB는 사진 업로드를 폐지했으므로 SizeScan은 서명·서류 프리셋을 우선.
 
+## 2-1. 규격표 반영 규칙 (2026-10-21 사용자 전달 기준)
+- 파일: portal_specs_2026-10-21.csv (61행, 9개국: IN/KR/JP/US/UK/PK/BD/PH/NG). 컬럼 country, portal, item, size_min_kb, size_max_kb, pixels_or_cm, format, other_rules, source_url, verification, checked.
+- 1차 프리셋: verification = official 계열(16건). official-mirror/archive/print는 각주 표기.
+- secondary는 "출처 확인 필요" 라벨, secondary-conflict·unverified는 제외.
+- SSC·RRB·JKSSB 사진 프리셋은 만들지 않음(라이브 촬영).
+- 미검증 공식 사이트(ssc.gov.in, ibps.in, indiapost.gov.in, passportindia.gov.in, voters.eci.gov.in, abha.abdm.gov.in, pan.utiitsl.com, ctet.nic.in, gosi.kr, passport.go.kr, gov.kr, work24.go.kr)는 추후 수동 확인 대상.
+
 ## 3. 필요한 것 (사용자)
 - 31개 포털 규격표 파일(출처 URL·확인일 포함이면 최적) → 이 스레드에 업로드.
 - 출시 때 en-IN 등록정보 입력은 기존처럼 데스크톱 채팅방 복붙 프롬프트로 전달 예정.
