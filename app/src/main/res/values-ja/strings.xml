@@ -23,8 +23,12 @@
     <string name="size_original">元のサイズ</string>
     <string name="size_custom">カスタム</string>
     <string name="size_per_image">画像ごとに適用されます。</string>
-    <string name="custom_kb_title">最大サイズ</string>
+    <string name="custom_kb_title">ファイルサイズ</string>
     <string name="custom_kb_hint">例: 150</string>
+    <string name="min_kb_label">最小(任意)</string>
+    <string name="max_kb_label">最大</string>
+    <string name="min_kb_note">小さすぎるファイルを受け付けないサイトもあります。</string>
+    <string name="min_kb_error">最小は最大より小さくしてください。</string>
     <string name="export_create">ファイルを作成</string>
     <string name="export_working">%2$dページ中%1$dページ目を最適化中…</string>
     <string name="export_done_title">ファイルの準備ができました</string>

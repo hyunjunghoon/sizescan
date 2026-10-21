@@ -23,8 +23,12 @@
     <string name="size_original">मूल</string>
     <string name="size_custom">कस्टम</string>
     <string name="size_per_image">यह सीमा हर इमेज पर लागू होती है।</string>
-    <string name="custom_kb_title">अधिकतम साइज़</string>
+    <string name="custom_kb_title">फ़ाइल साइज़</string>
     <string name="custom_kb_hint">जैसे 150</string>
+    <string name="min_kb_label">न्यूनतम (वैकल्पिक)</string>
+    <string name="max_kb_label">अधिकतम</string>
+    <string name="min_kb_note">कुछ पोर्टल बहुत छोटी फ़ाइलें भी अस्वीकार करते हैं।</string>
+    <string name="min_kb_error">न्यूनतम, अधिकतम से कम होना चाहिए।</string>
     <string name="export_create">फ़ाइल बनाएं</string>
     <string name="export_working">पेज %1$d / %2$d ऑप्टिमाइज़ हो रहा है…</string>
     <string name="export_done_title">फ़ाइल तैयार है</string>

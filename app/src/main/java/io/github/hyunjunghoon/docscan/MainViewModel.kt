@@ -59,6 +59,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         get() = runCatching { ExportFormat.valueOf(prefs.getString(KEY_FORMAT, null)!!) }.getOrDefault(ExportFormat.PDF)
     val lastLimitKb: Int?
         get() = prefs.getInt(KEY_LIMIT, 0).takeIf { it > 0 }
+    val lastMinKb: Int?
+        get() = prefs.getInt(KEY_MIN, 0).takeIf { it > 0 }
 
     init {
         refresh()
@@ -118,12 +120,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         if (repo.get(id) == null) _openDocId.value = null
     }
 
-    fun export(doc: Doc, format: ExportFormat, limitKb: Int?) {
-        prefs.edit().putString(KEY_FORMAT, format.name).putInt(KEY_LIMIT, limitKb ?: 0).apply()
+    fun export(doc: Doc, format: ExportFormat, limitKb: Int?, minKb: Int?) {
+        prefs.edit().putString(KEY_FORMAT, format.name).putInt(KEY_LIMIT, limitKb ?: 0).putInt(KEY_MIN, minKb ?: 0).apply()
         viewModelScope.launch {
             _export.value = ExportUi.Running(0, doc.pages.size)
             try {
-                val result = exporter.export(doc, format, limitKb) { done, total ->
+                val result = exporter.export(doc, format, limitKb, minKb) { done, total ->
                     _export.value = ExportUi.Running(done, total)
                 }
                 val count = prefs.getInt(KEY_EXPORTS, 0) + 1
@@ -218,6 +220,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     companion object {
         private const val KEY_FORMAT = "format"
         private const val KEY_LIMIT = "limit_kb"
+        private const val KEY_MIN = "min_kb"
         private const val KEY_EXPORTS = "exports"
         private const val KEY_REVIEW_ASKED = "review_asked"
     }

@@ -23,8 +23,12 @@
     <string name="size_original">Asli</string>
     <string name="size_custom">Kustom</string>
     <string name="size_per_image">Batas berlaku untuk setiap gambar.</string>
-    <string name="custom_kb_title">Ukuran maksimal</string>
+    <string name="custom_kb_title">Ukuran file</string>
     <string name="custom_kb_hint">mis. 150</string>
+    <string name="min_kb_label">Min. (opsional)</string>
+    <string name="max_kb_label">Maks.</string>
+    <string name="min_kb_note">Beberapa portal juga menolak file yang terlalu kecil.</string>
+    <string name="min_kb_error">Min. harus lebih kecil dari maks.</string>
     <string name="export_create">Buat file</string>
     <string name="export_working">Mengoptimalkan halaman %1$d dari %2$d…</string>
     <string name="export_done_title">File siap</string>

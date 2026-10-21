@@ -12,7 +12,8 @@ interface PageEncoder {
 data class FitResult(val bytes: ByteArray, val quality: Int, val scale: Float, val reached: Boolean)
 
 /**
- * Finds the best-looking JPEG that is not larger than a byte budget.
+ * Finds the best-looking JPEG that is not larger than a byte budget and, when [minBytes] is given,
+ * not smaller than it (some portals reject files that are too small).
  * Strategy: keep quality >= [readableQuality] and shrink the image first; only when the image
  * reaches [minReadableScale] is quality allowed to drop to [minQuality]. Within a scale, binary
  * search picks the highest quality that fits.
@@ -24,7 +25,7 @@ class SizeFitter(
     private val minReadableScale: Float = 0.35f,
     private val minScale: Float = 0.02f,
 ) {
-    fun fitSingle(encoder: PageEncoder, budget: Long): FitResult {
+    fun fitSingle(encoder: PageEncoder, budget: Long, minBytes: Long = 0): FitResult {
         var scale = 1f
         var floor = readableQuality
         var smallest: FitResult? = null
@@ -40,7 +41,18 @@ class SizeFitter(
                     val enc = encoder.encode(scale, mid)
                     if (enc.size <= budget) { best = enc; bestQ = mid; lo = mid + 1 } else hi = mid - 1
                 }
-                return FitResult(best, bestQ, scale, true)
+                if (best.size < minBytes && bestQ == maxQuality && scale >= 1f) {
+                    for (q in maxQuality + 1..100) {
+                        val enc = encoder.encode(scale, q)
+                        if (enc.size > budget) break
+                        best = enc
+                        bestQ = q
+                        if (enc.size >= minBytes) break
+                    }
+                }
+                // Still too small even at top quality: pad with JPEG comment segments (image unchanged).
+                if (best.size < minBytes) best = JpegPadding.pad(best, minBytes)
+                return FitResult(best, bestQ, scale, best.size <= budget)
             }
             if (smallest == null || low.size < smallest!!.bytes.size) smallest = FitResult(low, floor, scale, false)
             if (floor > minQuality && scale <= minReadableScale) {
@@ -64,6 +76,7 @@ class SizeFitter(
     fun fitMany(
         encoders: List<PageEncoder>,
         budget: Long,
+        minBytes: Long = 0,
         onProgress: (done: Int, total: Int) -> Unit = { _, _ -> },
     ): List<FitResult> {
         require(encoders.isNotEmpty())
@@ -74,12 +87,36 @@ class SizeFitter(
         return encoders.mapIndexed { i, e ->
             onProgress(i, encoders.size)
             val share = (budget * (weights[i] / sum)).toLong().coerceAtLeast(1)
-            fitSingle(e, share).also { e.release() }
+            val minShare = (minBytes * (weights[i] / sum)).toLong()
+            fitSingle(e, share, minShare).also { e.release() }
         }.also { onProgress(encoders.size, encoders.size) }
     }
 
     companion object {
         private const val MAX_STEPS = 16
         private const val REFERENCE_QUALITY = 75
+    }
+}
+
+object JpegPadding {
+    private const val MAX_SEGMENT = 65_537 // marker (2) + length field (2) + 65,533 payload bytes
+
+    /** Inserts COM (0xFFFE) segments right after SOI until the data is at least [target] bytes. */
+    fun pad(jpeg: ByteArray, target: Long): ByteArray {
+        var deficit = target - jpeg.size
+        if (deficit <= 0) return jpeg
+        val out = java.io.ByteArrayOutputStream(target.toInt() + 4)
+        out.write(jpeg, 0, 2)
+        while (deficit > 0) {
+            var seg = minOf(deficit, MAX_SEGMENT.toLong()).toInt().coerceAtLeast(4)
+            // Never leave a remainder too small for its own segment.
+            if (deficit - seg in 1..3) seg -= 4
+            val len = seg - 2
+            out.write(0xFF); out.write(0xFE); out.write(len ushr 8); out.write(len and 0xFF)
+            out.write(ByteArray(seg - 4), 0, seg - 4)
+            deficit -= seg
+        }
+        out.write(jpeg, 2, jpeg.size - 2)
+        return out.toByteArray()
     }
 }

@@ -100,7 +100,7 @@ class StoreScreenshotTest {
         compose.setContent {
             AppTheme(dynamic = false) {
                 DocScreen(d, SnackbarHostState(), {}, {}, {}, {}, {}, {}, {})
-                ExportSheet(ExportFormat.PDF, 100, {}, { _, _ -> })
+                ExportSheet(ExportFormat.PDF, 100, null, {}, { _, _, _ -> })
             }
         }
         settle()
@@ -119,5 +119,22 @@ class StoreScreenshotTest {
         }
         settle()
         captureScreenRoboImage("$out/4_result.png")
+    }
+
+    /** en-IN listing: a multi-page application PDF fitted under 200 KB. */
+    @Test
+    fun resultIndia() {
+        val dir = File(context.cacheDir, "shots-in").apply { mkdirs() }
+        val d = Doc("5", "Exam application", 1_791_000_000_000L, List(4) { page(dir, "e$it.jpg", Color.rgb(255, 111, 0), 15) })
+            .also { doc -> doc.pages.forEach { ThumbCache.get(it) } }
+        val r = ExportResult(listOf(File("Exam application.pdf")), 196_480, 200_000, true, ExportFormat.PDF)
+        compose.setContent {
+            AppTheme(dynamic = false) {
+                DocScreen(d, SnackbarHostState(), {}, {}, {}, {}, {}, {}, {})
+                ExportResultDialog(r, {}, {}, {})
+            }
+        }
+        settle()
+        captureScreenRoboImage("$out/en-IN_4_result_200kb.png")
     }
 }

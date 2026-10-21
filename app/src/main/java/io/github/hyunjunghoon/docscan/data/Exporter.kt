@@ -1,6 +1,7 @@
 package io.github.hyunjunghoon.docscan.data
 
 import android.content.Context
+import io.github.hyunjunghoon.docscan.core.JpegPadding
 import io.github.hyunjunghoon.docscan.core.JpegPdfWriter
 import io.github.hyunjunghoon.docscan.core.SizeFitter
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,8 @@ data class ExportResult(
     val totalBytes: Long,
     /** Size limit in bytes (per file for JPG), or null for original quality. */
     val limitBytes: Long?,
+    /** Lower size bound in bytes (per file for JPG), or null when only a maximum was asked for. */
+    val minBytes: Long? = null,
     val reached: Boolean,
     val format: ExportFormat,
 )
@@ -25,6 +28,7 @@ class Exporter(private val context: Context) {
         doc: Doc,
         format: ExportFormat,
         limitKb: Int?,
+        minKb: Int? = null,
         onProgress: (done: Int, total: Int) -> Unit,
     ): ExportResult = withContext(Dispatchers.Default) {
         require(doc.pages.isNotEmpty())
@@ -33,6 +37,8 @@ class Exporter(private val context: Context) {
         val base = FileNames.safe(doc.name)
         // 1 KB = 1000 bytes, so the file also passes portals that count 1 KB as 1024 bytes.
         val limit = limitKb?.let { it * 1000L }
+        // The minimum uses 1 KB = 1024 bytes for the same reason, so both ways of counting are met.
+        val min = if (limit != null) minKb?.let { it * 1024L }?.takeIf { it < limit } else null
         val fitter = SizeFitter()
         when (format) {
             ExportFormat.PDF -> {
@@ -43,19 +49,27 @@ class Exporter(private val context: Context) {
                     }
                     return@withContext ExportResult(listOf(file), file.length(), null, true, format)
                 }
-                var budget = (limit - JpegPdfWriter.overheadBytes(doc.pages.size)).coerceAtLeast(1)
+                val overhead = JpegPdfWriter.overheadBytes(doc.pages.size)
+                var budget = (limit - overhead).coerceAtLeast(1)
+                val minBudget = ((min ?: 0) - overhead).coerceAtLeast(0)
                 var reached = false
                 for (attempt in 0 until 3) {
-                    val results = fitter.fitMany(doc.pages.map { AndroidPageEncoder(it) }, budget, onProgress)
-                    file.outputStream().buffered().use { JpegPdfWriter.write(results.map { it.bytes }, it) }
+                    val results = fitter.fitMany(doc.pages.map { AndroidPageEncoder(it) }, budget, minBudget, onProgress)
+                    val pages = results.map { it.bytes }.toMutableList()
+                    file.outputStream().buffered().use { JpegPdfWriter.write(pages, it) }
+                    if (min != null && file.length() < min) {
+                        // The overhead estimate was too large: top up the last page by the difference.
+                        pages[pages.lastIndex] = JpegPadding.pad(pages.last(), pages.last().size + min - file.length())
+                        file.outputStream().buffered().use { JpegPdfWriter.write(pages, it) }
+                    }
                     val over = file.length() - limit
                     val fitted = results.all { it.reached }
-                    reached = fitted && over <= 0
+                    reached = fitted && over <= 0 && file.length() >= (min ?: 0)
                     if (reached || !fitted) break
                     // Safety net in case the overhead estimate was too small: retry with a tighter budget.
                     budget = (budget - over - 512).coerceAtLeast(1)
                 }
-                ExportResult(listOf(file), file.length(), limit, reached, format)
+                ExportResult(listOf(file), file.length(), limit, reached, format, min)
             }
             ExportFormat.JPG -> {
                 var reached = true
@@ -67,14 +81,14 @@ class Exporter(private val context: Context) {
                         page.copyTo(out, overwrite = true)
                     } else {
                         val enc = AndroidPageEncoder(page)
-                        val r = try { fitter.fitSingle(enc, limit) } finally { enc.release() }
+                        val r = try { fitter.fitSingle(enc, limit, min ?: 0) } finally { enc.release() }
                         if (!r.reached) reached = false
                         out.writeBytes(r.bytes)
                     }
                     out
                 }
                 onProgress(doc.pages.size, doc.pages.size)
-                ExportResult(files, files.sumOf { it.length() }, limit, reached, format)
+                ExportResult(files, files.sumOf { it.length() }, limit, reached, format, min)
             }
         }
     }
