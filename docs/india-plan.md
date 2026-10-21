@@ -102,6 +102,12 @@ SizeScan is an independent app. It is not affiliated with, endorsed by or connec
 - SSC·RRB·JKSSB 사진 프리셋은 만들지 않음(라이브 촬영).
 - 미검증 공식 사이트(ssc.gov.in, ibps.in, indiapost.gov.in, passportindia.gov.in, voters.eci.gov.in, abha.abdm.gov.in, pan.utiitsl.com, ctet.nic.in, gosi.kr, passport.go.kr, gov.kr, work24.go.kr)는 추후 수동 확인 대상.
 
+### 변환 결과 (2026-10-21)
+- 원본·변환본: /mnt/project-files/app1/data/ (portal_specs_2026-10-21.csv, presets.v1.json, held.md)
+- presets.v1.json: 25개 포털·42개 항목. 이 중 공식 확인(verified=true) 9개 포털·13개 항목, 나머지는 "출처 확인 필요" 라벨.
+- 제외 20건: KB 규정 없음·라이브 촬영, secondary-conflict, unverified, 여권·비자 사진(DS-160, UK·일본·인도 여권 → 2호 앱 몫).
+- 인도 주요 시험(UPSC·SSC·IBPS·NEET·JEE)은 전부 secondary → 1.1 출시 전 공식 공고로 재확인 필요.
+
 ## 3. 필요한 것 (사용자)
-- 31개 포털 규격표 파일(출처 URL·확인일 포함이면 최적) → 이 스레드에 업로드.
+- ~~31개 포털 규격표 파일~~ 수령 완료(2026-10-21).
 - 출시 때 en-IN 등록정보 입력은 기존처럼 데스크톱 채팅방 복붙 프롬프트로 전달 예정.

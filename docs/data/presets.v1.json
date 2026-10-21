@@ -1,0 +1,704 @@
+{
+  "version": 1,
+  "updated": "2026-10-21",
+  "portals": [
+    {
+      "id": "pan-nsdl-protean",
+      "name": "PAN (NSDL/Protean)",
+      "country": "IN",
+      "verified": true,
+      "verification": "official",
+      "source": "https://tin.tin.nsdl.com/pan/InstructionDSC.html",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 20,
+          "dims": "3.5x2.5cm 200dpi color",
+          "note": null
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 10,
+          "dims": "2x4.5cm 200dpi",
+          "note": null
+        },
+        {
+          "type": "document",
+          "formats": [
+            "JPG",
+            "PDF"
+          ],
+          "minKb": null,
+          "maxKb": 300,
+          "dims": "per page 200dpi B/W",
+          "note": "Protean blog states 50KB photo - conflicting"
+        }
+      ]
+    },
+    {
+      "id": "pan-utiitsl",
+      "name": "PAN (UTIITSL)",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://ajays.is-a.dev/exam-guidelines.html",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 30,
+          "dims": "213x213px 300dpi",
+          "note": null
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 60,
+          "dims": "400x200px",
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "epfo-uan-kyc",
+      "name": "EPFO UAN KYC",
+      "country": "IN",
+      "verified": true,
+      "verification": "official",
+      "source": "https://www.epfindia.gov.in/site_docs/PDFs/UAN_PDFs/UAN_ForMembers/FAQ-Member-Ver1.1.pdf",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "document",
+          "formats": [
+            "JPG",
+            "PDF"
+          ],
+          "minKb": null,
+          "maxKb": 300,
+          "dims": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "epfo-uan",
+      "name": "EPFO UAN",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://ajays.is-a.dev/exam-guidelines.html",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 100,
+          "dims": "3.5x4.5cm (413x531px)",
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "ctet-nta",
+      "name": "CTET (NTA)",
+      "country": "IN",
+      "verified": true,
+      "verification": "official-mirror",
+      "source": "https://docs.aglasem.com/view/26c0918c-8d8e-11f1-a702-0aa932765c8b",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 100,
+          "dims": "3.5cm W x 4.5cm H",
+          "note": null
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 3,
+          "maxKb": 30,
+          "dims": "3.5x1.5cm",
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "jkssb",
+      "name": "JKSSB",
+      "country": "IN",
+      "verified": true,
+      "verification": "official",
+      "source": "https://www.jkssb.nic.in/Pdf/Instructions_Notice_15OF2025_31012026.pdf",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 20,
+          "dims": "1.5cm H x 3.5cm W",
+          "note": null
+        },
+        {
+          "type": "document",
+          "formats": [
+            "PDF"
+          ],
+          "minKb": null,
+          "maxKb": 100,
+          "dims": null,
+          "note": "category/education certificates"
+        }
+      ]
+    },
+    {
+      "id": "voter-id-online",
+      "name": "Voter ID online",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://ajays.is-a.dev/exam-guidelines.html",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "document",
+          "formats": [
+            "JPG",
+            "PDF"
+          ],
+          "minKb": null,
+          "maxKb": 2048,
+          "dims": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "upsc-cse-otr",
+      "name": "UPSC CSE (OTR)",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://vajiramandravi.com/upsc-exam/upsc-photo-and-signature-guidelines/",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 20,
+          "maxKb": 200,
+          "dims": "white bg face ~75% both ears",
+          "note": "filename 'photo'; some sources say 20-300KB"
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 20,
+          "maxKb": 100,
+          "dims": "350-500px",
+          "note": "black ink; filename 'signature'"
+        }
+      ]
+    },
+    {
+      "id": "ssc-otr-cgl-chsl",
+      "name": "SSC OTR (CGL/CHSL)",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://www.pw.live/ssc/exams/ssc-cgl-photo-and-signature-size-2026",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 20,
+          "dims": "4.0x2.0cm (CHSL source says 6.0x2.0cm)",
+          "note": "black/blue ink"
+        }
+      ]
+    },
+    {
+      "id": "ibps-po-clerk",
+      "name": "IBPS PO/Clerk",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://career.aglasem.com/banking/ibps-po/application",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 20,
+          "maxKb": 50,
+          "dims": null,
+          "note": "plus live photo during application"
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 20,
+          "dims": null,
+          "note": "no capital letters"
+        },
+        {
+          "type": "thumb impression",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 20,
+          "maxKb": 50,
+          "dims": null,
+          "note": "left thumb black/blue ink"
+        },
+        {
+          "type": "handwritten declaration",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 50,
+          "maxKb": 100,
+          "dims": null,
+          "note": "English not capitals"
+        }
+      ]
+    },
+    {
+      "id": "neet-ug-nta",
+      "name": "NEET UG (NTA)",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://medicine.careers360.com/articles/list-of-documents-required-for-neet-ug-2026-application-form-released",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "passport photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 200,
+          "dims": "2.5x3.5in 72dpi",
+          "note": null
+        },
+        {
+          "type": "postcard photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 200,
+          "dims": "4x6in",
+          "note": null
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 4,
+          "maxKb": 30,
+          "dims": null,
+          "note": null
+        },
+        {
+          "type": "thumb impression",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 200,
+          "dims": null,
+          "note": null
+        },
+        {
+          "type": "certificate",
+          "formats": [
+            "PDF"
+          ],
+          "minKb": 50,
+          "maxKb": 300,
+          "dims": null,
+          "note": "class 10 / category / PwBD"
+        }
+      ]
+    },
+    {
+      "id": "jee-main-nta",
+      "name": "JEE Main (NTA)",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://www.pw.live/iit-jee/exams/jee-main-photo-and-signature-guidelines",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 300,
+          "dims": "3.5x4.5cm white bg face 80%",
+          "note": "filename 'Photograph'"
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 10,
+          "maxKb": 50,
+          "dims": null,
+          "note": "black/blue ink; filename 'Signature'"
+        },
+        {
+          "type": "certificate",
+          "formats": [
+            "PDF"
+          ],
+          "minKb": 50,
+          "maxKb": 300,
+          "dims": null,
+          "note": "category/PwD"
+        }
+      ]
+    },
+    {
+      "id": "india-post-gds",
+      "name": "India Post GDS",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://www.pw.live/ssc/exams/india-post-gds-photo-and-signature-guidelines-2026",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 30,
+          "maxKb": 100,
+          "dims": "320x400px (4:5)",
+          "note": null
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 20,
+          "maxKb": 100,
+          "dims": "300x120px",
+          "note": "black/blue ink white paper"
+        }
+      ]
+    },
+    {
+      "id": "rrb-ntpc",
+      "name": "RRB NTPC",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://www.oliveboard.in/blog/rrb-ntpc-photo-and-signature-details/",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": 30,
+          "maxKb": 49,
+          "dims": "min 140x60px 100dpi 35x20mm box",
+          "note": "black ink running hand"
+        }
+      ]
+    },
+    {
+      "id": "passport-seva",
+      "name": "Passport Seva",
+      "country": "IN",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://ajays.is-a.dev/exam-guidelines.html",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 100,
+          "dims": "~600x200px",
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "q-net",
+      "name": "큐넷 Q-Net",
+      "country": "KR",
+      "verified": true,
+      "verification": "official",
+      "source": "https://www.q-net.or.kr/qnet/html/guideQnet/guide_02.html",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 200,
+          "dims": "2.5x3.5 or 3x4 (증명/반명함)",
+          "note": "remove margins"
+        }
+      ]
+    },
+    {
+      "id": "passport-go-kr",
+      "name": "여권 온라인 재발급 (passport.go.kr)",
+      "country": "KR",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://www.yeonsu.go.kr/main/general/part/passport_online.asp",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 500,
+          "dims": "413x531px (395-431 x 507-550)",
+          "note": "within 6 months; official page blocked"
+        }
+      ]
+    },
+    {
+      "id": "kr-18",
+      "name": "수능 온라인 사전입력",
+      "country": "KR",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://docttak.com/guide/",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 500,
+          "dims": "413x531px 300dpi",
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "name": "고용24 이력서",
+      "country": "KR",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://funissu.com/work24-resume-upload/",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 3072,
+          "dims": null,
+          "note": "max 10 attachments"
+        }
+      ]
+    },
+    {
+      "id": "jp-20",
+      "name": "パスポート オンライン申請 (外務省)",
+      "country": "JP",
+      "verified": true,
+      "verification": "official",
+      "source": "https://www.mofa.go.jp/mofaj/toko/passport/page24_002222.html",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 200,
+          "dims": "788x284px",
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "jp-21",
+      "name": "社会保険労務士試験",
+      "country": "JP",
+      "verified": true,
+      "verification": "official",
+      "source": "https://sharosi-siken.or.jp/wp-content/uploads/2025/04/57kaiannai.pdf",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 3072,
+          "dims": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "jp-22",
+      "name": "奈良県立医大 出願",
+      "country": "JP",
+      "verified": true,
+      "verification": "official",
+      "source": "https://naramed-u.ac.jp/university/nyushijoho/internet/documents/shashin_upload.pdf",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 3072,
+          "dims": null,
+          "note": "varies by university"
+        }
+      ]
+    },
+    {
+      "id": "fpsc",
+      "name": "FPSC",
+      "country": "PK",
+      "verified": true,
+      "verification": "official",
+      "source": "https://fpsc.gov.pk/assets/media/2024-07-09-03-17-18-GRNewGuidline-05-11-2018.pdf",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 30,
+          "dims": null,
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "nadra-pak-identity",
+      "name": "NADRA Pak-Identity",
+      "country": "PK",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://visafoto.com/pk-cnic-350x467-px-photo",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 60,
+          "dims": "350x467px white bg",
+          "note": null
+        }
+      ]
+    },
+    {
+      "id": "teletalk-bpsc-govt-jobs",
+      "name": "Teletalk (BPSC/govt jobs)",
+      "country": "BD",
+      "verified": false,
+      "verification": "secondary",
+      "source": "https://en.prothomalo.com/youth/employment/713jh8zuin",
+      "checked": "2026-10-21",
+      "items": [
+        {
+          "type": "photo",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 100,
+          "dims": "300x300px",
+          "note": null
+        },
+        {
+          "type": "signature",
+          "formats": [
+            "JPG"
+          ],
+          "minKb": null,
+          "maxKb": 60,
+          "dims": "300x80px",
+          "note": null
+        }
+      ]
+    }
+  ]
+}
