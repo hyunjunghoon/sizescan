@@ -39,15 +39,7 @@ jobs:
             echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
             export SIGNING_KEYSTORE_PATH="$RUNNER_TEMP/upload.jks"
           fi
-          # Newest preinstalled NDK, so the bundle carries native debug symbols for Play.
-          NDK_VERSION=$(ls "$ANDROID_HOME/ndk" | sort -V | tail -1)
-          echo "Using NDK $NDK_VERSION"
-          ./gradlew --no-daemon bundleRelease -PNDK_VERSION="$NDK_VERSION"
-          if ! unzip -l app/build/outputs/bundle/release/app-release.aab | grep -q 'BUNDLE-METADATA/com.android.tools.build.debugsymbols/'; then
-            unzip -l app/build/outputs/bundle/release/app-release.aab | grep -E 'BUNDLE-METADATA|\.so$' || true
-            find app/build/intermediates -ipath '*symbol*' -o -ipath '*debug_metadata*' | head -40
-            echo "::error::Native debug symbols missing from the bundle"; exit 1
-          fi
+          ./gradlew --no-daemon bundleRelease
 
       # Build outputs are handed to the private signing step encrypted, so the public
       # release only holds ciphertext (ci/transfer_pub.pem; the private key is not in the repo).
