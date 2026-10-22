@@ -301,6 +301,15 @@ fun DocScreen(
     ) { pad ->
         Column(Modifier.padding(pad).fillMaxSize()) {
         if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+        if (doc.pages.isNotEmpty()) {
+            // The page menu has no visible button, so say it exists.
+            Text(
+                stringResource(R.string.page_tap_hint),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
+            )
+        }
         LazyVerticalGrid(
             // 120dp keeps two columns on 320dp-wide phones instead of one oversized page.
             columns = GridCells.Adaptive(120.dp),

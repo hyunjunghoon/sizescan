@@ -65,6 +65,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         _themeMode.value = mode
     }
 
+    /** True until the how-to guide has been shown once, so it opens by itself on first launch. */
+    val helpPending: Boolean
+        get() = !prefs.getBoolean(KEY_HELP_SEEN, false)
+
+    fun markHelpSeen() {
+        prefs.edit().putBoolean(KEY_HELP_SEEN, true).apply()
+    }
+
     val lastFormat: ExportFormat
         get() = runCatching { ExportFormat.valueOf(prefs.getString(KEY_FORMAT, null)!!) }.getOrDefault(ExportFormat.PDF)
     val lastLimitKb: Int?
@@ -253,5 +261,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_EXPORTS = "exports"
         private const val KEY_REVIEW_ASKED = "review_asked"
         private const val KEY_THEME = "theme"
+        private const val KEY_HELP_SEEN = "help_seen"
     }
 }

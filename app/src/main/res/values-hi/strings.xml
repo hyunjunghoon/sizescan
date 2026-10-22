@@ -52,11 +52,12 @@
     <string name="theme_dark">डार्क</string>
     <string name="help_title">SizeScan कैसे इस्तेमाल करें</string>
     <string name="help_step_1">काग़ज़ के डॉक्यूमेंट की फ़ोटो लेने के लिए स्कैन दबाएँ, या पहले से मौजूद इमेज चुनने के लिए फ़ोटो दबाएँ।</string>
-    <string name="help_step_2">पेज जोड़ने या हटाने के लिए डॉक्यूमेंट खोलें।</string>
+    <string name="help_step_2">पेज जोड़ने या हटाने के लिए डॉक्यूमेंट खोलें। पेज घुमाने या उसका क्रम बदलने के लिए उस पर टैप करें।</string>
     <string name="help_step_3">सेव / शेयर दबाएँ, PDF या JPG और अधिकतम साइज़ (जैसे 100 KB) चुनें। अगर पोर्टल बहुत छोटी फ़ाइल भी नहीं लेता, तो न्यूनतम भी डालें।</string>
     <string name="help_step_4">फ़ाइल फ़ोन में सेव करें या सीधे किसी ऐप में शेयर करें।</string>
     <string name="help_privacy">आपके डॉक्यूमेंट इसी डिवाइस पर रहते हैं। कुछ भी अपलोड नहीं होता।</string>
     <string name="share_app_text">SizeScan: डॉक्यूमेंट स्कैन करें और PDF या JPG को ठीक उसी साइज़ में सेव करें जो चाहिए, जैसे 100 KB से कम। %1$s</string>
+    <string name="page_tap_hint">पेज घुमाने या उसका क्रम बदलने के लिए उस पर टैप करें।</string>
     <string name="page_rotate">घुमाएँ</string>
     <string name="page_move_earlier">पहले ले जाएँ</string>
     <string name="page_move_later">बाद में ले जाएँ</string>

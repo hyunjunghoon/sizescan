@@ -50,6 +50,9 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // Puts native symbol files in the bundle so Play stops warning about missing debug symbols
+            // and can symbolicate native crashes (only androidx.graphics.path ships a .so today).
+            ndk { debugSymbolLevel = "SYMBOL_TABLE" }
             manifestPlaceholders["admobAppId"] = prop("ADMOB_APP_ID") ?: testAppId
             buildConfigField("String", "AD_BANNER_ID", "\"${prop("ADMOB_BANNER_ID") ?: testBannerId}\"")
             buildConfigField("String", "AD_INTERSTITIAL_ID", "\"${prop("ADMOB_INTERSTITIAL_ID") ?: testInterstitialId}\"")

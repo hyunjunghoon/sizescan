@@ -52,11 +52,12 @@
     <string name="theme_dark">Dunkel</string>
     <string name="help_title">So funktioniert SizeScan</string>
     <string name="help_step_1">Tippe auf Scannen, um Papierdokumente zu fotografieren, oder auf Fotos, um vorhandene Bilder auszuwählen.</string>
-    <string name="help_step_2">Öffne ein Dokument, um Seiten hinzuzufügen oder zu löschen.</string>
+    <string name="help_step_2">Öffne ein Dokument, um Seiten hinzuzufügen oder zu löschen. Tippe auf eine Seite, um sie zu drehen oder zu verschieben.</string>
     <string name="help_step_3">Tippe auf Speichern / Teilen, wähle PDF oder JPG und die maximale Größe (z. B. 100 KB). Wenn eine Website auch zu kleine Dateien ablehnt, lege zusätzlich ein Minimum fest.</string>
     <string name="help_step_4">Speichere die Datei auf dem Gerät oder teile sie direkt mit einer App.</string>
     <string name="help_privacy">Deine Dokumente bleiben auf diesem Gerät. Es wird nichts hochgeladen.</string>
     <string name="share_app_text">SizeScan: Dokumente scannen und als PDF oder JPG in genau der benötigten Größe speichern, z. B. unter 100 KB. %1$s</string>
+    <string name="page_tap_hint">Tippe auf eine Seite, um sie zu drehen oder zu verschieben.</string>
     <string name="page_rotate">Drehen</string>
     <string name="page_move_earlier">Nach vorne</string>
     <string name="page_move_later">Nach hinten</string>
