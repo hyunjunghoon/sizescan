@@ -65,9 +65,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         _themeMode.value = mode
     }
 
-    /** True until the how-to guide has been shown once, so it opens by itself on first launch. */
+    /**
+     * True until the how-to guide has been shown once, so it opens by itself on a fresh install.
+     * People updating from 1.0.2 or earlier (who already exported or picked a theme) don't get it.
+     */
     val helpPending: Boolean
-        get() = !prefs.getBoolean(KEY_HELP_SEEN, false)
+        get() = !prefs.getBoolean(KEY_HELP_SEEN, false) &&
+            listOf(KEY_EXPORTS, KEY_FORMAT, KEY_THEME).none(prefs::contains)
 
     fun markHelpSeen() {
         prefs.edit().putBoolean(KEY_HELP_SEEN, true).apply()

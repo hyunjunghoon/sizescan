@@ -47,6 +47,20 @@ class SmallScreenTest {
     }
 
     @Test
+    fun docScreenWithPagesShowsHintAndActions() {
+        // Missing file: the thumbnail stays empty, which is all this layout check needs.
+        val doc = Doc("1", "Antrag", 0L, listOf(File("missing.jpg")))
+        compose.setContent {
+            AppTheme(dynamic = false) {
+                DocScreen(doc, SnackbarHostState(), {}, {}, {}, {}, {}, {}, {})
+            }
+        }
+        listOf(R.string.page_tap_hint, R.string.action_add_pages, R.string.action_export).forEach {
+            compose.onNodeWithText(str(it)).assertIsDisplayed()
+        }
+    }
+
+    @Test
     fun helpDialogFits() {
         compose.setContent { AppTheme(dynamic = false) { HelpDialog {} } }
         compose.onNodeWithText(str(R.string.ok)).assertIsDisplayed()
