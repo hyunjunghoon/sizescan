@@ -52,11 +52,12 @@
     <string name="theme_dark">Oscuro</string>
     <string name="help_title">Cómo usar SizeScan</string>
     <string name="help_step_1">Toca Escanear para fotografiar documentos en papel, o Fotos para elegir imágenes que ya tienes.</string>
-    <string name="help_step_2">Abre un documento para añadir o eliminar páginas.</string>
-    <string name="help_step_3">Toca Guardar / Compartir, elige PDF o JPG y el tamaño máximo (por ejemplo, 100 KB). Si un sitio también rechaza archivos demasiado pequeños, define también el mínimo.</string>
+    <string name="help_step_2">Abre un documento para añadir o eliminar páginas. Toca una página para girarla o moverla.</string>
+    <string name="help_step_3">Toca Guardar / Compartir, elige PDF o JPG y el tamaño máximo (por ejemplo, 100 KB). Si un sitio también rechaza archivos demasiado pequeños, indica además Mín.</string>
     <string name="help_step_4">Guarda el archivo en tu teléfono o compártelo directamente con una app.</string>
-    <string name="help_privacy">Tus documentos se quedan en este dispositivo. No se sube nada.</string>
+    <string name="help_privacy">Tus documentos se quedan en este dispositivo y nunca se suben.</string>
     <string name="share_app_text">SizeScan: escanea documentos y guárdalos en PDF o JPG con el tamaño exacto que necesitas, por ejemplo menos de 100 KB. %1$s</string>
+    <string name="page_tap_hint">Toca una página para girarla o moverla.</string>
     <string name="page_rotate">Girar</string>
     <string name="page_move_earlier">Mover antes</string>
     <string name="page_move_later">Mover después</string>

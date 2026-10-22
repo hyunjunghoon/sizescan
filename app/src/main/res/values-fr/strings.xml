@@ -52,11 +52,12 @@
     <string name="theme_dark">Sombre</string>
     <string name="help_title">Utiliser SizeScan</string>
     <string name="help_step_1">Appuyez sur Scanner pour photographier des documents papier, ou sur Photos pour choisir des images existantes.</string>
-    <string name="help_step_2">Ouvrez un document pour ajouter ou supprimer des pages.</string>
-    <string name="help_step_3">Appuyez sur Enregistrer / Partager, choisissez PDF ou JPG et la taille maximale (par exemple 100 Ko). Si un site refuse aussi les fichiers trop petits, indiquez aussi un minimum.</string>
+    <string name="help_step_2">Ouvrez un document pour ajouter ou supprimer des pages. Appuyez sur une page pour la faire pivoter ou la déplacer.</string>
+    <string name="help_step_3">Appuyez sur Enregistrer / Partager, choisissez PDF ou JPG et la taille maximale (par exemple 100 Ko). Si un site refuse aussi les fichiers trop petits, renseignez également Min.</string>
     <string name="help_step_4">Enregistrez le fichier sur votre téléphone ou partagez-le directement avec une appli.</string>
-    <string name="help_privacy">Vos documents restent sur cet appareil. Rien n\'est envoyé en ligne.</string>
+    <string name="help_privacy">Vos documents restent sur cet appareil et ne sont jamais envoyés en ligne.</string>
     <string name="share_app_text">SizeScan : scannez des documents et enregistrez-les en PDF ou JPG à la taille exacte voulue, par exemple moins de 100 Ko. %1$s</string>
+    <string name="page_tap_hint">Appuyez sur une page pour la faire pivoter ou la déplacer.</string>
     <string name="page_rotate">Pivoter</string>
     <string name="page_move_earlier">Déplacer avant</string>
     <string name="page_move_later">Déplacer après</string>

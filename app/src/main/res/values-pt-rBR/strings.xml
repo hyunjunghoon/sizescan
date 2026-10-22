@@ -3,7 +3,7 @@
     <string name="action_scan">Digitalizar</string>
     <string name="action_photos">Fotos</string>
     <string name="home_empty_title">Nenhum documento ainda</string>
-    <string name="home_empty_body">Digitalize documentos ou escolha fotos e salve como PDF ou JPG no tamanho exato que você precisa, como menos de 100 KB.</string>
+    <string name="home_empty_body">Digitalize documentos ou escolha fotos e salve como PDF ou JPG no tamanho exato que você precisa, por exemplo, abaixo de 100 KB.</string>
     <string name="menu_privacy">Privacidade</string>
     <string name="menu_privacy_policy">Política de privacidade</string>
     <string name="action_back">Voltar</string>
@@ -52,11 +52,12 @@
     <string name="theme_dark">Escuro</string>
     <string name="help_title">Como usar o SizeScan</string>
     <string name="help_step_1">Toque em Digitalizar para fotografar documentos em papel, ou em Fotos para escolher imagens que você já tem.</string>
-    <string name="help_step_2">Abra um documento para adicionar ou excluir páginas.</string>
-    <string name="help_step_3">Toque em Salvar / Compartilhar, escolha PDF ou JPG e o tamanho máximo (por exemplo, 100 KB). Se o site também recusar arquivos pequenos demais, defina o mínimo.</string>
+    <string name="help_step_2">Abra um documento para adicionar ou excluir páginas. Toque em uma página para girá-la ou mudar a ordem.</string>
+    <string name="help_step_3">Toque em Salvar / Compartilhar, escolha PDF ou JPG e o tamanho máximo (por exemplo, 100 KB). Se o site também recusar arquivos pequenos demais, defina também Mín.</string>
     <string name="help_step_4">Salve o arquivo no celular ou compartilhe direto com um app.</string>
-    <string name="help_privacy">Seus documentos ficam neste aparelho. Nada é enviado.</string>
+    <string name="help_privacy">Seus documentos ficam neste aparelho e nunca são enviados.</string>
     <string name="share_app_text">SizeScan: digitalize documentos e salve em PDF ou JPG no tamanho exato que você precisa, por exemplo abaixo de 100 KB. %1$s</string>
+    <string name="page_tap_hint">Toque em uma página para girá-la ou mudar a ordem.</string>
     <string name="page_rotate">Girar</string>
     <string name="page_move_earlier">Mover para antes</string>
     <string name="page_move_later">Mover para depois</string>

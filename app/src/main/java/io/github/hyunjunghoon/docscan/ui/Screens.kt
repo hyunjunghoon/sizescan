@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
@@ -309,6 +310,16 @@ fun DocScreen(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            if (doc.pages.isNotEmpty()) {
+                // The page menu has no visible button, so say it exists. Scrolls away with the pages.
+                item(key = "hint", span = { GridItemSpan(maxLineSpan) }) {
+                    Text(
+                        stringResource(R.string.page_tap_hint),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
             itemsIndexed(doc.pages, key = { _, f -> f.name }) { i, file ->
                 Box {
                     // Tap a page for rotate / reorder.

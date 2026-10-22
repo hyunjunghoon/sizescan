@@ -52,11 +52,12 @@
     <string name="theme_dark">Gelap</string>
     <string name="help_title">Cara memakai SizeScan</string>
     <string name="help_step_1">Ketuk Pindai untuk memotret dokumen kertas, atau Foto untuk memilih gambar yang sudah ada.</string>
-    <string name="help_step_2">Buka dokumen untuk menambah atau menghapus halaman.</string>
+    <string name="help_step_2">Buka dokumen untuk menambah atau menghapus halaman. Ketuk halaman untuk memutar atau mengubah urutannya.</string>
     <string name="help_step_3">Ketuk Simpan / Bagikan, pilih PDF atau JPG dan ukuran maksimum (misalnya 100 KB). Jika situs juga menolak file yang terlalu kecil, isi juga Min.</string>
     <string name="help_step_4">Simpan file ke ponsel atau bagikan langsung ke aplikasi.</string>
-    <string name="help_privacy">Dokumen Anda tetap di perangkat ini. Tidak ada yang diunggah.</string>
+    <string name="help_privacy">Dokumen Anda tetap di perangkat ini dan tidak pernah diunggah.</string>
     <string name="share_app_text">SizeScan: pindai dokumen dan simpan sebagai PDF atau JPG dengan ukuran yang tepat, misalnya di bawah 100 KB. %1$s</string>
+    <string name="page_tap_hint">Ketuk halaman untuk memutar atau mengubah urutannya.</string>
     <string name="page_rotate">Putar</string>
     <string name="page_move_earlier">Pindah ke depan</string>
     <string name="page_move_later">Pindah ke belakang</string>

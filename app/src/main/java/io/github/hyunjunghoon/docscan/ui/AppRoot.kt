@@ -97,7 +97,7 @@ fun AppRoot(vm: MainViewModel) {
     }
 
     var showExportSheet by rememberSaveable { mutableStateOf(false) }
-    var showHelp by rememberSaveable { mutableStateOf(false) }
+    var showHelp by rememberSaveable { mutableStateOf(vm.helpPending) }
     var showTheme by rememberSaveable { mutableStateOf(false) }
     val themeMode by vm.themeMode.collectAsStateWithLifecycle()
 
@@ -140,7 +140,7 @@ fun AppRoot(vm: MainViewModel) {
         )
     }
 
-    if (showHelp) HelpDialog(onDismiss = { showHelp = false })
+    if (showHelp) HelpDialog(onDismiss = { showHelp = false; vm.markHelpSeen() })
     if (showTheme) {
         ThemeDialog(
             current = themeMode,
