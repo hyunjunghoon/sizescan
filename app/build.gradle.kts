@@ -17,6 +17,8 @@ fun prop(name: String): String? = (project.findProperty(name) as String?)?.takeI
 android {
     namespace = "io.github.hyunjunghoon.docscan"
     compileSdk = 36
+    // Symbol extraction for Play needs an NDK; CI passes the newest one preinstalled on the runner.
+    prop("NDK_VERSION")?.let { ndkVersion = it }
 
     defaultConfig {
         applicationId = "com.tallowbird.sizescan"
