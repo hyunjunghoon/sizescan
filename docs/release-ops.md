@@ -17,8 +17,8 @@
 11. Play Console **스토어 설정 > 스토어 등록정보 연락처 > 웹사이트**에 `https://hyunjunghoon.github.io` 입력 (app-ads.txt 확인용)
 
 ### [Claude] 받은 뒤 자동 처리
-1. gradle.properties에 `ADMOB_APP_ID`, `ADMOB_BANNER`, `ADMOB_INTERSTITIAL` 입력, `REQUIRE_REAL_ADS=true` (테스트 ID가 남아 있으면 빌드 실패하도록 되어 있음)
-2. `VERSION_NAME` 확인 → main 푸시 → CI 빌드(versionCode 자동 증가) → 컨테이너에서 업로드 키로 jarsigner 서명 → 매니페스트 package·APPLICATION_ID 메타데이터 확인
+1. 실제 광고 ID 3개는 gradle.properties에 입력 완료(2026-10-27). 출시 빌드 때 `USE_REAL_ADS=true` 한 줄만 바꾼다 (false면 테스트 ID, true인데 ID가 비었거나 테스트 ID면 빌드 실패)
+2. `VERSION_CODE`·`VERSION_NAME` 수동 증가 → main 푸시 → CI 빌드 → 컨테이너에서 업로드 키로 jarsigner 서명 → 매니페스트 package·APPLICATION_ID 메타데이터 확인
 3. hyunjunghoon.github.io 저장소 루트에 `app-ads.txt` 게시: `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`
 4. 서명 AAB를 /mnt/project-files/app1-builds/ 에 두고 스레드로 전달 → 사용자가 프로덕션 트랙에 업로드
 

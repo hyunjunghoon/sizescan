@@ -31,9 +31,6 @@ jobs:
           SIGNING_STORE_PASSWORD: ${{ secrets.UPLOAD_STORE_PASSWORD }}
           SIGNING_KEY_ALIAS: ${{ secrets.UPLOAD_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_KEY_PASSWORD }}
-          ORG_GRADLE_PROJECT_ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID }}
-          ORG_GRADLE_PROJECT_ADMOB_BANNER_ID: ${{ secrets.ADMOB_BANNER_ID }}
-          ORG_GRADLE_PROJECT_ADMOB_INTERSTITIAL_ID: ${{ secrets.ADMOB_INTERSTITIAL_ID }}
         run: |
           if [ -n "$KEYSTORE_B64" ]; then
             echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
