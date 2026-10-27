@@ -7,12 +7,19 @@ plugins {
     id("io.github.takahirom.roborazzi")
 }
 
-// Google's official AdMob test IDs. Release builds read real IDs from Gradle properties
-// (-PADMOB_APP_ID=... etc. or ~/.gradle/gradle.properties) and fall back to test IDs.
+// Google's official AdMob test IDs. Release builds switch to the real IDs in gradle.properties
+// only when USE_REAL_ADS=true, so closed-testing builds can never serve real ads.
 val testAppId = "ca-app-pub-3940256099942544~3347511713"
 val testBannerId = "ca-app-pub-3940256099942544/9214589741"
 val testInterstitialId = "ca-app-pub-3940256099942544/1033173712"
 fun prop(name: String): String? = (project.findProperty(name) as String?)?.takeIf { it.isNotBlank() }
+val useRealAds = prop("USE_REAL_ADS") == "true"
+fun releaseAdId(name: String, testId: String): String {
+    if (!useRealAds) return testId
+    val id = prop(name) ?: throw GradleException("$name is missing but USE_REAL_ADS=true")
+    if (id.startsWith("ca-app-pub-3940256099942544")) throw GradleException("$name is a test ID but USE_REAL_ADS=true")
+    return id
+}
 
 android {
     namespace = "io.github.hyunjunghoon.docscan"
@@ -50,17 +57,11 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            manifestPlaceholders["admobAppId"] = prop("ADMOB_APP_ID") ?: testAppId
-            buildConfigField("String", "AD_BANNER_ID", "\"${prop("ADMOB_BANNER_ID") ?: testBannerId}\"")
-            buildConfigField("String", "AD_INTERSTITIAL_ID", "\"${prop("ADMOB_INTERSTITIAL_ID") ?: testInterstitialId}\"")
+            manifestPlaceholders["admobAppId"] = releaseAdId("ADMOB_APP_ID", testAppId)
+            buildConfigField("String", "AD_BANNER_ID", "\"${releaseAdId("ADMOB_BANNER_ID", testBannerId)}\"")
+            buildConfigField("String", "AD_INTERSTITIAL_ID", "\"${releaseAdId("ADMOB_INTERSTITIAL_ID", testInterstitialId)}\"")
             if (System.getenv("SIGNING_KEYSTORE_PATH") != null) {
                 signingConfig = signingConfigs.getByName("release")
-            }
-            // Production uploads must never ship test ad IDs (closed-testing builds may).
-            if (prop("REQUIRE_REAL_ADS") == "true") {
-                listOf("ADMOB_APP_ID", "ADMOB_BANNER_ID", "ADMOB_INTERSTITIAL_ID").forEach {
-                    if (prop(it) == null) throw GradleException("$it is missing for a production build")
-                }
             }
         }
     }
