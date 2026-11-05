@@ -1,0 +1,38 @@
+name: Store screenshots
+
+# Renders the Play Store screenshots (Robolectric + Roborazzi) and commits the PNGs to the
+# store-shots-out branch so they can be fetched with git. Runs only on the store-shots branch.
+on:
+  push:
+    branches: [store-shots]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew
+      - name: Render store screenshots
+        run: ./gradlew --no-daemon testDebugUnitTest --tests '*StoreScreenshotTest*' -Proborazzi.test.record=true
+      - name: Commit PNGs to store-shots-out
+        run: |
+          mkdir -p /tmp/out && cp app/build/outputs/store/*.png /tmp/out/
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git checkout --orphan store-shots-out
+          git rm -rfq .
+          cp /tmp/out/*.png .
+          echo "${{ github.sha }}" > source-sha.txt
+          git add *.png source-sha.txt
+          git commit -qm "Store screenshots from ${{ github.sha }}"
+          git push -f origin store-shots-out

@@ -121,6 +121,65 @@ class StoreScreenshotTest {
         captureScreenRoboImage("$out/4_result.png")
     }
 
+    /** Listing frame: minimum–maximum range chosen (portals that also reject small files). */
+    @Test
+    fun exportRange() {
+        val d = docs()[2]
+        compose.setContent {
+            AppTheme(dynamic = false) {
+                DocScreen(d, SnackbarHostState(), {}, {}, {}, {}, {}, {}, {})
+                ExportSheet(ExportFormat.PDF, 200, 50, {}, { _, _, _ -> })
+            }
+        }
+        settle()
+        captureScreenRoboImage("$out/5_export_range.png")
+    }
+
+    /** Listing frame: a JPG signature fitted under 20 KB. */
+    @Test
+    fun signature() {
+        val dir = File(context.cacheDir, "shots-sig").apply { mkdirs() }
+        val d = Doc("6", "Signature", 1_791_000_000_000L, listOf(page(dir, "s1.jpg", Color.rgb(32, 33, 36), 2)))
+            .also { doc -> doc.pages.forEach { ThumbCache.get(it) } }
+        val r = ExportResult(listOf(File("Signature.jpg")), 18_620, 20_000, true, ExportFormat.JPG)
+        compose.setContent {
+            AppTheme(dynamic = false) {
+                DocScreen(d, SnackbarHostState(), {}, {}, {}, {}, {}, {}, {})
+                ExportResultDialog(r, {}, {}, {})
+            }
+        }
+        settle()
+        captureScreenRoboImage("$out/6_signature_20kb.png")
+    }
+
+    /** Listing frame: result inside a 50–200 KB range. */
+    @Test
+    fun resultRange() {
+        val d = docs()[2]
+        val r = ExportResult(listOf(File("Exam admit card.pdf")), 187_200, 200_000, true, ExportFormat.PDF, minBytes = 51_200)
+        compose.setContent {
+            AppTheme(dynamic = false) {
+                DocScreen(d, SnackbarHostState(), {}, {}, {}, {}, {}, {}, {})
+                ExportResultDialog(r, {}, {}, {})
+            }
+        }
+        settle()
+        captureScreenRoboImage("$out/7_result_range.png")
+    }
+
+    /** Listing frame: dark theme home. */
+    @Test
+    fun homeDark() {
+        val d = docs()
+        compose.setContent {
+            AppTheme(dynamic = false, mode = ThemeMode.DARK) {
+                HomeScreen(d, false, SnackbarHostState(), false, {}, {}, {}, {}, {})
+            }
+        }
+        settle()
+        captureScreenRoboImage("$out/8_home_dark.png")
+    }
+
     /** en-IN listing: a multi-page application PDF fitted under 200 KB. */
     @Test
     fun resultIndia() {
