@@ -56,6 +56,24 @@ class DocRepository(private val context: Context) {
         return failed
     }
 
+    /**
+     * Adds every page of a PDF as page images (up to [PdfPages.MAX_PAGES]). Returns the PDF's page count.
+     * On failure the pages written so far are removed and the exception is rethrown.
+     */
+    fun addPdf(id: String, uri: Uri): Int {
+        val dir = File(root, id)
+        val first = (pageFiles(dir).maxOfOrNull { it.name.substring(1, 5).toIntOrNull() ?: 0 } ?: 0) + 1
+        val written = mutableListOf<File>()
+        try {
+            return PdfPages.render(context, uri) { i ->
+                File(dir, String.format(Locale.ROOT, "p%04d.jpg", first + i)).also { written += it }
+            }
+        } catch (e: Throwable) {
+            written.forEach { it.delete() }
+            throw e
+        }
+    }
+
     fun rename(id: String, name: String) {
         val doc = get(id) ?: return
         writeMeta(File(root, id), name, doc.createdAt)

@@ -3,7 +3,7 @@
     <string name="action_scan">スキャン</string>
     <string name="action_photos">写真</string>
     <string name="home_empty_title">ドキュメントはまだありません</string>
-    <string name="home_empty_body">書類をスキャンするか写真を選んで、必要なサイズ（例: 100KB以下）のPDFやJPGで保存できます。</string>
+    <string name="home_empty_body">書類をスキャンするか、写真を選ぶか、PDFを開いて、必要なサイズ（例: 100KB以下）のPDFやJPGで保存できます。</string>
     <string name="menu_privacy">プライバシー設定</string>
     <string name="menu_privacy_policy">プライバシーポリシー</string>
     <string name="action_back">戻る</string>
@@ -51,7 +51,7 @@
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
     <string name="help_title">SizeScan の使い方</string>
-    <string name="help_step_1">紙の書類を撮影するには「スキャン」、手持ちの画像を選ぶには「写真」をタップします。</string>
+    <string name="help_step_1">紙の書類を撮影するには「スキャン」、手持ちの画像を選ぶには「写真」、PDFを小さくするには「PDFを圧縮」をタップします。ほかのアプリからSizeScanに共有することもできます。</string>
     <string name="help_step_2">ドキュメントを開くとページを追加・削除できます。ページをタップすると回転や並べ替えができます。</string>
     <string name="help_step_3">「保存 / 共有」をタップし、PDF か JPG と最大サイズ（例: 100 KB）を選びます。小さすぎるファイルも受け付けないサイトでは「最小」も指定してください。</string>
     <string name="help_step_4">ファイルを端末に保存するか、アプリに直接共有します。</string>
@@ -63,6 +63,15 @@
     <string name="page_move_later">後ろへ移動</string>
     <string name="action_open">開く</string>
     <string name="open_failed">このファイルを開けるアプリがありません</string>
+    <string name="action_pdf">PDFファイル</string>
+    <string name="action_shrink_pdf">PDFを圧縮</string>
+    <string name="pdf_protected">パスワード付きのPDFです。パスワードを解除してからもう一度お試しください。</string>
+    <string name="pdf_failed">このPDFを開けませんでした</string>
+    <string name="pdf_page_limit">最初の%1$sページだけを追加しました。</string>
+    <string name="presets_label">よく使うサイズ</string>
+    <string name="preset_signature">署名</string>
+    <string name="preset_photo">写真</string>
+    <string name="preset_document">書類</string>
     <plurals name="pages_count">
         <item quantity="other">%dページ</item>
     </plurals>

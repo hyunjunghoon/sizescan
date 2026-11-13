@@ -1,5 +1,6 @@
 package io.github.hyunjunghoon.docscan
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,6 +23,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         Ads.gatherConsent(this)
+        // Only on a fresh start: after rotation or process death the files were already imported.
+        if (savedInstanceState == null) importShared(intent)
         setContent {
             val mode by vm.themeMode.collectAsStateWithLifecycle()
             val dark = mode.isDark()
@@ -32,6 +35,19 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
             AppTheme(mode = mode) { AppRoot(vm) }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        importShared(intent)
+    }
+
+    private fun importShared(intent: Intent?) {
+        val uris = SharedFiles.uris(intent)
+        if (uris.isNotEmpty()) {
+            vm.openDoc(null)
+            vm.importShared(uris)
         }
     }
 }

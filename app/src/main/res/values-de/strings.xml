@@ -3,7 +3,7 @@
     <string name="action_scan">Scannen</string>
     <string name="action_photos">Fotos</string>
     <string name="home_empty_title">Noch keine Dokumente</string>
-    <string name="home_empty_body">Scanne Dokumente oder wähle Fotos und speichere sie als PDF oder JPG in genau der Größe, die du brauchst, z. B. unter 100 KB.</string>
+    <string name="home_empty_body">Scanne Dokumente, wähle Fotos oder öffne eine PDF und speichere sie als PDF oder JPG in genau der Größe, die du brauchst, z. B. unter 100 KB.</string>
     <string name="menu_privacy">Datenschutz</string>
     <string name="menu_privacy_policy">Datenschutzerklärung</string>
     <string name="action_back">Zurück</string>
@@ -51,7 +51,7 @@
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
     <string name="help_title">So funktioniert SizeScan</string>
-    <string name="help_step_1">Tippe auf Scannen, um Papierdokumente zu fotografieren, oder auf Fotos, um vorhandene Bilder auszuwählen.</string>
+    <string name="help_step_1">Tippe auf Scannen, um Papierdokumente zu fotografieren, auf Fotos, um vorhandene Bilder auszuwählen, oder auf PDF verkleinern für eine vorhandene PDF. Du kannst Dateien auch aus anderen Apps an SizeScan teilen.</string>
     <string name="help_step_2">Öffne ein Dokument, um Seiten hinzuzufügen oder zu löschen. Tippe auf eine Seite, um sie zu drehen oder zu verschieben.</string>
     <string name="help_step_3">Tippe auf Speichern / Teilen, wähle PDF oder JPG und die maximale Größe (z. B. 100 KB). Wenn eine Website auch zu kleine Dateien ablehnt, lege zusätzlich Min. fest.</string>
     <string name="help_step_4">Speichere die Datei auf dem Gerät oder teile sie direkt mit einer App.</string>
@@ -63,6 +63,15 @@
     <string name="page_move_later">Nach hinten</string>
     <string name="action_open">Öffnen</string>
     <string name="open_failed">Keine App auf diesem Gerät kann die Datei öffnen</string>
+    <string name="action_pdf">PDF-Datei</string>
+    <string name="action_shrink_pdf">PDF verkleinern</string>
+    <string name="pdf_protected">Diese PDF ist passwortgeschützt. Entferne das Passwort und versuche es erneut.</string>
+    <string name="pdf_failed">Diese PDF konnte nicht geöffnet werden</string>
+    <string name="pdf_page_limit">Nur die ersten %1$s Seiten wurden hinzugefügt.</string>
+    <string name="presets_label">Häufige Größen</string>
+    <string name="preset_signature">Unterschrift</string>
+    <string name="preset_photo">Foto</string>
+    <string name="preset_document">Dokument</string>
     <plurals name="pages_count">
         <item quantity="one">%d Seite</item>
         <item quantity="other">%d Seiten</item>

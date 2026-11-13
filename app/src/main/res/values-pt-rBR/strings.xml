@@ -3,7 +3,7 @@
     <string name="action_scan">Digitalizar</string>
     <string name="action_photos">Fotos</string>
     <string name="home_empty_title">Nenhum documento ainda</string>
-    <string name="home_empty_body">Digitalize documentos ou escolha fotos e salve como PDF ou JPG no tamanho exato que você precisa, por exemplo, abaixo de 100 KB.</string>
+    <string name="home_empty_body">Digitalize documentos, escolha fotos ou abra um PDF e salve como PDF ou JPG no tamanho exato que você precisa, por exemplo, abaixo de 100 KB.</string>
     <string name="menu_privacy">Privacidade</string>
     <string name="menu_privacy_policy">Política de privacidade</string>
     <string name="action_back">Voltar</string>
@@ -51,7 +51,7 @@
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Escuro</string>
     <string name="help_title">Como usar o SizeScan</string>
-    <string name="help_step_1">Toque em Digitalizar para fotografar documentos em papel, ou em Fotos para escolher imagens que você já tem.</string>
+    <string name="help_step_1">Toque em Digitalizar para fotografar documentos em papel, em Fotos para escolher imagens que você já tem, ou em Reduzir um PDF para diminuir um PDF. Você também pode compartilhar arquivos com o SizeScan a partir de outros apps.</string>
     <string name="help_step_2">Abra um documento para adicionar ou excluir páginas. Toque em uma página para girá-la ou mudar a ordem.</string>
     <string name="help_step_3">Toque em Salvar / Compartilhar, escolha PDF ou JPG e o tamanho máximo (por exemplo, 100 KB). Se o site também recusar arquivos pequenos demais, defina também Mín.</string>
     <string name="help_step_4">Salve o arquivo no celular ou compartilhe direto com um app.</string>
@@ -63,6 +63,15 @@
     <string name="page_move_later">Mover para depois</string>
     <string name="action_open">Abrir</string>
     <string name="open_failed">Nenhum app deste dispositivo pode abrir o arquivo</string>
+    <string name="action_pdf">Arquivo PDF</string>
+    <string name="action_shrink_pdf">Reduzir um PDF</string>
+    <string name="pdf_protected">Este PDF tem senha. Remova a senha e tente de novo.</string>
+    <string name="pdf_failed">Não foi possível abrir este PDF</string>
+    <string name="pdf_page_limit">Só as primeiras %1$s páginas foram adicionadas.</string>
+    <string name="presets_label">Tamanhos comuns</string>
+    <string name="preset_signature">Assinatura</string>
+    <string name="preset_photo">Foto</string>
+    <string name="preset_document">Documento</string>
     <plurals name="pages_count">
         <item quantity="one">%d página</item>
         <item quantity="many">%d páginas</item>
