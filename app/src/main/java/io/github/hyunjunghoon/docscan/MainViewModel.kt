@@ -13,6 +13,7 @@ import io.github.hyunjunghoon.docscan.data.DocRepository
 import io.github.hyunjunghoon.docscan.data.ExportFormat
 import io.github.hyunjunghoon.docscan.data.ExportResult
 import io.github.hyunjunghoon.docscan.data.Exporter
+import io.github.hyunjunghoon.docscan.data.PdfPages
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -121,6 +122,56 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             }
             _docs.value = withContext(Dispatchers.IO) { repo.list() }
             // Don't pull the user back into a document they already left.
+            if (id != null && (_openDocId.value == null || _openDocId.value == id)) _openDocId.value = id
+        } finally {
+            _busy.value = false
+        }
+    }
+
+    /** Adds the pages of an existing PDF; a new document takes the PDF's file name. */
+    fun importPdf(uri: Uri, intoDocId: String?) {
+        viewModelScope.launch { importLock.withLock { doImportPdf(uri, intoDocId) } }
+    }
+
+    /** Files shared from another app: PDFs become their own documents, images go into one new document. */
+    fun importShared(uris: List<Uri>) {
+        viewModelScope.launch {
+            val resolver = getApplication<Application>().contentResolver
+            val (pdfs, images) = withContext(Dispatchers.IO) {
+                uris.partition { (resolver.getType(it) ?: it.lastPathSegment.orEmpty()).endsWith("pdf", ignoreCase = true) }
+            }
+            importLock.withLock {
+                pdfs.forEach { doImportPdf(it, null) }
+                if (images.isNotEmpty()) doImport(images, null, fromScanner = false)
+            }
+        }
+    }
+
+    private suspend fun doImportPdf(uri: Uri, intoDocId: String?) {
+        _busy.value = true
+        try {
+            val app = getApplication<Application>()
+            val id = withContext(Dispatchers.IO) {
+                val existing = intoDocId?.takeIf { repo.get(it) != null }
+                val target = existing ?: repo.create(PdfPages.displayName(app, uri) ?: defaultName())
+                try {
+                    val total = repo.addPdf(target, uri)
+                    if (total > PdfPages.MAX_PAGES) {
+                        _messages.tryEmit(UiMessage(R.string.pdf_page_limit, listOf(PdfPages.MAX_PAGES.toString()), long = true))
+                    }
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: PdfPages.PasswordProtected) {
+                    _messages.tryEmit(UiMessage(R.string.pdf_protected, long = true))
+                } catch (e: Throwable) {
+                    _messages.tryEmit(UiMessage(R.string.pdf_failed))
+                }
+                if (repo.get(target)?.pages.isNullOrEmpty()) {
+                    repo.delete(target)
+                    null
+                } else target
+            }
+            _docs.value = withContext(Dispatchers.IO) { repo.list() }
             if (id != null && (_openDocId.value == null || _openDocId.value == id)) _openDocId.value = id
         } finally {
             _busy.value = false

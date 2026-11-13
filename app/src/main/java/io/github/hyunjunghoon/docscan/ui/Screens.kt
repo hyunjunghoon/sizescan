@@ -43,6 +43,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.IosShare
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PhotoLibrary
+import androidx.compose.material.icons.filled.PictureAsPdf
 import androidx.compose.material.icons.filled.RotateRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -96,6 +97,15 @@ import java.util.Date
 
 private val LIMIT_PRESETS = listOf(10, 20, 50, 100, 200, 300, 500, 1000, 2000)
 
+/** One-tap sizes for the most common upload rules: format plus an optional minimum and a maximum. */
+internal data class SizePreset(val label: Int, val format: ExportFormat, val minKb: Int?, val maxKb: Int)
+
+internal val SIZE_PRESETS = listOf(
+    SizePreset(R.string.preset_signature, ExportFormat.JPG, 10, 20),
+    SizePreset(R.string.preset_photo, ExportFormat.JPG, 20, 50),
+    SizePreset(R.string.preset_document, ExportFormat.PDF, null, 200),
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
@@ -111,6 +121,7 @@ fun HomeScreen(
     onHelp: () -> Unit = {},
     onTheme: () -> Unit = {},
     onShareApp: () -> Unit = {},
+    onPdf: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -163,6 +174,16 @@ fun HomeScreen(
                         Spacer(Modifier.width(8.dp))
                         Text(stringResource(R.string.action_photos), textAlign = TextAlign.Center)
                     }
+                }
+                // Existing PDFs: the most common "make this file smaller" case.
+                OutlinedButton(
+                    onClick = onPdf,
+                    enabled = !busy,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).heightIn(min = 48.dp),
+                ) {
+                    Icon(Icons.Filled.PictureAsPdf, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text(stringResource(R.string.action_shrink_pdf), textAlign = TextAlign.Center)
                 }
                 Spacer(Modifier.height(12.dp))
                 BannerAd()
@@ -241,6 +262,7 @@ fun DocScreen(
     busy: Boolean = false,
     onRotatePage: (File) -> Unit = {},
     onMovePage: (File, Int) -> Unit = { _, _ -> },
+    onAddPdf: () -> Unit = {},
 ) {
     var renaming by rememberSaveable { mutableStateOf(false) }
     var confirmDelete by rememberSaveable { mutableStateOf(false) }
@@ -288,6 +310,11 @@ fun DocScreen(
                             text = { Text(stringResource(R.string.action_photos)) },
                             leadingIcon = { Icon(Icons.Filled.PhotoLibrary, contentDescription = null) },
                             onClick = { addMenu = false; onAddPhotos() },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.action_pdf)) },
+                            leadingIcon = { Icon(Icons.Filled.PictureAsPdf, contentDescription = null) },
+                            onClick = { addMenu = false; onAddPdf() },
                         )
                     }
                 }
@@ -442,13 +469,25 @@ fun ExportSheet(
                 FilterChip(selected = format == ExportFormat.JPG, onClick = { format = ExportFormat.JPG }, label = { Text("JPG") })
             }
             Spacer(Modifier.height(12.dp))
+            Text(stringResource(R.string.presets_label), style = MaterialTheme.typography.labelLarge)
+            val preset = SIZE_PRESETS.firstOrNull { it.format == format && it.minKb == minKb && it.maxKb == limit }
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                SIZE_PRESETS.forEach { p ->
+                    FilterChip(
+                        selected = p == preset,
+                        onClick = { format = p.format; limit = p.maxKb; minKb = p.minKb },
+                        label = { Text(stringResource(p.label) + " " + formatRange(p.minKb, p.maxKb)) },
+                    )
+                }
+            }
+            Spacer(Modifier.height(12.dp))
             Text(stringResource(R.string.size_label), style = MaterialTheme.typography.labelLarge)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(selected = limit == null, onClick = { limit = null; minKb = null }, label = { Text(stringResource(R.string.size_original)) })
                 LIMIT_PRESETS.forEach { kb ->
                     FilterChip(selected = limit == kb && minKb == null, onClick = { limit = kb; minKb = null }, label = { Text("≤ " + formatLimit(kb)) })
                 }
-                val custom = limit?.takeIf { it !in LIMIT_PRESETS || minKb != null }
+                val custom = limit?.takeIf { (it !in LIMIT_PRESETS || minKb != null) && preset == null }
                 FilterChip(
                     selected = custom != null,
                     onClick = { customOpen = true },

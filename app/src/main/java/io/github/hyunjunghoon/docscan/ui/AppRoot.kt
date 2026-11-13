@@ -66,6 +66,9 @@ fun AppRoot(vm: MainViewModel) {
     val photoLauncher = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(30)) { uris ->
         if (uris.isNotEmpty()) vm.importImages(uris, addTarget, fromScanner = false)
     }
+    val pdfLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri != null) vm.importPdf(uri, addTarget)
+    }
     val savePdf = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/pdf")) { uri ->
         uri?.let(vm::saveTo)
     }
@@ -95,6 +98,10 @@ fun AppRoot(vm: MainViewModel) {
         addTarget = target
         photoLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
+    val pickPdf: (String?) -> Unit = { target ->
+        addTarget = target
+        runCatching { pdfLauncher.launch(arrayOf("application/pdf")) }.onFailure { vm.message(R.string.pdf_failed) }
+    }
 
     var showExportSheet by rememberSaveable { mutableStateOf(false) }
     var showHelp by rememberSaveable { mutableStateOf(vm.helpPending) }
@@ -112,6 +119,7 @@ fun AppRoot(vm: MainViewModel) {
             onDeletePage = { vm.deletePage(doc.id, it) },
             onAddScan = { startScan(doc.id) },
             onAddPhotos = { pickPhotos(doc.id) },
+            onAddPdf = { pickPdf(doc.id) },
             onExport = { showExportSheet = true },
             busy = busy,
             onRotatePage = { vm.rotatePage(doc.id, it) },
@@ -130,6 +138,7 @@ fun AppRoot(vm: MainViewModel) {
             onOpen = { vm.openDoc(it) },
             onScan = { startScan(null) },
             onPhotos = { pickPhotos(null) },
+            onPdf = { pickPdf(null) },
             onHelp = { showHelp = true },
             onTheme = { showTheme = true },
             onShareApp = {

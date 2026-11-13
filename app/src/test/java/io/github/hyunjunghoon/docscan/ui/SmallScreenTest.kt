@@ -61,6 +61,29 @@ class SmallScreenTest {
     }
 
     @Test
+    fun homeShowsAllImportActions() {
+        compose.setContent {
+            AppTheme(dynamic = false) {
+                HomeScreen(emptyList(), false, SnackbarHostState(), false, {}, {}, {}, {}, {})
+            }
+        }
+        listOf(R.string.action_scan, R.string.action_photos, R.string.action_shrink_pdf).forEach {
+            compose.onNodeWithText(str(it)).assertIsDisplayed()
+        }
+    }
+
+    @Test
+    fun exportSheetShowsPresetsAndCreateButton() {
+        compose.setContent {
+            AppTheme(dynamic = false) { ExportSheet(ExportFormat.PDF, null, null, {}, { _, _, _ -> }) }
+        }
+        compose.waitForIdle()
+        compose.onNodeWithText(str(R.string.presets_label)).assertExists()
+        compose.onNodeWithText(str(R.string.preset_signature) + " 10–20 KB").assertExists()
+        compose.onNodeWithText(str(R.string.export_create)).assertExists()
+    }
+
+    @Test
     fun helpDialogFits() {
         compose.setContent { AppTheme(dynamic = false) { HelpDialog {} } }
         compose.onNodeWithText(str(R.string.ok)).assertIsDisplayed()

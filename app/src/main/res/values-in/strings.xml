@@ -3,7 +3,7 @@
     <string name="action_scan">Pindai</string>
     <string name="action_photos">Foto</string>
     <string name="home_empty_title">Belum ada dokumen</string>
-    <string name="home_empty_body">Pindai dokumen atau pilih foto, lalu simpan sebagai PDF atau JPG dengan ukuran yang Anda perlukan, misalnya di bawah 100 KB.</string>
+    <string name="home_empty_body">Pindai dokumen, pilih foto, atau buka PDF, lalu simpan sebagai PDF atau JPG dengan ukuran yang Anda perlukan, misalnya di bawah 100 KB.</string>
     <string name="menu_privacy">Setelan privasi</string>
     <string name="menu_privacy_policy">Kebijakan privasi</string>
     <string name="action_back">Kembali</string>
@@ -51,7 +51,7 @@
     <string name="theme_light">Terang</string>
     <string name="theme_dark">Gelap</string>
     <string name="help_title">Cara memakai SizeScan</string>
-    <string name="help_step_1">Ketuk Pindai untuk memotret dokumen kertas, atau Foto untuk memilih gambar yang sudah ada.</string>
+    <string name="help_step_1">Ketuk Pindai untuk memotret dokumen kertas, Foto untuk memilih gambar yang sudah ada, atau Kecilkan file PDF untuk memperkecil PDF. Anda juga bisa membagikan file ke SizeScan dari aplikasi lain.</string>
     <string name="help_step_2">Buka dokumen untuk menambah atau menghapus halaman. Ketuk halaman untuk memutar atau mengubah urutannya.</string>
     <string name="help_step_3">Ketuk Simpan / Bagikan, pilih PDF atau JPG dan ukuran maksimum (misalnya 100 KB). Jika situs juga menolak file yang terlalu kecil, isi juga Min.</string>
     <string name="help_step_4">Simpan file ke ponsel atau bagikan langsung ke aplikasi.</string>
@@ -63,6 +63,15 @@
     <string name="page_move_later">Pindah ke belakang</string>
     <string name="action_open">Buka</string>
     <string name="open_failed">Tidak ada aplikasi di perangkat ini yang dapat membuka file ini</string>
+    <string name="action_pdf">File PDF</string>
+    <string name="action_shrink_pdf">Kecilkan file PDF</string>
+    <string name="pdf_protected">PDF ini dilindungi kata sandi. Hapus kata sandinya, lalu coba lagi.</string>
+    <string name="pdf_failed">PDF ini tidak dapat dibuka</string>
+    <string name="pdf_page_limit">Hanya %1$s halaman pertama yang ditambahkan.</string>
+    <string name="presets_label">Ukuran umum</string>
+    <string name="preset_signature">Tanda tangan</string>
+    <string name="preset_photo">Pas foto</string>
+    <string name="preset_document">Dokumen</string>
     <plurals name="pages_count">
         <item quantity="other">%d halaman</item>
     </plurals>
