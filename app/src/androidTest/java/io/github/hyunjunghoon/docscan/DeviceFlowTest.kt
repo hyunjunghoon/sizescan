@@ -56,7 +56,8 @@ class DeviceFlowTest {
             get()?.let { return it }
             Thread.sleep(250)
         }
-        throw AssertionError("Timed out after $timeoutMs ms")
+        val docs = repo.list().joinToString { "${it.name}(${it.pages.size})" }
+        throw AssertionError("Timed out after $timeoutMs ms; docs now: [$docs]")
     }
 
     @Test
@@ -76,6 +77,9 @@ class DeviceFlowTest {
             .setType("application/pdf")
             .putExtra(Intent.EXTRA_STREAM, uri)
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        // The share intent itself must parse on this Android version, and the file must be readable.
+        assertEquals(listOf(uri), SharedFiles.uris(intent))
+        assertEquals("application/pdf", ctx.contentResolver.getType(uri))
         ActivityScenario.launch<MainActivity>(intent).use { sc ->
             val doc = waitFor(90_000) { repo.list().firstOrNull { it.id !in before && it.pages.size == 22 } }
             assertEquals("Admission form", doc.name)
@@ -114,6 +118,8 @@ class DeviceFlowTest {
             .setType("image/jpeg")
             .putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
             .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        assertEquals(uris, SharedFiles.uris(intent))
+        assertEquals("image/jpeg", ctx.contentResolver.getType(uris[0]))
         ActivityScenario.launch<MainActivity>(intent).use {
             val doc = waitFor(60_000) { repo.list().firstOrNull { it.id !in before && it.pages.size == 3 } }
             assertNotNull(doc)

@@ -40,7 +40,9 @@ jobs:
           arch: x86_64
           ram-size: ${{ matrix.ram }}
           disable-animations: true
-          script: ./gradlew --no-daemon connectedDebugAndroidTest
+          script: |
+            adb logcat -c || true
+            ./gradlew --no-daemon connectedDebugAndroidTest || (adb logcat -d | grep -E 'AndroidRuntime|docscan|sizescan|SizeScan|TestRunner|ActivityTaskManager|Exception' | tail -300; exit 1)
       - uses: actions/upload-artifact@v4
         if: always()
         with:
