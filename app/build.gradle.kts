@@ -32,6 +32,7 @@ android {
         // Set in gradle.properties and bumped by hand for each Play upload.
         versionCode = prop("VERSION_CODE")?.toInt() ?: error("VERSION_CODE missing in gradle.properties")
         versionName = prop("VERSION_NAME") ?: error("VERSION_NAME missing in gradle.properties")
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations += listOf("en", "ko", "es", "pt-rBR", "hi", "in", "de", "fr", "ja")
     }
 
@@ -117,4 +118,9 @@ dependencies {
     testImplementation("androidx.compose.ui:ui-test-junit4")
     testImplementation("androidx.test.ext:junit:1.2.1")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Emulator checks (README rule 11 step 2), run by .github/workflows/device-check.yml.
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test:core-ktx:1.6.1")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
 }
