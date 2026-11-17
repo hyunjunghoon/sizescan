@@ -72,6 +72,8 @@
     <string name="preset_signature">Firma</string>
     <string name="preset_photo">Foto</string>
     <string name="preset_document">Documento</string>
+    <string name="menu_feedback">Enviar comentarios</string>
+    <string name="no_email_app">No se encontró una app de correo. Escribe a chaosk07@gmail.com</string>
     <plurals name="pages_count">
         <item quantity="one">%d página</item>
         <item quantity="many">%d páginas</item>

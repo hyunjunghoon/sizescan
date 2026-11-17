@@ -122,6 +122,7 @@ fun HomeScreen(
     onTheme: () -> Unit = {},
     onShareApp: () -> Unit = {},
     onPdf: () -> Unit = {},
+    onFeedback: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -142,6 +143,10 @@ fun HomeScreen(
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.menu_share_app)) },
                             onClick = { menu = false; onShareApp() },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.menu_feedback)) },
+                            onClick = { menu = false; onFeedback() },
                         )
                         DropdownMenuItem(
                             text = { Text(stringResource(R.string.menu_privacy_policy)) },

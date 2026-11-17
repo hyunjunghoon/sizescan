@@ -72,6 +72,8 @@
     <string name="preset_signature">署名</string>
     <string name="preset_photo">写真</string>
     <string name="preset_document">書類</string>
+    <string name="menu_feedback">ご意見を送る</string>
+    <string name="no_email_app">メールアプリが見つかりません。chaosk07@gmail.com までお送りください</string>
     <plurals name="pages_count">
         <item quantity="other">%dページ</item>
     </plurals>

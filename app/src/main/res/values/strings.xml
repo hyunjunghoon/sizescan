@@ -73,6 +73,8 @@
     <string name="preset_signature">Signature</string>
     <string name="preset_photo">Photo</string>
     <string name="preset_document">Document</string>
+    <string name="menu_feedback">Send feedback</string>
+    <string name="no_email_app">No email app found. You can write to chaosk07@gmail.com</string>
     <plurals name="pages_count">
         <item quantity="one">%d page</item>
         <item quantity="other">%d pages</item>

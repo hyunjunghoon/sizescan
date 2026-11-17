@@ -64,4 +64,35 @@ class DocRepositoryTest {
         assertEquals(200 to 110, size(page))
         assertEquals(3, repo.get(id)!!.pages.size)
     }
+
+    /** Photos picked from the gallery go through normalizeToJpeg (broken before 1.1.1: always "Cannot open"). */
+    @Test
+    fun photosFromGalleryAreImported() {
+        val repo = DocRepository(context)
+        val id = repo.create("photos")
+        val failed = repo.addPages(id, listOf(jpeg(1200, 1600), jpeg(800, 600)), fromScanner = false)
+        assertEquals(0, failed)
+        val pages = repo.get(id)!!.pages
+        assertEquals(2, pages.size)
+        assertEquals(1200 to 1600, size(pages[0]))
+    }
+
+    @Test
+    fun notAnImageIsReportedAsFailed() {
+        val repo = DocRepository(context)
+        val id = repo.create("bad")
+        val f = File.createTempFile("bad", ".jpg", context.cacheDir).apply { writeText("not an image") }
+        assertEquals(1, repo.addPages(id, listOf(Uri.fromFile(f)), fromScanner = false))
+    }
+
+    /** A document that is still being imported has no pages yet; listing must not delete it. */
+    @Test
+    fun listKeepsAFreshEmptyDocument() {
+        val repo = DocRepository(context)
+        val id = repo.create("importing")
+        repo.list()
+        assertEquals(true, File(context.filesDir, "docs/$id").isDirectory)
+        assertEquals(0, repo.addPages(id, listOf(jpeg(300, 400)), fromScanner = false))
+        assertEquals(1, repo.get(id)!!.pages.size)
+    }
 }

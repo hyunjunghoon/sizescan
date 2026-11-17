@@ -72,6 +72,8 @@
     <string name="preset_signature">Unterschrift</string>
     <string name="preset_photo">Foto</string>
     <string name="preset_document">Dokument</string>
+    <string name="menu_feedback">Feedback senden</string>
+    <string name="no_email_app">Keine E-Mail-App gefunden. Schreib an chaosk07@gmail.com</string>
     <plurals name="pages_count">
         <item quantity="one">%d Seite</item>
         <item quantity="other">%d Seiten</item>
