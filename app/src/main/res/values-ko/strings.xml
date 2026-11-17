@@ -72,6 +72,8 @@
     <string name="preset_signature">서명</string>
     <string name="preset_photo">사진</string>
     <string name="preset_document">문서</string>
+    <string name="menu_feedback">의견 보내기</string>
+    <string name="no_email_app">메일 앱이 없어요. chaosk07@gmail.com 으로 보내 주세요</string>
     <plurals name="pages_count">
         <item quantity="other">%d쪽</item>
     </plurals>

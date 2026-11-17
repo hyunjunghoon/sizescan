@@ -30,6 +30,9 @@ import io.github.hyunjunghoon.docscan.ads.Ads
 import io.github.hyunjunghoon.docscan.data.ExportFormat
 
 private const val PRIVACY_POLICY_URL = "https://hyunjunghoon.github.io/sizescan/privacy.html"
+
+/** The developer contact address shown on the Play listing; "Send feedback" opens a mail to it. */
+private const val FEEDBACK_EMAIL = "chaosk07@gmail.com"
 private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id="
 
 @Composable
@@ -145,6 +148,13 @@ fun AppRoot(vm: MainViewModel) {
                 val text = context.getString(R.string.share_app_text, PLAY_STORE_URL + context.packageName)
                 val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
                 runCatching { activity.startActivity(Intent.createChooser(send, null)) }
+            },
+            onFeedback = {
+                val version = runCatching { context.packageManager.getPackageInfo(context.packageName, 0).versionName }.getOrNull()
+                val mail = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
+                    .putExtra(Intent.EXTRA_EMAIL, arrayOf(FEEDBACK_EMAIL))
+                    .putExtra(Intent.EXTRA_SUBJECT, "SizeScan ${version.orEmpty()} feedback".replace("  ", " "))
+                runCatching { activity.startActivity(mail) }.onFailure { vm.message(R.string.no_email_app) }
             },
         )
     }

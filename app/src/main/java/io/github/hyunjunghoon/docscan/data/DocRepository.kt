@@ -2,6 +2,7 @@ package io.github.hyunjunghoon.docscan.data
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import java.io.File
 import java.util.Locale
 import java.util.Properties
@@ -22,8 +23,10 @@ class DocRepository(private val context: Context) {
 
     fun list(): List<Doc> {
         val docs = root.listFiles()?.mapNotNull { load(it) } ?: return emptyList()
-        // A document with no pages is left over from an interrupted import.
-        docs.filter { it.pages.isEmpty() }.forEach { delete(it.id) }
+        // A document with no pages is left over from an interrupted import. Recent ones may still be
+        // importing (a long PDF, or files shared in while the list loads), so only old ones are removed.
+        val stale = System.currentTimeMillis() - STALE_EMPTY_MS
+        docs.filter { it.pages.isEmpty() && it.createdAt < stale }.forEach { delete(it.id) }
         return docs.filter { it.pages.isNotEmpty() }.sortedByDescending { it.createdAt }
     }
 
@@ -50,7 +53,7 @@ class DocRepository(private val context: Context) {
                 } else {
                     Images.normalizeToJpeg(context, uri, out)
                 }
-            }.isSuccess
+            }.onFailure { Log.w("SizeScan", "Page import failed", it) }.isSuccess
             if (ok) next++ else { out.delete(); failed++ }
         }
         return failed
@@ -143,6 +146,7 @@ class DocRepository(private val context: Context) {
 
     companion object {
         private const val META = "meta.properties"
+        internal const val STALE_EMPTY_MS = 60 * 60 * 1000L
         private val PAGE_NAME = Regex("p\\d{4}\\.jpg")
     }
 }

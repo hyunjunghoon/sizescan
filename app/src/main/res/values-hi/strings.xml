@@ -72,6 +72,8 @@
     <string name="preset_signature">सिग्नेचर</string>
     <string name="preset_photo">फ़ोटो</string>
     <string name="preset_document">दस्तावेज़</string>
+    <string name="menu_feedback">सुझाव भेजें</string>
+    <string name="no_email_app">कोई ईमेल ऐप नहीं मिला। chaosk07@gmail.com पर लिखें</string>
     <plurals name="pages_count">
         <item quantity="one">%d पेज</item>
         <item quantity="other">%d पेज</item>

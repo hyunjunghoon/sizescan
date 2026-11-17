@@ -57,7 +57,9 @@ object Images {
     fun normalizeToJpeg(context: Context, uri: Uri, out: File, maxLongSide: Int = 4000) {
         val resolver = context.contentResolver
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, bounds) } ?: throw IOException("Cannot open")
+        // A bounds-only decode always returns null, so the stream itself is checked, then the size it reported.
+        (resolver.openInputStream(uri) ?: throw IOException("Cannot open")).use { BitmapFactory.decodeStream(it, null, bounds) }
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) throw IOException("Not an image")
         val opts = BitmapFactory.Options().apply { inSampleSize = sampleSize(bounds.outWidth, bounds.outHeight, maxLongSide) }
         var bmp = resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, opts) }
             ?: throw IOException("Cannot decode")
