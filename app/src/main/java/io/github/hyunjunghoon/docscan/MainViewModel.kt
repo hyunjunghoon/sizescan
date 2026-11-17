@@ -3,6 +3,7 @@ package io.github.hyunjunghoon.docscan
 import android.app.Application
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.provider.OpenableColumns
 import android.provider.DocumentsContract
 import androidx.lifecycle.AndroidViewModel
@@ -114,7 +115,10 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             val id = withContext(Dispatchers.IO) {
                 val target = intoDocId?.takeIf { repo.get(it) != null } ?: repo.create(defaultName())
                 val failed = repo.addPages(target, uris, fromScanner)
-                if (failed > 0) _messages.tryEmit(UiMessage(R.string.import_failed))
+                if (failed > 0) {
+                    Log.w(TAG, "Image import: $failed of ${uris.size} failed")
+                    _messages.tryEmit(UiMessage(R.string.import_failed))
+                }
                 if (repo.get(target)?.pages.isNullOrEmpty()) {
                     repo.delete(target)
                     null
@@ -135,6 +139,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Files shared from another app: PDFs become their own documents, images go into one new document. */
     fun importShared(uris: List<Uri>) {
+        Log.i(TAG, "Shared files received: ${uris.size}")
         viewModelScope.launch {
             val resolver = getApplication<Application>().contentResolver
             val (pdfs, images) = withContext(Dispatchers.IO) {
@@ -164,6 +169,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 } catch (e: PdfPages.PasswordProtected) {
                     _messages.tryEmit(UiMessage(R.string.pdf_protected, long = true))
                 } catch (e: Throwable) {
+                    Log.w(TAG, "PDF import failed", e)
                     _messages.tryEmit(UiMessage(R.string.pdf_failed))
                 }
                 if (repo.get(target)?.pages.isNullOrEmpty()) {
@@ -314,6 +320,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_LIMIT = "limit_kb"
         private const val KEY_MIN = "min_kb"
         private const val KEY_EXPORTS = "exports"
+        private const val TAG = "SizeScan"
         private const val KEY_REVIEW_ASKED = "review_asked"
         private const val KEY_THEME = "theme"
         private const val KEY_HELP_SEEN = "help_seen"

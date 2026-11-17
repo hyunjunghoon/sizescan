@@ -2,6 +2,7 @@ package io.github.hyunjunghoon.docscan.data
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import java.io.File
 import java.util.Locale
 import java.util.Properties
@@ -50,7 +51,7 @@ class DocRepository(private val context: Context) {
                 } else {
                     Images.normalizeToJpeg(context, uri, out)
                 }
-            }.isSuccess
+            }.onFailure { Log.w("SizeScan", "Page import failed", it) }.isSuccess
             if (ok) next++ else { out.delete(); failed++ }
         }
         return failed
