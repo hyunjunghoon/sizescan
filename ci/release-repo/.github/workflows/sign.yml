@@ -1,0 +1,73 @@
+# Copy of the workflow for the PRIVATE repo hyunjunghoon/sizescan-release (README rule 12).
+# It checks out a commit or tag of the public repo hyunjunghoon/sizescan, builds the release
+# bundle signed with the upload key from this private repo's Actions secrets, and attaches the
+# AAB to a release in the private repo. If PLAY_SERVICE_ACCOUNT_JSON is set, it also uploads the
+# bundle to Play as a DRAFT production release, which the SizeScan unit then reviews and sends.
+# Secrets (set once, never printed): UPLOAD_KEYSTORE_B64, UPLOAD_STORE_PASSWORD,
+# UPLOAD_KEY_ALIAS, UPLOAD_KEY_PASSWORD, optional PLAY_SERVICE_ACCOUNT_JSON.
+name: Signed release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit or tag of hyunjunghoon/sizescan to build
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PLAY_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: hyunjunghoon/sizescan
+          ref: ${{ inputs.ref }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew
+      - name: Build signed bundle
+        env:
+          KEYSTORE_B64: ${{ secrets.UPLOAD_KEYSTORE_B64 }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.UPLOAD_STORE_PASSWORD }}
+          SIGNING_KEY_ALIAS: ${{ secrets.UPLOAD_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.UPLOAD_KEY_PASSWORD }}
+        run: |
+          test -n "$KEYSTORE_B64" || { echo "Upload key secrets are not set"; exit 1; }
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+          export SIGNING_KEYSTORE_PATH="$RUNNER_TEMP/upload.jks"
+          ./gradlew --no-daemon bundleRelease
+          rm -f "$RUNNER_TEMP/upload.jks"
+      - name: Check signature and version
+        id: meta
+        run: |
+          AAB=app/build/outputs/bundle/release/app-release.aab
+          jarsigner -verify "$AAB" | tail -1
+          echo "name=$(grep '^VERSION_NAME=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          echo "code=$(grep '^VERSION_CODE=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+      - name: Attach AAB to a release in this private repo
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          f="sizescan-${{ steps.meta.outputs.name }}.aab"
+          cp app/build/outputs/bundle/release/app-release.aab "$f"
+          gh release create "v${{ steps.meta.outputs.name }}-${{ steps.meta.outputs.code }}" "$f" \
+            --repo "${{ github.repository }}" --title "SizeScan ${{ steps.meta.outputs.name }} (${{ steps.meta.outputs.code }})" \
+            --notes "Signed build of hyunjunghoon/sizescan@${{ inputs.ref }}"
+      - name: Upload to Play as a draft production release (optional)
+        if: ${{ env.PLAY_JSON != '' }}
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.tallowbird.sizescan
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+          track: production
+          status: draft
